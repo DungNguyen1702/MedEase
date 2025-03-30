@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "name": "Khoa Cấp cứu",
+    "image": "capcuu.jpg",
+    "description": "Tiếp nhận và xử lý các trường hợp khẩn cấp, tai nạn, chấn thương."
+  },
+  {
+    "id": 2,
+    "name": "Khoa Nội tổng quát",
+    "image": "noitongquat.jpg",
+    "description": "Chẩn đoán và điều trị các bệnh lý nội khoa như tiểu đường, huyết áp, tim mạch."
+  },
+  {
+    "id": 3,
+    "name": "Khoa Ngoại tổng quát",
+    "image": "ngoaitongquat.jpg",
+    "description": "Phẫu thuật và điều trị các bệnh lý ngoại khoa như viêm ruột thừa, thoát vị."
+  },
+  {
+    "id": 4,
+    "name": "Khoa Sản",
+    "image": "san.jpg",
+    "description": "Chăm sóc sức khỏe cho phụ nữ mang thai, sinh nở và sau sinh."
+  },
+  {
+    "id": 5,
+    "name": "Khoa Nhi",
+    "image": "nhi.jpg",
+    "description": "Chăm sóc và điều trị bệnh lý cho trẻ em."
+  },
+  {
+    "id": 6,
+    "name": "Khoa Tim mạch",
+    "image": "tim-mach.jpg",
+    "description": "Chuyên về các bệnh lý liên quan đến tim và mạch máu."
+  },
+  {
+    "id": 7,
+    "name": "Khoa Hô hấp",
+    "image": "ho-hap.jpg",
+    "description": "Điều trị các bệnh về phổi và đường hô hấp."
+  },
+  {
+    "id": 8,
+    "name": "Khoa Tiêu hóa",
+    "image": "tieu-hoa.jpg",
+    "description": "Chẩn đoán và điều trị các bệnh về đường tiêu hóa, gan, mật."
+  },
+  {
+    "id": 9,
+    "name": "Khoa Thận - Tiết niệu",
+    "image": "than-tiet-nieu.jpg",
+    "description": "Điều trị các bệnh về thận, tiết niệu và nam khoa."
+  },
+  {
+    "id": 10,
+    "name": "Khoa Nội tiết",
+    "image": "noi-tiet.jpg",
+    "description": "Chuyên về các bệnh liên quan đến hormone và chuyển hóa như tiểu đường, bệnh tuyến giáp."
+  },
+  {
+    "id": 11,
+    "name": "Khoa Da liễu",
+    "image": "da-lieu.jpg",
+    "description": "Điều trị các bệnh về da, tóc, móng."
+  },
+  {
+    "id": 12,
+    "name": "Khoa Thần kinh",
+    "image": "than-kinh.jpg",
+    "description": "Chẩn đoán và điều trị các bệnh về hệ thần kinh."
+  },
+  {
+    "id": 13,
+    "name": "Khoa Tâm thần",
+    "image": "tam-than.jpg",
+    "description": "Chăm sóc sức khỏe tâm thần và điều trị các rối loạn tâm lý."
+  },
+  {
+    "id": 14,
+    "name": "Khoa Chấn thương chỉnh hình",
+    "image": "chan-thuong-chinh-hinh.jpg",
+    "description": "Điều trị các chấn thương xương khớp, cột sống."
+  },
+  {
+    "id": 15,
+    "name": "Khoa Mắt",
+    "image": "mat.jpg",
+    "description": "Chẩn đoán và điều trị các bệnh về mắt."
+  },
+  {
+    "id": 16,
+    "name": "Khoa Tai mũi họng",
+    "image": "tai-mui-hong.jpg",
+    "description": "Điều trị các bệnh về tai, mũi, họng."
+  },
+  {
+    "id": 17,
+    "name": "Khoa Răng hàm mặt",
+    "image": "rang-ham-mat.jpg",
+    "description": "Chăm sóc và điều trị các vấn đề về răng, hàm, mặt."
+  },
+  {
+    "id": 18,
+    "name": "Khoa Ung bướu",
+    "image": "ung-buou.jpg",
+    "description": "Chẩn đoán và điều trị các bệnh ung thư."
+  },
+  {
+    "id": 19,
+    "name": "Khoa Xét nghiệm",
+    "image": "xet-nghiem.jpg",
+    "description": "Thực hiện các xét nghiệm cận lâm sàng để hỗ trợ chẩn đoán."
+  },
+  {
+    "id": 20,
+    "name": "Khoa Chẩn đoán hình ảnh",
+    "image": "chan-doan-hinh-anh.jpg",
+    "description": "Thực hiện các kỹ thuật như X-quang, siêu âm, CT, MRI."
+  },
+  {
+    "id": 21,
+    "name": "Khoa Vật lý trị liệu - Phục hồi chức năng",
+    "image": "vat-ly-tri-lieu.jpg",
+    "description": "Hỗ trợ phục hồi chức năng sau điều trị."
+  },
+  {
+    "id": 22,
+    "name": "Khoa Dinh dưỡng",
+    "image": "dinh-duong.jpg",
+    "description": "Tư vấn và điều trị về dinh dưỡng cho bệnh nhân."
+  },
+  {
+    "id": 23,
+    "name": "Khoa Dược",
+    "image": "duoc.jpg",
+    "description": "Quản lý và cung cấp thuốc cho bệnh nhân."
+  },
+  {
+    "id": 24,
+    "name": "Khoa Kiểm soát nhiễm khuẩn",
+    "image": "kiem-soat-nhiem-khuan.jpg",
+    "description": "Đảm bảo an toàn vệ sinh, phòng ngừa nhiễm khuẩn trong bệnh viện."
+  },
+  {
+    "id": 25,
+    "name": "Khoa Hồi sức cấp cứu (ICU)",
+    "image": "hoi-suc-cap-cuu.jpg",
+    "description": "Chăm sóc đặc biệt cho bệnh nhân nặng, nguy kịch."
+  }
+]

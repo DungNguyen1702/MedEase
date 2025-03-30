@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "name": "Emergency Department",
+    "image": "capcuu.jpg",
+    "description": "Receives and handles emergency cases, accidents, and injuries."
+  },
+  {
+    "id": 2,
+    "name": "General Internal Medicine Department",
+    "image": "noitongquat.jpg",
+    "description": "Diagnoses and treats internal medical conditions such as diabetes, hypertension, and cardiovascular diseases."
+  },
+  {
+    "id": 3,
+    "name": "General Surgery Department",
+    "image": "ngoaitongquat.jpg",
+    "description": "Performs surgeries and treats surgical conditions such as appendicitis and hernias."
+  },
+  {
+    "id": 4,
+    "name": "Obstetrics and Gynecology Department",
+    "image": "san.jpg",
+    "description": "Provides care for pregnant women, childbirth, and postpartum health."
+  },
+  {
+    "id": 5,
+    "name": "Pediatrics Department",
+    "image": "nhi.jpg",
+    "description": "Provides care and treatment for children's health issues."
+  },
+  {
+    "id": 6,
+    "name": "Cardiology Department",
+    "image": "tim-mach.jpg",
+    "description": "Specializes in heart and vascular diseases."
+  },
+  {
+    "id": 7,
+    "name": "Pulmonology Department",
+    "image": "ho-hap.jpg",
+    "description": "Treats lung and respiratory tract diseases."
+  },
+  {
+    "id": 8,
+    "name": "Gastroenterology Department",
+    "image": "tieu-hoa.jpg",
+    "description": "Diagnoses and treats digestive system, liver, and biliary diseases."
+  },
+  {
+    "id": 9,
+    "name": "Nephrology and Urology Department",
+    "image": "than-tiet-nieu.jpg",
+    "description": "Treats kidney, urinary tract, and male reproductive system diseases."
+  },
+  {
+    "id": 10,
+    "name": "Endocrinology Department",
+    "image": "noi-tiet.jpg",
+    "description": "Specializes in hormone-related and metabolic disorders such as diabetes and thyroid diseases."
+  },
+  {
+    "id": 11,
+    "name": "Dermatology Department",
+    "image": "da-lieu.jpg",
+    "description": "Treats skin, hair, and nail disorders."
+  },
+  {
+    "id": 12,
+    "name": "Neurology Department",
+    "image": "than-kinh.jpg",
+    "description": "Diagnoses and treats nervous system disorders."
+  },
+  {
+    "id": 13,
+    "name": "Psychiatry Department",
+    "image": "tam-than.jpg",
+    "description": "Provides mental health care and treats psychological disorders."
+  },
+  {
+    "id": 14,
+    "name": "Orthopedics and Traumatology Department",
+    "image": "chan-thuong-chinh-hinh.jpg",
+    "description": "Treats bone, joint, and spinal injuries."
+  },
+  {
+    "id": 15,
+    "name": "Ophthalmology Department",
+    "image": "mat.jpg",
+    "description": "Diagnoses and treats eye diseases."
+  },
+  {
+    "id": 16,
+    "name": "Otolaryngology (ENT) Department",
+    "image": "tai-mui-hong.jpg",
+    "description": "Treats ear, nose, and throat diseases."
+  },
+  {
+    "id": 17,
+    "name": "Dentistry and Maxillofacial Department",
+    "image": "rang-ham-mat.jpg",
+    "description": "Provides care and treatment for dental, jaw, and facial issues."
+  },
+  {
+    "id": 18,
+    "name": "Oncology Department",
+    "image": "ung-buou.jpg",
+    "description": "Diagnoses and treats cancer."
+  },
+  {
+    "id": 19,
+    "name": "Laboratory Department",
+    "image": "xet-nghiem.jpg",
+    "description": "Performs clinical tests to support diagnosis."
+  },
+  {
+    "id": 20,
+    "name": "Medical Imaging Department",
+    "image": "chan-doan-hinh-anh.jpg",
+    "description": "Performs imaging techniques such as X-rays, ultrasounds, CT scans, and MRIs."
+  },
+  {
+    "id": 21,
+    "name": "Physical Therapy and Rehabilitation Department",
+    "image": "vat-ly-tri-lieu.jpg",
+    "description": "Provides rehabilitation support after treatment."
+  },
+  {
+    "id": 22,
+    "name": "Nutrition Department",
+    "image": "dinh-duong.jpg",
+    "description": "Provides nutritional counseling and treatment for patients."
+  },
+  {
+    "id": 23,
+    "name": "Pharmacy Department",
+    "image": "duoc.jpg",
+    "description": "Manages and dispenses medications to patients."
+  },
+  {
+    "id": 24,
+    "name": "Infection Control Department",
+    "image": "kiem-soat-nhiem-khuan.jpg",
+    "description": "Ensures hygiene safety and prevents infections in the hospital."
+  },
+  {
+    "id": 25,
+    "name": "Intensive Care Unit (ICU)",
+    "image": "hoi-suc-cap-cuu.jpg",
+    "description": "Provides specialized care for critically ill patients."
+  }
+]

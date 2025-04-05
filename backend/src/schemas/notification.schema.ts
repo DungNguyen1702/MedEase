@@ -1,11 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { NotificationTypeEnum } from '../common/enums';
+import { v4 as uuidv4 } from 'uuid';
 
-export type NotificationsDocument = HydratedDocument<Notifications>;
+export type NotificationDocument = HydratedDocument<Notification>;
 
 @Schema({ timestamps: true })
-export class Notifications {
+export class Notification {
+  @Prop({ required: true, unique: true, default: uuidv4 })
+  id: string;
+
   @Prop()
   title: string;
 
@@ -28,4 +32,4 @@ export class Notifications {
   idTO: string;
 }
 
-export const NotificationsSchema = SchemaFactory.createForClass(Notifications);
+export const NotificationSchema = SchemaFactory.createForClass(Notification);

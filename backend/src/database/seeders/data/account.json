@@ -1,0 +1,65 @@
+[
+
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "email": "admin@medease.com",
+    "password": "12345678", 
+    "name": "Trần Quản Trị Hệ Thống",
+    "role": "admin",
+    "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519582/MedEase/Avatar/avatar-patient_epvgvs.jpg",
+    "gender": "male",
+    "date_of_birth": "1980-01-01",
+    "tel": "0901122334",
+    "address": "123 Đường Quản Trị, Quận 1, TP.HCM"
+  },
+
+
+  {
+    "id": "10000000-0000-0000-0000-000000000001",
+    "email": "patient1@medease.com",
+    "password": "12345678",
+    "name": "Nguyễn Văn Khang",
+    "role": "patient",
+    "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519582/MedEase/Avatar/avatar-patient_epvgvs.jpg",
+    "gender": "male",
+    "date_of_birth": "1990-05-15",
+    "tel": "0912345678",
+    "address": "456 Đường Lê Lợi, Quận 3, TP.HCM"
+  },
+  {
+    "id": "10000000-0000-0000-0000-000000000002",
+    "email": "patient2@medease.com",
+    "password": "12345678",
+    "name": "Trần Thị Minh Anh",
+    "role": "patient",
+    "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519582/MedEase/Avatar/avatar-patient_epvgvs.jpg",
+    "gender": "female",
+    "date_of_birth": "1988-08-20",
+    "tel": "0923456789",
+    "address": "789 Đường Nguyễn Huệ, Quận 1, TP.HCM"
+  },
+  {
+    "id": "10000000-0000-0000-0000-000000000003",
+    "email": "patient3@medease.com",
+    "password": "12345678",
+    "name": "Lê Văn Bình",
+    "role": "patient",
+    "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519582/MedEase/Avatar/avatar-patient_epvgvs.jpg",
+    "gender": "male",
+    "date_of_birth": "1975-11-30",
+    "tel": "0934567890",
+    "address": "321 Đường CMT8, Quận 10, TP.HCM"
+  },
+  {
+    "id": "10000000-0000-0000-0000-000000000004",
+    "email": "patient4@medease.com",
+    "password": "12345678",
+    "name": "Phạm Thị Cẩm Tú",
+    "role": "patient",
+    "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519582/MedEase/Avatar/avatar-patient_epvgvs.jpg",
+    "gender": "female",
+    "date_of_birth": "1995-03-25",
+    "tel": "0945678901",
+    "address": "654 Đường 3/2, Quận 10, TP.HCM"
+  }
+]

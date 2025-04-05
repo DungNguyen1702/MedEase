@@ -51,7 +51,8 @@ export enum DoctorPositionEnum {
 }
 
 export enum AppointmentTypeEnum {
-  NEW_EXAMINATION = 'new_examination',
+  GENERAL_CONSULTATION = 'general_consultation',
+  SPECIALIST_CONSULTATION = 'specialist_consultation',
   RE_EXAMINATION = 're_examination',
   HEALTH_CHECKUP = 'health_checkup',
 }

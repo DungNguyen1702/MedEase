@@ -1,10 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-
-export type ReExamDocument = HydratedDocument<ReExam>;
+import { v4 as uuidv4 } from 'uuid';
+export type ReExamScheduleDocument = HydratedDocument<ReExamSchedule>;
 
 @Schema({ timestamps: true })
-export class ReExam {
+export class ReExamSchedule {
+  @Prop({ required: true, unique: true, default: uuidv4 })
+  id: string;
+
   @Prop({ required: true })
   medical_record_id: string;
 
@@ -27,4 +30,4 @@ export class ReExam {
   note: string;
 }
 
-export const ReExamSchema = SchemaFactory.createForClass(ReExam);
+export const ReExamScheduleSchema = SchemaFactory.createForClass(ReExamSchedule);

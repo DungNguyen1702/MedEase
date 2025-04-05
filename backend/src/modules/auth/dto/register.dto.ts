@@ -1,7 +1,7 @@
 import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
 import { AccountRoleEnum } from '../../../common/enums';
 
-export class CreateAccountDto {
+export class RegisterDto {
   @IsEmail()
   @IsNotEmpty()
   email: string;
@@ -33,4 +33,7 @@ export class CreateAccountDto {
   @IsEnum(AccountRoleEnum)
   @IsOptional()
   role?: AccountRoleEnum = AccountRoleEnum.PATIENT;
+
+  @IsNotEmpty()
+  confirmPassword: string;
 }

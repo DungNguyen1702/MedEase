@@ -5,11 +5,15 @@ import {
   OrderPaymentMethodEnum,
   AppointmentTypeEnum,
 } from '../common/enums';
+import { v4 as uuidv4 } from 'uuid';
 
 export type AppointmentDocument = HydratedDocument<Appointment>;
 
 @Schema({ timestamps: true })
 export class Appointment {
+  @Prop({ required: true, unique: true, default: uuidv4 })
+  id: string;
+
   @Prop({ required: true })
   patient_id: string;
 

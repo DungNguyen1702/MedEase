@@ -1,0 +1,177 @@
+[
+  {
+    "id": "30000000-0000-0000-0000-000000000001",
+    "name": "Khoa Cấp cứu",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743520993/MedEase/specialization/capcuu_alexzm.jpg",
+    "description": "Tiếp nhận và xử lý các trường hợp khẩn cấp, tai nạn, chấn thương.",
+    "base_price": 300000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000002",
+    "name": "Khoa Nội tổng quát",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743521122/MedEase/specialization/noitongquat_c3lt0c.jpg",
+    "description": "Chẩn đoán và điều trị các bệnh lý nội khoa như tiểu đường, huyết áp, tim mạch.",
+    "base_price": 250000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000003",
+    "name": "Khoa Ngoại tổng quát",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743520996/MedEase/specialization/ngoaitongquat_nikvrh.jpg",
+    "description": "Phẫu thuật và điều trị các bệnh lý ngoại khoa như viêm ruột thừa, thoát vị.",
+    "base_price": 270000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000004",
+    "name": "Khoa Sản",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743521124/MedEase/specialization/san_egjigm.jpg",
+    "description": "Chăm sóc sức khỏe cho phụ nữ mang thai, sinh nở và sau sinh.",
+    "base_price": 280000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000005",
+    "name": "Khoa Nhi",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743520998/MedEase/specialization/nhi_cw2ujm.jpg",
+    "description": "Chăm sóc và điều trị bệnh lý cho trẻ em.",
+    "base_price": 280000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000006",
+    "name": "Khoa Tim mạch",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743521128/MedEase/specialization/tim-mach_cixr5k.png",
+    "description": "Chuyên về các bệnh lý liên quan đến tim và mạch máu.",
+    "base_price": 280000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000007",
+    "name": "Khoa Hô hấp",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743520995/MedEase/specialization/ho-hap_nepgne.jpg",
+    "description": "Điều trị các bệnh về phổi và đường hô hấp.",
+    "base_price": 280000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000008",
+    "name": "Khoa Tiêu hóa",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743521127/MedEase/specialization/tieu-hoa_gkohai.jpg",
+    "description": "Chẩn đoán và điều trị các bệnh về đường tiêu hóa, gan, mật.",
+    "base_price": 280000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000009",
+    "name": "Khoa Thận - Tiết niệu",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743521126/MedEase/specialization/than-tiet-nieu_jdenfi.jpg",
+    "description": "Điều trị các bệnh về thận, tiết niệu và nam khoa.",
+    "base_price": 280000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000010",
+    "name": "Khoa Nội tiết",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743521120/MedEase/specialization/noi-tiet_iy710m.jpg",
+    "description": "Chuyên về các bệnh liên quan đến hormone và chuyển hóa như tiểu đường, bệnh tuyến giáp.",
+    "base_price": 280000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000011",
+    "name": "Khoa Da liễu",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743520995/MedEase/specialization/khoa_da_lieu_qexyn5.jpg",
+    "description": "Điều trị các bệnh về da, tóc, móng.",
+    "base_price": 260000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000012",
+    "name": "Khoa Thần kinh",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743521125/MedEase/specialization/than-kinh_hotluo.jpg",
+    "description": "Chẩn đoán và điều trị các bệnh về hệ thần kinh.",
+    "base_price": 260000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000013",
+    "name": "Khoa Tâm thần",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743521125/MedEase/specialization/tam-than_sfw1ev.png",
+    "description": "Chăm sóc sức khỏe tâm thần và điều trị các rối loạn tâm lý.",
+    "base_price": 260000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000014",
+    "name": "Khoa Chấn thương chỉnh hình",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743520994/MedEase/specialization/chan-thuong-chinh-hinh_wndsqy.jpg",
+    "description": "Điều trị các chấn thương xương khớp, cột sống.",
+    "base_price": 270000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000015",
+    "name": "Khoa Mắt",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743520996/MedEase/specialization/mat_kzkt71.jpg",
+    "description": "Chẩn đoán và điều trị các bệnh về mắt.",
+    "base_price": 270000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000016",
+    "name": "Khoa Tai mũi họng",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743521124/MedEase/specialization/tai-mui-hong_mkmiaa.png",
+    "description": "Điều trị các bệnh về tai, mũi, họng.",
+    "base_price": 250000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000017",
+    "name": "Khoa Răng hàm mặt",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743521123/MedEase/specialization/rang-ham-mat_vvjzvq.jpg",
+    "description": "Chăm sóc và điều trị các vấn đề về răng, hàm, mặt.",
+    "base_price": 250000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000018",
+    "name": "Khoa Ung bướu",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743521130/MedEase/specialization/ung-buou_zjj7ig.png",
+    "description": "Chẩn đoán và điều trị các bệnh ung thư.",
+    "base_price": 250000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000019",
+    "name": "Khoa Xét nghiệm",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743521129/MedEase/specialization/xet-nghiem_zhmqsr.jpg",
+    "description": "Thực hiện các xét nghiệm cận lâm sàng để hỗ trợ chẩn đoán.",
+    "base_price": 250000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000020",
+    "name": "Khoa Chẩn đoán hình ảnh",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743520993/MedEase/specialization/chan-doan-hinh-anh_odh4z9.jpg",
+    "description": "Thực hiện các kỹ thuật như X-quang, siêu âm, CT, MRI.",
+    "base_price": 250000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000021",
+    "name": "Khoa Vật lý trị liệu - Phục hồi chức năng",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743521128/MedEase/specialization/vat-ly-tri-lieu_ysrwsr.jpg",
+    "description": "Hỗ trợ phục hồi chức năng sau điều trị.",
+    "base_price": 200000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000022",
+    "name": "Khoa Dinh dưỡng",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743520994/MedEase/specialization/dinh-duong_hlpdw8.jpg",
+    "description": "Tư vấn và điều trị về dinh dưỡng cho bệnh nhân.",
+    "base_price": 200000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000023",
+    "name": "Khoa Dược",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743520994/MedEase/specialization/duoc_uptbwk.jpg",
+    "description": "Quản lý và cung cấp thuốc cho bệnh nhân.",
+    "base_price": 190000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000024",
+    "name": "Khoa Kiểm soát nhiễm khuẩn",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743520995/MedEase/specialization/kiem-soat-nhiem-khuan_nclj2r.jpg",
+    "description": "Đảm bảo an toàn vệ sinh, phòng ngừa nhiễm khuẩn trong bệnh viện.",
+    "base_price": 190000
+  },
+  {
+    "id": "30000000-0000-0000-0000-000000000025",
+    "name": "Khoa Hồi sức cấp cứu (ICU)",
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743520995/MedEase/specialization/hoi-suc-cap-cuu_bdyfdu.jpg",
+    "description": "Chăm sóc đặc biệt cho bệnh nhân nặng, nguy kịch.",
+    "base_price": 300000
+  }
+]

@@ -13,6 +13,10 @@ export class AccountService {
     return createdAccount.save();
   }
 
+  async update(id: string, updateAccountDto: Partial<CreateAccountDto>): Promise<Account | null> {
+    return this.accountModel.findByIdAndUpdate(id, updateAccountDto, { new: true }).exec();
+  }  
+
   async findAll(): Promise<Account[]> {
     return this.accountModel.find().exec();
   }
@@ -23,5 +27,9 @@ export class AccountService {
 
   async delete(id: string): Promise<Account> {
     return this.accountModel.findByIdAndDelete(id).exec();
+  }
+
+  async findByEmail(email: string): Promise<Account | null> {
+    return this.accountModel.findOne({ email }).exec();
   }
 }

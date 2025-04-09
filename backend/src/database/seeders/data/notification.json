@@ -1,0 +1,24 @@
+[
+  {
+    "id": "40000000-0000-0000-0000-000000000008",
+    "title": "Lịch hẹn mới đã được tạo",
+    "status": false,
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1744025306/MedEase/Notification/appointment_zrnhhq.png",
+    "account_id": "10000000-0000-0000-0000-000000000001",
+    "content": "Bạn đã đặt lịch hẹn khám tổng quát vào ngày 01/03/2025.",
+    "createdAt": "2025-02-25",
+    "type": "appointment_created",
+    "idTO": 1
+  },
+  {
+    "id": "40000000-0000-0000-0000-000000000009",
+    "title": "Thông báo hủy lịch hẹn",
+    "status": false,
+    "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1744025306/MedEase/Notification/appointment_cancel_oqofgx.png",
+    "account_id": "10000000-0000-0000-0000-000000000001",
+    "content": "Lịch hẹn ngày 20/03/2025 đã bị hủy.",
+    "createdAt": "2025-03-19",
+    "type": "appointment_canceled",
+    "idTO": 3
+  }
+]

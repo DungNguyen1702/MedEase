@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
 import {
   AppointmentStatus,
   OrderPaymentMethodEnum,
@@ -14,7 +14,7 @@ export class Appointment {
   @Prop({ required: true, unique: true, default: uuidv4 })
   id: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Account' })
   patient_id: string;
 
   @Prop()
@@ -49,6 +49,12 @@ export class Appointment {
 
   @Prop({ enum: AppointmentTypeEnum, required: true })
   type: AppointmentTypeEnum;
+
+  @Prop({ required: true })
+  createdBy: string;
+
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export const AppointmentSchema = SchemaFactory.createForClass(Appointment);

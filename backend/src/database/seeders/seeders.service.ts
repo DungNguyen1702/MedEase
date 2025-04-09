@@ -2,11 +2,21 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import {
   Account,
-  Doctor,
   AccountDocument,
+  Doctor,
   DoctorDocument,
   Specialization,
-  type SpecializationDocument,
+  SpecializationDocument,
+  Appointment,
+  AppointmentDocument,
+  AppointmentDetail,
+  AppointmentDetailDocument,
+  MedicalRecord,
+  MedicalRecordDocument,
+  Notification,
+  NotificationDocument,
+  ReExamSchedule,
+  ReExamScheduleDocument,
 } from '../../schemas';
 import { Model } from 'mongoose';
 import * as path from 'path';
@@ -20,7 +30,16 @@ export class SeedersService {
     @InjectModel(Specialization.name)
     private specializationModel: Model<SpecializationDocument>,
     @InjectModel(Account.name) private accountModel: Model<AccountDocument>,
-    @InjectModel(Doctor.name) private doctorModel: Model<DoctorDocument>
+    @InjectModel(Doctor.name) private doctorModel: Model<DoctorDocument>,
+    @InjectModel(Appointment.name)
+    private appointmentModel: Model<AppointmentDocument>,
+    @InjectModel(AppointmentDetail.name)
+    private appointmentDetailModel: Model<AppointmentDetailDocument>,
+    @InjectModel(MedicalRecord.name)
+    private medicalRecordModel: Model<MedicalRecordDocument>,
+    @InjectModel(Notification.name)
+    private notificationModel: Model<NotificationDocument>,
+    @InjectModel(ReExamSchedule.name) private reExamModel: Model<ReExamScheduleDocument>
   ) {}
 
   async seedData() {
@@ -30,6 +49,18 @@ export class SeedersService {
 
       await this.seedAccountsAndDoctors();
       console.log('Seeder accounts and doctors completed!');
+
+      await this.seedAppointments();
+      console.log('Seeder appointments completed!');
+
+      await this.seedAppointmentDetails();
+      console.log('Seeder appointment details completed!');
+
+      await this.seedNotifications();
+      console.log('Seeder notifications completed!');
+
+      await this.seedReExams();
+      console.log('Seeder re-exams completed!');
 
       console.log('Seeder completed!');
     } catch (error) {
@@ -49,8 +80,7 @@ export class SeedersService {
     return createdSpecializations.map(spec => spec._id);
   }
 
-  async seedAccountsAndDoctors() {
-
+  private async seedAccountsAndDoctors() {
     const dataPath = path.join(__dirname, 'data', 'account.json');
     const accounts = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
 
@@ -58,6 +88,7 @@ export class SeedersService {
     const dataDoctors = JSON.parse(fs.readFileSync(dataDoctorPath, 'utf-8'));
     const doctorNames = dataDoctors.doctor_name;
     const doctorExamples = dataDoctors.doctor_example;
+    const doctorRooms = dataDoctors.doctor_room;
 
     // Xóa dữ liệu cũ (nếu cần)
     await this.accountModel.deleteMany({});
@@ -80,22 +111,25 @@ export class SeedersService {
     const doctorPositions = Object.values(DoctorPositionEnum); // Lấy danh sách 7 vị trí bác sĩ từ enum
 
     const doctorAccountSchemaData = [];
-    const doctorSchemaData = []
+    const doctorSchemaData = [];
     const baseDoctorAccountId = '20000000-0000-0000-0000-000000000000';
     const baseDocotorId = '30000000-0000-0000-0000-000000000000';
-    const baseTimes = ["00:15", "00:30", "00:45"];
+    const baseTimes = ['00:15', '00:30', '00:45'];
     let positionIndex = 0;
 
     for (let i = 0; i < doctorPositions.length; i++) {
       for (let j = 0; j < specializations.length; j++) {
-
         // Tăng ID của bác sĩ
         const doctorAccountId = baseDoctorAccountId.replace(/(\d+)$/, match =>
-          (parseInt(match) + positionIndex + 1).toString().padStart(match.length, '0')
+          (parseInt(match) + positionIndex + 1)
+            .toString()
+            .padStart(match.length, '0')
         );
 
         const doctorId = baseDocotorId.replace(/(\d+)$/, match =>
-          (parseInt(match) + positionIndex + 1).toString().padStart(match.length, '0')
+          (parseInt(match) + positionIndex + 1)
+            .toString()
+            .padStart(match.length, '0')
         );
 
         doctorAccountSchemaData.push({
@@ -112,11 +146,12 @@ export class SeedersService {
         });
 
         doctorSchemaData.push({
-          id : doctorId,
+          id: doctorId,
           account_id: doctorAccountId,
           specialization_id: specializations[j]._id,
           position: doctorPositions[i],
-          base_time: baseTimes[Math.floor(Math.random() * baseTimes.length)]
+          base_time: baseTimes[Math.floor(Math.random() * baseTimes.length)],
+          room: doctorRooms[positionIndex]['room_id'],
         });
 
         positionIndex++;
@@ -127,5 +162,56 @@ export class SeedersService {
     // // Lưu các bác sĩ vào database
     await this.accountModel.insertMany(doctorAccountSchemaData);
     await this.doctorModel.insertMany(doctorSchemaData);
+  }
+
+  private async seedAppointments() {
+    const dataPath = path.join(__dirname, 'data', 'appointment.json');
+    const appointments = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+
+    await this.appointmentModel.deleteMany({});
+
+    // Thêm dữ liệu mới và lưu ID để sử dụng cho các bảng liên quan
+    const createdAppointments =
+      await this.appointmentModel.insertMany(appointments);
+    return createdAppointments.map(app => app._id);
+  }
+
+  private async seedAppointmentDetails() {
+    const dataPath = path.join(__dirname, 'data', 'appointment_detail.json');
+    const appointmentDetails = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+
+    await this.appointmentDetailModel.deleteMany({});
+
+    const createdAppointmentDetails =
+      await this.appointmentDetailModel.insertMany(appointmentDetails);
+    return createdAppointmentDetails.map(app => app._id);
+  }
+
+  private async seedNotifications() {
+    const dataPath = path.join(__dirname, 'data', 'notification.json');
+    const notifications = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+
+    await this.notificationModel.deleteMany({});
+
+    const createdNotifications =
+      await this.notificationModel.insertMany(notifications);
+    return createdNotifications.map(app => app._id);
+  }
+
+  private async seedReExams() {
+    const dataPath = path.join(__dirname, 'data', 're-exam.json');
+    const reExams = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+
+    await this.reExamModel.deleteMany({});
+
+    const createdReExams =
+      await this.reExamModel.insertMany(reExams);
+    return createdReExams.map(app => app._id);
+  }
+
+  async clearData() {
+    await this.accountModel.deleteMany({});
+    await this.doctorModel.deleteMany({});
+    await this.specializationModel.deleteMany({});
   }
 }

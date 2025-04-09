@@ -47,6 +47,10 @@ export class Account {
     default: AccountRoleEnum.PATIENT,
   })
   role: AccountRoleEnum;
+
+  createdAt?: Date;
+  
+  updatedAt?: Date;
 }
 
 export const AccountSchema = SchemaFactory.createForClass(Account);

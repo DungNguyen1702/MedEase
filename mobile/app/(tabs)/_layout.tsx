@@ -1,43 +1,158 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
+import { Tabs } from "expo-router";
+import React from "react";
+import { Image, View } from "react-native";
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { Colors } from "@/constants/Colors";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+
+  const isFocusedImage = () => {
+    return {
+      width: 38,
+      height: 38,
+      tintColor: Colors.light.main,
+      marginBottom: 5,
+    };
+  };
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: Colors.light.main,
+        tabBarInactiveTintColor: Colors.light.main,
         headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          backgroundColor: Colors.primary.main,
+          height: 70,
+          position: "absolute",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          paddingBottom: 10,
+          paddingTop: 15,
+          borderTopWidth: 0,
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: "600",
+        },
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: "Home",
+          tabBarIcon: ({ color, focused }) => (
+            <View
+              style={
+                focused
+                  ? {
+                      backgroundColor: Colors.primary.main,
+                      borderRadius: "50%",
+                      borderWidth: 2,
+                      borderColor: Colors.light.main,
+                      padding: 10,
+                      position: "absolute",
+                      bottom: 0,
+                    }
+                  : {}
+              }
+            >
+              <Image
+                source={require("@/assets/icons/home.png")}
+                style={isFocusedImage()}
+                resizeMode="contain"
+              />
+            </View>
+          ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="schedule"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: "Schedule",
+          tabBarIcon: ({ color, focused }) => (
+            <View
+              style={
+                focused
+                  ? {
+                      backgroundColor: Colors.primary.main,
+                      borderRadius: "50%",
+                      borderWidth: 2,
+                      borderColor: Colors.light.main,
+                      padding: 10,
+                      position: "absolute",
+                      bottom: 0,
+                    }
+                  : {}
+              }
+            >
+              <Image
+                source={require("@/assets/icons/schedule.png")}
+                style={isFocusedImage()}
+                resizeMode="contain"
+              />
+            </View>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="notifications"
+        options={{
+          title: "Notifications",
+          tabBarIcon: ({ color, focused }) => (
+            <View
+              style={
+                focused
+                  ? {
+                      backgroundColor: Colors.primary.main,
+                      borderRadius: "50%",
+                      borderWidth: 2,
+                      borderColor: Colors.light.main,
+                      padding: 10,
+                      position: "absolute",
+                      bottom: 0,
+                    }
+                  : {}
+              }
+            >
+              <Image
+                source={require("@/assets/icons/notification.png")}
+                style={isFocusedImage()}
+                resizeMode="contain"
+              />
+            </View>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Profile",
+          tabBarIcon: ({ color, focused }) => (
+            <View
+              style={
+                focused
+                  ? {
+                      backgroundColor: Colors.primary.main,
+                      borderRadius: "50%",
+                      borderWidth: 2,
+                      borderColor: Colors.light.main,
+                      padding: 10,
+                      position: "absolute",
+                      bottom: 0,
+                    }
+                  : {}
+              }
+            >
+              <Image
+                source={require("@/assets/icons/user.png")}
+                style={isFocusedImage()}
+                resizeMode="contain"
+              />
+            </View>
+          ),
         }}
       />
     </Tabs>

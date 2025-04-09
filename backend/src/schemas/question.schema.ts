@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 export type QuestionDocument = HydratedDocument<Question>;
 
@@ -8,11 +8,14 @@ export class Question {
   @Prop({ required: true, unique: true, default: uuidv4 })
   id: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Account'  })
   patient_id: string;
 
   @Prop()
   content: string;
+
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export const QuestionSchema = SchemaFactory.createForClass(Question);

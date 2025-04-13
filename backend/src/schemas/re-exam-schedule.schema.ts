@@ -1,23 +1,29 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 export type ReExamScheduleDocument = HydratedDocument<ReExamSchedule>;
 
 @Schema({ timestamps: true })
 export class ReExamSchedule {
-  @Prop({ required: true, unique: true, default: uuidv4 })
-  id: string;
+  @Prop({ type: String, required: true, default: uuidv4 })
+  _id: string;
 
-  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'MedicalRecord'  })
+  @Prop({
+    required: true,
+    ref: 'MedicalRecord',
+  })
   medical_record_id: string;
 
   @Prop({ required: true })
   re_exam_date: Date;
 
-  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Doctor'  })
+  @Prop({ required: true, ref: 'Doctor' })
   doctor_id: string;
 
-  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Appointment'  })
+  @Prop({
+    required: true,
+    ref: 'Appointment',
+  })
   appointment_id: string;
 
   @Prop()
@@ -33,4 +39,5 @@ export class ReExamSchedule {
   updatedAt?: Date;
 }
 
-export const ReExamScheduleSchema = SchemaFactory.createForClass(ReExamSchedule);
+export const ReExamScheduleSchema =
+  SchemaFactory.createForClass(ReExamSchedule);

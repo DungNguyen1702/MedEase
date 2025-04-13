@@ -10,4 +10,9 @@ export class AppointmentDetailController {
   async getDetailsByDate(@Query('date') date: string) {
     return this.appointmentDetailService.findDetailsByDate(date);
   }
+
+  @Get()
+  async getAllDetails() {
+    return this.appointmentDetailService.findAll();
+  }
 }

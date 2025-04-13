@@ -42,4 +42,10 @@ export const Colors = {
     tabIconDefault: '#9BA1A6',
     tabIconSelected: tintColorDark,
   },
+  brand : {
+    momo : "#A50064",
+    zalopay_green : "#00CF6A",
+    zalopay_blue : "#0033C9",
+    cash : "#142C14",
+  }
 };

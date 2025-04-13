@@ -5,8 +5,8 @@ export type SpecializationDocument = HydratedDocument<Specialization>;
 
 @Schema()
 export class Specialization {
-  @Prop({ required: true, unique: true, default: uuidv4 })
-  id: string;
+  @Prop({ type:String, required: true, default: uuidv4 })
+  _id: string;
 
   @Prop({ required: true })
   name: string;

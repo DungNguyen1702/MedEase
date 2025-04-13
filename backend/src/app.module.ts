@@ -14,6 +14,7 @@ import { AppointmentDetailModule } from './modules/appointment-detail/appointmen
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(process.env.MONGO_URI, {
       dbName: process.env.DB_NAME,
+      autoIndex: true,
     }),
     AccountModule,
     AuthModule,

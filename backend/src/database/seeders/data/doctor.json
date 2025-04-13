@@ -103,7 +103,7 @@
   ],
   "doctor_example": [
     {
-      "id": "20000000-0000-0000-0000-000000000001",
+      "_id": "20000000-0000-0000-0000-000000000001",
       "email": "doctor1@medease.com",
       "password": "12345678",
       "name": "GS.TS. Nguyễn Văn Đạt",
@@ -115,7 +115,7 @@
       "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM"
     },
     {
-      "id": "20000000-0000-0000-0000-000000000002",
+      "_id": "20000000-0000-0000-0000-000000000002",
       "email": "doctor2@medease.com",
       "password": "12345678",
       "name": "BS.CKII. Trần Thị Hương",
@@ -127,7 +127,7 @@
       "address": "222 Đường Lê Văn Sỹ, Phú Nhuận, TP.HCM"
     },
     {
-      "id": "20000000-0000-0000-0000-000000000003",
+      "_id": "20000000-0000-0000-0000-000000000003",
       "email": "doctor3@medease.com",
       "password": "12345678",
       "name": "PGS.TS. Phạm Văn Cao",
@@ -139,7 +139,7 @@
       "address": "333 Đường Nguyễn Thị Minh Khai, Quận 1, TP.HCM"
     },
     {
-      "id": "20000000-0000-0000-0000-000000000004",
+      "_id": "20000000-0000-0000-0000-000000000004",
       "email": "doctor4@medease.com",
       "password": "12345678",
       "name": "ThS.BS. Lê Thị Minh",
@@ -151,7 +151,7 @@
       "address": "444 Đường Võ Văn Tần, Quận 3, TP.HCM"
     },
     {
-      "id": "20000000-0000-0000-0000-000000000005",
+      "_id": "20000000-0000-0000-0000-000000000005",
       "email": "doctor5@medease.com",
       "password": "12345678",
       "name": "BS. Võ Văn Em",
@@ -163,7 +163,7 @@
       "address": "555 Đường Hoàng Văn Thụ, Phú Nhuận, TP.HCM"
     },
     {
-      "id": "20000000-0000-0000-0000-000000000006",
+      "_id": "20000000-0000-0000-0000-000000000006",
       "email": "doctor6@medease.com",
       "password": "12345678",
       "name": "BS. Võ Văn Dũng",
@@ -175,7 +175,7 @@
       "address": "555 Đường Hoàng Văn Thụ, Phú Nhuận, TP.HCM"
     },
     {
-      "id": "20000000-0000-0000-0000-000000000007",
+      "_id": "20000000-0000-0000-0000-000000000007",
       "email": "doctor7@medease.com",
       "password": "12345678",
       "name": "BS. Võ Văn Hải",

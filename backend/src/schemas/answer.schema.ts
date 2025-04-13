@@ -1,15 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 
 export type AnswerDocument = HydratedDocument<Answer>;
 
 @Schema({ timestamps: true })
 export class Answer {
-  @Prop({ required: true, unique: true, default: uuidv4 })
-  id: string;
+  @Prop({ type:String, required: true, default: uuidv4 })
+  _id: string;
 
-  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Question'  })
+  @Prop({ required: true, ref: 'Question'  })
   question_id: string;
 
   @Prop()

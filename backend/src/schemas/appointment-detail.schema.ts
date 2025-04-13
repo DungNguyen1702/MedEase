@@ -1,24 +1,24 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 
 export type AppointmentDetailDocument = HydratedDocument<AppointmentDetail>;
 
 @Schema({ timestamps: true })
 export class AppointmentDetail {
-  @Prop({ required: true, unique: true, default: uuidv4 })
-  id: string;
+  @Prop({ type: String, required: true, default: uuidv4 })
+  _id: string;
 
-  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Appointment'  })
+  @Prop({ required: true, ref: 'Appointment' })
   appointment_id: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Specialization' })
+  @Prop({ ref: 'Specialization' })
   specialization_id: string;
 
   @Prop()
   time: string;
 
-  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Doctor'  })
+  @Prop({ required: true, ref: 'Doctor' })
   doctor_id: string;
 
   @Prop()
@@ -34,4 +34,5 @@ export class AppointmentDetail {
   updatedAt: Date;
 }
 
-export const AppointmentDetailSchema = SchemaFactory.createForClass(AppointmentDetail);
+export const AppointmentDetailSchema =
+  SchemaFactory.createForClass(AppointmentDetail);

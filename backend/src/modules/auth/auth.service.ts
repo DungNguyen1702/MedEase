@@ -43,7 +43,7 @@ export class AuthService {
 
     //generate jwt token
     const payload = {
-      id: accountByEmail.id,
+      id: accountByEmail._id,
       name: accountByEmail.name,
       address: accountByEmail.address,
       email: accountByEmail.email,
@@ -157,7 +157,7 @@ export class AuthService {
     account.password = PasswordUtils.hashPassword('88888888');
 
     // Cập nhật thông tin tài khoản
-    await this.accountService.update(account.id, account);
+    await this.accountService.update(account._id, account);
 
     return {
       message: 'Password has been reset successfully.',

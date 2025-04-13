@@ -285,5 +285,98 @@
       "description": "Chăm sóc đặc biệt cho bệnh nhân nặng, nguy kịch.",
       "base_price": 300000
     }
+  ],
+  "doctors": [
+    {
+      "id": "20000000-0000-0000-0000-000000000001",
+      "email": "doctor1@medease.com",
+      "password": "12345678",
+      "name": "GS.TS. Nguyễn Văn Đạt",
+      "role": "doctor",
+      "position": "general_doctor",
+      "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+      "gender": "male",
+      "date_of_birth": "1970-04-12",
+      "tel": "0911222333",
+      "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM"
+    },
+    {
+      "id": "20000000-0000-0000-0000-000000000002",
+      "email": "doctor2@medease.com",
+      "password": "12345678",
+      "name": "BS.CKII. Trần Thị Hương",
+      "role": "doctor",
+      "position": "head_of_department",
+      "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+      "gender": "female",
+      "date_of_birth": "1982-07-18",
+      "tel": "0912333444",
+      "address": "222 Đường Lê Văn Sỹ, Phú Nhuận, TP.HCM"
+    },
+    {
+      "id": "20000000-0000-0000-0000-000000000003",
+      "email": "doctor3@medease.com",
+      "password": "12345678",
+      "name": "PGS.TS. Phạm Văn Cao",
+      "role": "doctor",
+      "position": "professor",
+      "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+      "gender": "male",
+      "date_of_birth": "1965-09-22",
+      "tel": "0912444555",
+      "address": "333 Đường Nguyễn Thị Minh Khai, Quận 1, TP.HCM"
+    },
+    {
+      "id": "20000000-0000-0000-0000-000000000004",
+      "email": "doctor4@medease.com",
+      "password": "12345678",
+      "name": "ThS.BS. Lê Thị Minh",
+      "role": "doctor",
+      "position": "associate_professor",
+      "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+      "gender": "female",
+      "date_of_birth": "1978-12-05",
+      "tel": "0912555666",
+      "address": "444 Đường Võ Văn Tần, Quận 3, TP.HCM"
+    },
+    {
+      "id": "20000000-0000-0000-0000-000000000005",
+      "email": "doctor5@medease.com",
+      "password": "12345678",
+      "name": "BS. Võ Văn Em",
+      "role": "doctor",
+      "position": "senior_doctor",
+      "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+      "gender": "male",
+      "date_of_birth": "1988-02-28",
+      "tel": "0912666777",
+      "address": "555 Đường Hoàng Văn Thụ, Phú Nhuận, TP.HCM"
+    },
+    {
+      "id": "20000000-0000-0000-0000-000000000006",
+      "email": "doctor6@medease.com",
+      "password": "12345678",
+      "name": "BS. Võ Văn Dũng",
+      "role": "doctor",
+      "position": "resident_doctor",
+      "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+      "gender": "male",
+      "date_of_birth": "1988-02-28",
+      "tel": "0912666777",
+      "address": "555 Đường Hoàng Văn Thụ, Phú Nhuận, TP.HCM"
+    },
+    {
+      "id": "20000000-0000-0000-0000-000000000007",
+      "email": "doctor7@medease.com",
+      "password": "12345678",
+      "name": "BS. Võ Văn Hải",
+      "role": "doctor",
+      "position": "intern_doctor",
+      "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+      "gender": "male",
+      "date_of_birth": "1988-02-28",
+      "tel": "0912666777",
+      "address": "555 Đường Hoàng Văn Thụ, Phú Nhuận, TP.HCM"
+    }
   ]
 }

@@ -7,9 +7,9 @@ export type AccountDocument = HydratedDocument<Account>;
 
 @Schema({ timestamps: true })
 export class Account {
-  @Prop({ required: true, unique: true, default: uuidv4 })
-  id: string;
-  
+  @Prop({ type: String, required: true, default: uuidv4 })
+  _id: string;
+
   @Prop({ required: true, unique: true })
   email: string;
 
@@ -49,7 +49,7 @@ export class Account {
   role: AccountRoleEnum;
 
   createdAt?: Date;
-  
+
   updatedAt?: Date;
 }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
+import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import {
   Account,
   AccountDocument,
@@ -23,10 +23,11 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { AccountRoleEnum, DoctorPositionEnum } from '../../common/enums';
 import * as bcrypt from 'bcrypt';
-
+import { Connection } from 'mongoose';
 @Injectable()
 export class SeedersService {
   constructor(
+    @InjectConnection() private readonly connection: Connection,
     @InjectModel(Specialization.name)
     private specializationModel: Model<SpecializationDocument>,
     @InjectModel(Account.name) private accountModel: Model<AccountDocument>,
@@ -39,7 +40,8 @@ export class SeedersService {
     private medicalRecordModel: Model<MedicalRecordDocument>,
     @InjectModel(Notification.name)
     private notificationModel: Model<NotificationDocument>,
-    @InjectModel(ReExamSchedule.name) private reExamModel: Model<ReExamScheduleDocument>
+    @InjectModel(ReExamSchedule.name)
+    private reExamModel: Model<ReExamScheduleDocument>
   ) {}
 
   async seedData() {
@@ -68,7 +70,7 @@ export class SeedersService {
     }
   }
 
-  private async seedSpecialization() {
+  async seedSpecialization() {
     const dataPath = path.join(__dirname, 'data', 'specialization.json');
     const specializations = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
 
@@ -133,7 +135,7 @@ export class SeedersService {
         );
 
         doctorAccountSchemaData.push({
-          id: doctorAccountId, // Gán ID mới
+          _id: doctorAccountId, // Gán ID mới
           email: `doctor${positionIndex + 1}@medease.com`,
           password: doctorExamples[i].password,
           name: `${doctorNames[positionIndex]}`, // Tên bác sĩ theo khoa
@@ -146,7 +148,7 @@ export class SeedersService {
         });
 
         doctorSchemaData.push({
-          id: doctorId,
+          _id: doctorId,
           account_id: doctorAccountId,
           specialization_id: specializations[j]._id,
           position: doctorPositions[i],
@@ -204,8 +206,7 @@ export class SeedersService {
 
     await this.reExamModel.deleteMany({});
 
-    const createdReExams =
-      await this.reExamModel.insertMany(reExams);
+    const createdReExams = await this.reExamModel.insertMany(reExams);
     return createdReExams.map(app => app._id);
   }
 
@@ -213,5 +214,17 @@ export class SeedersService {
     await this.accountModel.deleteMany({});
     await this.doctorModel.deleteMany({});
     await this.specializationModel.deleteMany({});
+    await this.appointmentModel.deleteMany({});
+    await this.appointmentDetailModel.deleteMany({});
+    await this.medicalRecordModel.deleteMany({});
+    await this.notificationModel.deleteMany({});
+    await this.reExamModel.deleteMany({});
+    // console.log('All data cleared!');
+  }
+
+  async resetDatabase() {
+    // Xóa toàn bộ cơ sở dữ liệu
+    await this.connection.dropDatabase();
+    console.log('Database dropped!');
   }
 }

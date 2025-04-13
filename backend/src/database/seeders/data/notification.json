@@ -1,6 +1,6 @@
 [
   {
-    "id": "40000000-0000-0000-0000-000000000008",
+    "_id": "40000000-0000-0000-0000-000000000008",
     "title": "Lịch hẹn mới đã được tạo",
     "status": false,
     "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1744025306/MedEase/Notification/appointment_zrnhhq.png",
@@ -11,7 +11,7 @@
     "idTO": 1
   },
   {
-    "id": "40000000-0000-0000-0000-000000000009",
+    "_id": "40000000-0000-0000-0000-000000000009",
     "title": "Thông báo hủy lịch hẹn",
     "status": false,
     "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1744025306/MedEase/Notification/appointment_cancel_oqofgx.png",

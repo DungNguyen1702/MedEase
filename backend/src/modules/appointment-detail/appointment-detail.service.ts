@@ -25,9 +25,19 @@ export class AppointmentDetailService {
             $lt: endOfDay,
           },
         },
+        // 'appointment_id'
       })
       .populate('doctor_id')
       .populate('specialization_id')
       .then(results => results.filter(detail => detail.appointment_id)); // lọc bỏ những cái không match ngày
+  }
+
+  async findAll() {
+    return this.appointmentDetailModel
+      .find()
+      .populate('appointment_id') // Populate thông tin cuộc hẹn
+      .populate('doctor_id') // Populate thông tin bác sĩ
+      .populate('specialization_id') // Populate thông tin chuyên khoa
+      .exec(); // Thực thi truy vấn
   }
 }

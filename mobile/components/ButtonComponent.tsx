@@ -8,6 +8,7 @@ export default function ButtonComponent({
   textColor,
   borderColor,
   fontSize,
+  style = {},
 }: {
   backgroundColor: string;
   title: string;
@@ -15,6 +16,7 @@ export default function ButtonComponent({
   textColor: string;
   borderColor?: string;
   fontSize?: number;
+  style?: object;
 }) {
   return (
     <TouchableOpacity
@@ -25,6 +27,7 @@ export default function ButtonComponent({
           borderColor: borderColor,
           borderWidth: borderColor ? 2 : 0,
         },
+        style,
       ]}
       onPress={onPress}
     >

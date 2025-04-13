@@ -22,22 +22,20 @@ export enum OrderStatusEnum {
 }
 
 export enum NotificationTypeEnum {
-  APPOINTMENT_CREATED = 'appointment_created',
-  APPOINTMENT_UPDATED = 'appointment_updated',
-  APPOINTMENT_CANCELED = 'appointment_canceled',
-  APPOINTMENT_REMINDER = 'appointment_reminder',
-  MEDICAL_RECORD_READY = 'medical_record_ready',
-  RE_EXAM_REMINDER = 're_exam_reminder',
+  APPOINTMENT = 'appointment',
+  RE_EXAM = 're_exam',
   QUESTION_ANSWERED = 'question_answered',
-  ORDER_CONFIRMED = 'order_confirmed',
-  ORDER_SHIPPED = 'order_shipped',
-  ORDER_DELIVERED = 'order_delivered',
-  ORDER_CANCELED = 'order_canceled',
-  PAYMENT_SUCCESS = 'payment_success',
-  SYSTEM_ANNOUNCEMENT = 'system_announcement',
-  DOCTOR_ASSIGNED = 'doctor_assigned',
-  PRESCRIPTION_READY = 'prescription_ready',
-  NEW_MEDICINE_AVAILABLE = 'new_medicine_available',
+  PAYMENT = 'payment',
+}
+
+export enum NotificationTypeImageEnum {
+  appointment_created = 'https://res.cloudinary.com/deei5izfg/image/upload/v1744538151/MedEase/Notification/appointment_created_fkdwuh.png',
+  appointment_updated = 'https://res.cloudinary.com/deei5izfg/image/upload/v1744538335/MedEase/Notification/appointment_updated_qyegry.png',
+  appointment_canceled = 'https://res.cloudinary.com/deei5izfg/image/upload/v1744025306/MedEase/Notification/appointment_cancel_oqofgx.png',
+  appointment_reminder = 'https://res.cloudinary.com/deei5izfg/image/upload/v1744025306/MedEase/Notification/appointment_zrnhhq.png',
+  re_exam_reminder = 'https://res.cloudinary.com/deei5izfg/image/upload/v1744025307/MedEase/Notification/reminder_xkuhhr.png',
+  question_answered = 'https://res.cloudinary.com/deei5izfg/image/upload/v1744025306/MedEase/Notification/question-answer_mymixf.png',
+  payment_success = 'https://res.cloudinary.com/deei5izfg/image/upload/v1744025306/MedEase/Notification/payment_hlbopr.png',
 }
 
 export enum DoctorPositionEnum {

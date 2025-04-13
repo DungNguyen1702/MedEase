@@ -207,7 +207,7 @@ export default function ScheduleScreen() {
               editable={false}
             />
             <Image
-              source={require("@/assets/icons/select_clock.png")}
+              source={require("@/assets/icons/select_calendar.png")}
               resizeMode="contain"
               style={styles.selectIcon}
             />
@@ -267,7 +267,7 @@ export default function ScheduleScreen() {
               editable={false}
             />
             <Image
-              source={require("@/assets/icons/select_calendar.png")}
+              source={require("@/assets/icons/select_clock.png")}
               resizeMode="contain"
               style={styles.selectIcon}
             />
@@ -431,7 +431,7 @@ export default function ScheduleScreen() {
             style={styles.plusSpecializationContainer}
           >
             <Image
-              source={require("@/assets/icons/plus.png")}
+              source={require("@/assets/icons/plus-blue.png")}
               resizeMode="contain"
               style={{ width: 20, height: 20, tintColor: Colors.primary.main }}
             />

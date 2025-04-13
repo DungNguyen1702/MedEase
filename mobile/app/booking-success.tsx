@@ -62,7 +62,7 @@ export default function BookingSuccess() {
       {/* Body */}
       <View style={styles.body}>
         {appointmentDetails.map((item, index) => {
-          return <AppointmentDetailComponent appointmentDetail={item} />;
+          return <AppointmentDetailComponent key={index} appointmentDetail={item} />;
         })}
       </View>
 

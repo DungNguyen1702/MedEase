@@ -45,6 +45,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderColor: Colors.primary.main,
     borderWidth: 1,
-    textAlignVertical: "top", // Đảm bảo nội dung bắt đầu từ trên cùng
+    textAlignVertical: "top",
   },
 });

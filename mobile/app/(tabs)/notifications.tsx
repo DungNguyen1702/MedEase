@@ -1,76 +1,134 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
-import RNPickerSelect from "react-native-picker-select";
-import { SelectList } from "react-native-dropdown-select-list";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  StatusBar,
+} from "react-native";
+import { NotificationTypeEnum } from "@/constants/Constants";
+import { Colors } from "@/constants/Colors";
+import FakeData from "@/data/fake_data.json";
+import NotiComponent from "@/components/NotiComponent";
+import { getKeyFromValue } from "@/utils/string.utils";
 
 export default function NotificationPage() {
-  const [selected, setSelected] = React.useState("");
+  const [notifications, setNotifications] = useState(FakeData.notifications);
 
-  const data = [
-    { key: "1", value: "Mobiles", disabled: true },
-    { key: "2", value: "Appliances" },
-    { key: "3", value: "Cameras" },
-    { key: "4", value: "Computers", disabled: true },
-    { key: "5", value: "Vegetables" },
-    { key: "6", value: "Diary Products" },
-    { key: "7", value: "Drinks" },
-  ];
+  const [selectedNotification, setSelectedNotification] = useState(
+    NotificationTypeEnum.all
+  );
+
+  const [filterNotis, setFilterNotis] = useState(notifications);
+
+  const onSelectNotiType = (type: string) => {
+    console.log(type)
+    setSelectedNotification(type);
+    if (type === NotificationTypeEnum.all) {
+      setFilterNotis(notifications);
+    } else {
+      const filteredNotis = notifications.filter((noti) => noti.type === getKeyFromValue(NotificationTypeEnum, type));
+      setFilterNotis(filteredNotis);
+    }
+  };
+
+  const onUpdateNotis = (newNoti: any, id: string) => {
+    const newNotis = notifications.map((noti) => {
+      if (noti._id === id) {
+        return { ...noti, ...newNoti };
+      }
+      return noti;
+    });
+    setFilterNotis(newNotis);
+    setNotifications(newNotis);
+  };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>Chọn một tùy chọn:</Text>
-      <SelectList
-        setSelected={(val : string) => setSelected(val)}
-        data={data}
-        save="value"
+    <ScrollView style={styles.container}>
+      <StatusBar
+        backgroundColor={Colors.primary.main}
+        barStyle="light-content"
       />
-      <Text style={styles.selectedText}>
-        Giá trị đã chọn: {selected || "Chưa chọn"}
-      </Text>
-    </View>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Thông báo</Text>
+      </View>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+        {(
+          Object.keys(NotificationTypeEnum) as Array<
+            keyof typeof NotificationTypeEnum
+          >
+        ).map((key) => (
+          <TouchableOpacity
+            key={key}
+            style={
+              selectedNotification === NotificationTypeEnum[key] ||
+              selectedNotification === NotificationTypeEnum.all
+                ? [styles.unSelectedTypeNoti, styles.selectedTypeNoti]
+                : styles.unSelectedTypeNoti
+            }
+            onPress={() => onSelectNotiType(NotificationTypeEnum[key])}
+          >
+            <Text
+              style={
+                selectedNotification === NotificationTypeEnum[key] ||
+                selectedNotification === NotificationTypeEnum.all
+                  ? [styles.unSelectedText, styles.selectedText]
+                  : styles.unSelectedText
+              }
+            >
+              {NotificationTypeEnum[key]}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+      <View style={styles.body}>
+        {filterNotis.map((notification) => (
+          <NotiComponent
+            key={notification._id}
+            noti={notification}
+            onUpdateNotis={onUpdateNotis}
+          />
+        ))}
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    padding: 20,
     backgroundColor: "#fff",
   },
-  label: {
-    fontSize: 16,
+  header: {
+    backgroundColor: Colors.primary.main,
+    padding: 20,
+    marginBottom: 20,
+  },
+  headerTitle: {
+    fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 10,
+    color: Colors.light.main,
+  },
+  unSelectedTypeNoti: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginHorizontal: 10,
+    borderRadius: 10,
+    borderColor: Colors.primary.main,
+    borderWidth: 1,
+  },
+  selectedTypeNoti: {
+    backgroundColor: Colors.primary.main,
+  },
+  unSelectedText: {
+    color: Colors.primary.main,
+    fontWeight: "bold",
   },
   selectedText: {
-    marginTop: 20,
-    fontSize: 16,
-    color: "#333",
+    color: Colors.light.main,
   },
-});
-
-const pickerSelectStyles = StyleSheet.create({
-  inputIOS: {
-    fontSize: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 5,
-    color: "#000",
-    backgroundColor: "#f9f9f9",
-    paddingRight: 30,
-  },
-  inputAndroid: {
-    fontSize: 16,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 5,
-    color: "#000",
-    backgroundColor: "#f9f9f9",
-    paddingRight: 30,
-  },
+  body : {
+    paddingVertical: 20,
+  }
 });

@@ -55,6 +55,8 @@ const styles = StyleSheet.create({
     borderRadius : 10,
     overflow : "hidden",
     backgroundColor : Colors.light.main,
+    borderColor : Colors.primary.main,
+    borderWidth : 1,
     paddingVertical : 10,
   },
   mark : {

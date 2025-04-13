@@ -12,11 +12,21 @@ import Slider from "@/components/SliderComponent";
 import ButtonComponent from "@/components/ButtonComponent";
 import ScheduleComponent from "@/components/ScheduleComponent";
 import SpecializationComponent from "@/components/SpecializationComponent";
+import { useRouter } from "expo-router";
 
 export default function HomeScreen() {
+  const route = useRouter();
+
   const user = FakeData.account;
   const appoinmentDetail = FakeData["appoinment_detail"];
   const specializations = FakeData["specializations"];
+
+  const onPressSeeAll = () => {
+    route.push("/list-appointment");
+  };
+  const onPressBook = () => {
+    console.log("Book clicked");
+  };
 
   return (
     <ScrollView
@@ -54,7 +64,7 @@ export default function HomeScreen() {
           <View>
             <ButtonComponent
               title="Xem tất cả"
-              onPress={() => {}}
+              onPress={onPressSeeAll}
               backgroundColor={Colors.primary.main}
               textColor="#fff"
               fontSize={13}

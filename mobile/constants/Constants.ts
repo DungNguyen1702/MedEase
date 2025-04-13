@@ -35,3 +35,11 @@ export const AppointmentTypeFee = {
   re_examination: 30,
   health_checkup: 100,
 };
+
+export const NotificationTypeEnum = {
+  all : "Tất cả",
+  appointment : 'Lịch hẹn',
+  re_exam : 'Tái khám',
+  question_answered : 'câu hỏi & trả lời',
+  payment : 'Thanh toán',
+};

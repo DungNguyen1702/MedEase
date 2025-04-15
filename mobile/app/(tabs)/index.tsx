@@ -15,14 +15,14 @@ import SpecializationComponent from "@/components/SpecializationComponent";
 import { useRouter } from "expo-router";
 
 export default function HomeScreen() {
-  const route = useRouter();
+  const router = useRouter();
 
   const user = FakeData.account;
   const appoinmentDetail = FakeData["appoinment_detail"];
   const specializations = FakeData["specializations"];
 
   const onPressSeeAll = () => {
-    route.push("/list-appointment");
+    router.push("/list-appointment");
   };
   const onPressBook = () => {
     console.log("Book clicked");

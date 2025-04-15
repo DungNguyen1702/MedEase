@@ -13,3 +13,12 @@ export const getKeyFromValue = (obj: Record<string, string>, value: string): str
   const entry = Object.entries(obj).find(([_, val]) => val === value);
   return entry ? entry[0] : undefined; // Trả về key nếu tìm thấy, ngược lại trả về undefined
 };
+
+export const getCurrentDate = () => {
+  const today = new Date();
+  const day = String(today.getDate()).padStart(2, '0'); // Lấy ngày (dd)
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // Lấy tháng (mm) (tháng bắt đầu từ 0)
+  const year = today.getFullYear(); // Lấy năm (yyyy)
+
+  return `${day}/${month}/${year}`; // Kết hợp thành chuỗi dd/mm/yyyy
+};

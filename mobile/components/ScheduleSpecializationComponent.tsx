@@ -18,12 +18,12 @@ export default function ScheduleSpecializationComponent(props: any) {
 
   // Dữ liệu cho SelectList
   const specData = specializations.map((spec: any) => ({
-    key: spec.id,
+    key: spec._id,
     value: spec.name,
   }));
 
   const docData = doctors.map((doc: any) => ({
-    key: doc.id,
+    key: doc._id,
     value: doc.name,
   }));
 
@@ -48,9 +48,9 @@ export default function ScheduleSpecializationComponent(props: any) {
       <View style={styles.fieldContainer}>
         <Text style={styles.label}>Chuyên khoa:</Text>
         <SelectList
-          setSelected={(val: string) => {
+          setSelected={(val: any) => {
             const selectedSpecialization = specializations.find(
-              (spec: any) => spec.id === val
+              (spec: any) => spec._id === val
             );
             onChangeSpecialization(selectedSpecialization || null);
           }}
@@ -59,7 +59,7 @@ export default function ScheduleSpecializationComponent(props: any) {
           boxStyles={styles.value}
           placeholder="Chọn chuyên khoa"
           defaultOption={{
-            key: specialization?.id || "",
+            key: specialization?._id || "",
             value: specialization?.name || "Chưa chọn",
           }}
         />
@@ -70,7 +70,7 @@ export default function ScheduleSpecializationComponent(props: any) {
         <Text style={styles.label}>Bác sĩ:</Text>
         <SelectList
           setSelected={(val: string) => {
-            const selectedDoctor = doctors.find((doc: any) => doc.id === val);
+            const selectedDoctor = doctors.find((doc: any) => doc._id === val);
             onChangeDoctor(selectedDoctor || null);
           }}
           data={docData}
@@ -78,7 +78,7 @@ export default function ScheduleSpecializationComponent(props: any) {
           boxStyles={styles.value}
           placeholder="Chọn bác sĩ"
           defaultOption={{
-            key: doctor?.id || "",
+            key: doctor?._id || "",
             value: doctor?.name || "Chưa chọn",
           }}
         />

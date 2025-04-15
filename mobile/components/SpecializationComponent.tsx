@@ -1,11 +1,21 @@
-import { Image, StyleSheet, Text, View, Dimensions, TouchableOpacity } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import React, { useState } from "react";
 import { Colors } from "@/constants/Colors";
 import { TruncateText } from "@/utils/string.utils";
+import { useRouter } from "expo-router";
 
 const screenWidth = Dimensions.get("window").width;
 
 export default function SpecializationComponent(props: any) {
+  const router = useRouter();
+
   const { data } = props;
   const [containerWidth, setContainerWidth] = useState(0); // Lưu chiều rộng thực tế của container
 
@@ -14,8 +24,17 @@ export default function SpecializationComponent(props: any) {
     setContainerWidth(width);
   };
 
+  const onPressSpec = () => {
+    console.log("Specialization clicked", data);
+    router.push(`/spec-detail?specializationId=${data._id}`);
+  };
+
   return (
-    <TouchableOpacity style={styles.container} onLayout={handleLayout}>
+    <TouchableOpacity
+      style={styles.container}
+      onLayout={handleLayout}
+      onPress={onPressSpec}
+    >
       <View style={[styles.circle, { width: containerWidth }]}></View>
       <Image
         source={{ uri: data.image }}

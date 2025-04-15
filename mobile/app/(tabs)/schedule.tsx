@@ -1,6 +1,6 @@
 import InputComponent from "@/components/InputComponent";
 import { Colors } from "@/constants/Colors";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -43,7 +43,7 @@ const calculateSumFee = (
 ): number => {
   let totalFee = 0;
   selectedSpecs.forEach((spec) => {
-    const basePrice = spec.specialization.base_price;
+    const basePrice = spec.spec.base_price;
     const doctorPosition = spec.doctor.position;
     const appointmentTypeKey = getKeyFromValue(appointmentType);
     if (appointmentTypeKey) {
@@ -93,13 +93,13 @@ export default function ScheduleScreen() {
   const [showDate, setShowDate] = useState(false);
   const [selectedSpecs, setSelectedSpecs] = useState([
     {
-      specialization: {
-        id: specializations[0].id,
+      spec: {
+        _id: specializations[0]._id,
         name: specializations[0].name,
         base_price: specializations[0].base_price,
       },
       doctor: {
-        id: doctors[0].id,
+        _id: doctors[0]._id,
         name: doctors[0].name,
         position: doctors[0].position,
       },
@@ -125,24 +125,17 @@ export default function ScheduleScreen() {
     }
   };
 
-  const onChangeTime = (event: any, selectedTime: Date | undefined) => {
-    setShowTime(false);
-    if (selectedTime) {
-      setTime(selectedTime);
-    }
-  };
-
   const onClickPlusSpecialization = () => {
     setSelectedSpecs([
       ...selectedSpecs,
       {
-        specialization: {
-          id: specializations[0].id,
+        spec: {
+          _id: specializations[0]._id,
           name: specializations[0].name,
           base_price: specializations[0].base_price,
         },
         doctor: {
-          id: doctors[0].id,
+          _id: doctors[0]._id,
           name: doctors[0].name,
           position: doctors[0].position,
         },
@@ -159,7 +152,7 @@ export default function ScheduleScreen() {
   const onClickPayment = () => {
     // Handle payment logic here
     // console.log("Payment clicked");
-    router.push('/booking-success');
+    router.push("/booking-success");
   };
 
   return (
@@ -408,13 +401,13 @@ export default function ScheduleScreen() {
               <ScheduleSpecializationComponent
                 key={index}
                 index={index + 1}
-                specialization={spec.specialization}
+                specialization={spec.spec}
                 doctor={spec.doctor}
                 specializations={specializations}
                 doctors={doctors}
                 onChangeSpecialization={(specialization: any) => {
                   const newSpecs = [...selectedSpecs];
-                  newSpecs[index].specialization = specialization;
+                  newSpecs[index].spec = specialization;
                   setSelectedSpecs(newSpecs);
                 }}
                 onChangeDoctor={(doctor: any) => {
@@ -591,13 +584,11 @@ export default function ScheduleScreen() {
               {selectedSpecs.map((spec, index) => (
                 <View key={index} style={styles.paymentTableContainer}>
                   <Text style={[styles.paymentNumber]}>{index + 1}</Text>
-                  <Text style={[styles.paymentSpec]}>
-                    {spec.specialization.name}
-                  </Text>
+                  <Text style={[styles.paymentSpec]}>{spec.spec.name}</Text>
                   <Text style={[styles.paymentFee]}>
                     {FormatNumberWithDots(
                       calculateFee(
-                        spec.specialization.base_price,
+                        spec.spec.base_price,
                         spec.doctor.position,
                         getKeyFromValue(
                           appointmentType
@@ -868,9 +859,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginTop: 10,
   },
-  footerButtonText : {
+  footerButtonText: {
     fontSize: 16,
     fontWeight: "bold",
     color: Colors.light.main,
-  }
+  },
 });

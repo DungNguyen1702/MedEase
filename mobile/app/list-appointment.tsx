@@ -15,8 +15,11 @@ import InputComponent from "@/components/InputComponent";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import FakeData from "@/data/fake_data.json";
 import ScheduleComponent from "@/components/ScheduleComponent";
+import { useRouter } from "expo-router";
 
 export default function ListAppointment() {
+  const router = useRouter();
+  
   const [appoinmentDetail, setAppointmentDetail] = useState(
     FakeData["appoinment_detail"]
   );
@@ -29,7 +32,7 @@ export default function ListAppointment() {
   const [search, setSearch] = useState("");
 
   const onPressAddAppointment = () => {
-    console.log("Add appointment clicked");
+    router.push("/(tabs)/schedule");
   };
 
   const onChangeDate = (event: any, selectedDate: Date | undefined) => {

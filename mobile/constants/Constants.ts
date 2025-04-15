@@ -37,9 +37,21 @@ export const AppointmentTypeFee = {
 };
 
 export const NotificationTypeEnum = {
-  all : "Tất cả",
-  appointment : 'Lịch hẹn',
-  re_exam : 'Tái khám',
-  question_answered : 'câu hỏi & trả lời',
-  payment : 'Thanh toán',
+  all: "Tất cả",
+  appointment: "Lịch hẹn",
+  re_exam: "Tái khám",
+  question_answered: "câu hỏi & trả lời",
+  payment: "Thanh toán",
+};
+
+export const ExaminationStatusEnum = {
+  examined: "Đã khám",
+  not_examined: "Chưa khám",
+  in_progress: "Đang khám",
+};
+
+export const ExaminationStatusColor = {
+  examined: "#F4CD62",
+  not_examined: "#F46295",
+  in_progress: "#62F48E",
 };

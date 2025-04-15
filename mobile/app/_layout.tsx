@@ -17,7 +17,29 @@ export default function RootLayout() {
           title: "Lịch hẹn",
           headerStyle: styles.headerStyle,
           headerTitleStyle: styles.headerTitleStyle,
-          headerTitleAlign : "center",
+          headerTitleAlign: "center",
+          headerTintColor: Colors.light.main,
+        }}
+      />
+      <Stack.Screen
+        name="spec-detail"
+        options={{
+          headerShown: true,
+          title: "Chi tiết chuyên khoa",
+          headerStyle: styles.headerStyle,
+          headerTitleStyle: styles.headerTitleStyle,
+          headerTitleAlign: "center",
+          headerTintColor: Colors.light.main,
+        }}
+      />
+      <Stack.Screen
+        name="doctor-room"
+        options={{
+          headerShown: true,
+          title: "Phòng khám bác sĩ",
+          headerStyle: styles.headerStyle,
+          headerTitleStyle: styles.headerTitleStyle,
+          headerTitleAlign: "center",
           headerTintColor: Colors.light.main,
         }}
       />

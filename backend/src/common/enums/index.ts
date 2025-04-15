@@ -60,3 +60,9 @@ export enum OrderPaymentMethodEnum {
   CASH = 'cash',
   ZALOPAY = 'zalopay',
 }
+
+export enum ExaminationStatusEnum {
+  EXAMINED = "examined",
+  NOT_EXAMINED = "not_examined",
+  IN_PROGRESS = "in_progress",
+}

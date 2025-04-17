@@ -55,3 +55,9 @@ export const ExaminationStatusColor = {
   not_examined: "#F46295",
   in_progress: "#62F48E",
 };
+
+export const AppointmentStatus = {
+  cancel: "Hủy bỏ",
+  wait: "Đang chờ",
+  done: "Đã hoàn thành",
+};

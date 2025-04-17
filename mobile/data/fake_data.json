@@ -9,7 +9,9 @@
     "gender": "male",
     "date_of_birth": "1990-05-15",
     "tel": "0912345678",
-    "address": "456 Đường Lê Lợi, Quận 3, TP.HCM"
+    "address": "456 Đường Lê Lợi, Quận 3, TP.HCM",
+    "TodayAppointment": 10,
+    "TotalAppointment": 15
   },
   "appoinment_detail": [
     {
@@ -490,6 +492,65 @@
       "createdAt": "2025-03-19",
       "type": "re_exam",
       "idTO": 3
+    }
+  ],
+  "appointments": [
+    {
+      "_id": "40000000-0000-0000-0000-000000000001",
+      "patient_id": "10000000-0000-0000-0000-000000000001",
+      "title": "Khám tổng quát định kỳ",
+      "status": "done",
+      "appointment_date": "2025-03-01",
+      "start_time": "08:00",
+      "symptoms": "Đau đầu, mệt mỏi",
+      "predicted_disease": { "name": "Thiếu máu", "percent": 80 },
+      "number": 1,
+      "paymentMethod": "cash",
+      "reasonCancel": null,
+      "isPaid": true,
+      "price": 500000,
+      "type": "health_checkup",
+      "createdAt": "2025-02-25",
+      "updatedAt": "2025-03-01",
+      "createdBy": "Dung Nguyễn"
+    },
+    {
+      "_id": "40000000-0000-0000-0000-000000000002",
+      "patient_id": "10000000-0000-0000-0000-000000000001",
+      "title": "Khám chuyên sâu về tim mạch",
+      "status": "wait",
+      "appointment_date": "2025-04-10",
+      "start_time": "08:00",
+      "symptoms": "Hụt hơi, đau ngực",
+      "predicted_disease": { "name": "Thiếu máu cơ tim", "percent": 65 },
+      "number": 2,
+      "paymentMethod": "momo",
+      "reasonCancel": null,
+      "isPaid": false,
+      "price": 1000000,
+      "type": "specialist_consultation",
+      "createdAt": "2025-04-01",
+      "updatedAt": "2025-04-01",
+      "createdBy": "Dung Nguyễn"
+    },
+    {
+      "_id": "40000000-0000-0000-0000-000000000003",
+      "patient_id": "10000000-0000-0000-0000-000000000001",
+      "title": "Tái khám sau điều trị",
+      "status": "cancel",
+      "appointment_date": "2025-03-20",
+      "start_time": "08:00",
+      "symptoms": "Theo dõi sau điều trị",
+      "predicted_disease": { "name": "Phục hồi", "percent": 95 },
+      "number": 486,
+      "paymentMethod": "zalopay",
+      "reasonCancel": "Bận công việc đột xuất",
+      "isPaid": false,
+      "price": 250000,
+      "type": "re_examination",
+      "createdAt": "2025-03-15",
+      "updatedAt": "2025-03-19",
+      "createdBy": "Dung Nguyễn"
     }
   ]
 }

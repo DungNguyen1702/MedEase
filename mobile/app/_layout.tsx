@@ -43,6 +43,39 @@ export default function RootLayout() {
           headerTintColor: Colors.light.main,
         }}
       />
+      <Stack.Screen
+        name="account-info-edit"
+        options={{
+          headerShown: true,
+          title: "Chỉnh sửa thông tin",
+          headerStyle: styles.headerStyle,
+          headerTitleStyle: styles.headerTitleStyle,
+          headerTitleAlign: "center",
+          headerTintColor: Colors.light.main,
+        }}
+      />
+      <Stack.Screen
+        name="change-password"
+        options={{
+          headerShown: true,
+          title: "Thay đổi mật khẩu",
+          headerStyle: styles.headerStyle,
+          headerTitleStyle: styles.headerTitleStyle,
+          headerTitleAlign: "center",
+          headerTintColor: Colors.light.main,
+        }}
+      />
+      <Stack.Screen
+        name="appointment-history"
+        options={{
+          headerShown: true,
+          title: "Lịch sử cuộc hẹn",
+          headerStyle: styles.headerStyle,
+          headerTitleStyle: styles.headerTitleStyle,
+          headerTitleAlign: "center",
+          headerTintColor: Colors.light.main,
+        }}
+      />
     </Stack>
   );
 }

@@ -53,9 +53,9 @@ export default function SpecDetail() {
 
       {/* body */}
       <View style={styles.body}>
-        {doctors.map((doctor: any) => (
-          <View key={doctor.id} style={styles.bodyItemContainer}>
-            <DoctorSpecComponent key={doctor.id} doctor={doctor} />
+        {doctors.map((doctor: any, index: number) => (
+          <View key={doctor._id || index} style={styles.bodyItemContainer}>
+            <DoctorSpecComponent doctor={doctor} />
           </View>
         ))}
       </View>

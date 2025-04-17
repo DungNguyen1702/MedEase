@@ -23,12 +23,14 @@ export default function NotificationPage() {
   const [filterNotis, setFilterNotis] = useState(notifications);
 
   const onSelectNotiType = (type: string) => {
-    console.log(type)
+    console.log(type);
     setSelectedNotification(type);
     if (type === NotificationTypeEnum.all) {
       setFilterNotis(notifications);
     } else {
-      const filteredNotis = notifications.filter((noti) => noti.type === getKeyFromValue(NotificationTypeEnum, type));
+      const filteredNotis = notifications.filter(
+        (noti) => noti.type === getKeyFromValue(NotificationTypeEnum, type)
+      );
       setFilterNotis(filteredNotis);
     }
   };
@@ -45,7 +47,10 @@ export default function NotificationPage() {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={{ paddingBottom: 90 }}
+    >
       <StatusBar
         backgroundColor={Colors.primary.main}
         barStyle="light-content"
@@ -128,7 +133,7 @@ const styles = StyleSheet.create({
   selectedText: {
     color: Colors.light.main,
   },
-  body : {
+  body: {
     paddingVertical: 20,
-  }
+  },
 });

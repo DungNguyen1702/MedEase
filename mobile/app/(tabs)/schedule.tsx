@@ -164,7 +164,10 @@ export default function ScheduleScreen() {
         backgroundColor: Colors.light.main,
       }}
     >
-      <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
+      <ScrollView
+        style={styles.container}
+        keyboardShouldPersistTaps="handled"
+      >
         <StatusBar
           backgroundColor={Colors.light.main}
           barStyle="dark-content"

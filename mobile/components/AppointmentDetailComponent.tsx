@@ -9,11 +9,18 @@ import {
 import React from "react";
 import { Colors } from "@/constants/Colors";
 import { TruncateText } from "@/utils/string.utils";
+import { useRouter } from "expo-router";
 
 export default function AppointmentDetailComponent(props: any) {
+  const router = useRouter();
   const { appointmentDetail } = props;
   const onPressAppointmentDetail = () => {
-    // Handle appointment detail press here
+    router.push({
+      pathname: "/doctor-room",
+      params: {
+        doctorId: appointmentDetail?.doctor?._id,
+      },
+    });
   };
   return (
     <TouchableOpacity
@@ -61,6 +68,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.primary.main,
     paddingLeft: 30,
     marginVertical: 10,
+    overflow: "hidden",
   },
   doctorImage: {
     width: 100,

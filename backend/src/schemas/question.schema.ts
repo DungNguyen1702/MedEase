@@ -8,11 +8,11 @@ export class Question {
   @Prop({ type: String, required: true, default: uuidv4 })
   _id: string;
 
-  @Prop({ required: true, ref: 'Account' })
-  patient_id: string;
-
   @Prop()
   content: string;
+
+  @Prop({ required: true })
+  accountId: string;
 
   createdAt?: Date;
   updatedAt?: Date;

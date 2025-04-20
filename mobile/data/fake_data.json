@@ -502,8 +502,12 @@
       "status": "done",
       "appointment_date": "2025-03-01",
       "start_time": "08:00",
-      "symptoms": "Đau đầu, mệt mỏi",
-      "predicted_disease": { "name": "Thiếu máu", "percent": 80 },
+      "symptoms": "Đau đầu, mệt mỏi, Đau đầu, mệt mỏi, Đau đầu, mệt mỏi, Đau đầu, mệt mỏi, Đau đầu, mệt mỏi, Đau đầu, mệt mỏi",
+      "predicted_disease": [
+        { "name": "Thiếu máu", "probability": 80 },
+        { "name": "Thiếu máu", "probability": 80 },
+        { "name": "Thiếu máu", "probability": 80 }
+      ],
       "number": 1,
       "paymentMethod": "cash",
       "reasonCancel": null,
@@ -512,7 +516,225 @@
       "type": "health_checkup",
       "createdAt": "2025-02-25",
       "updatedAt": "2025-03-01",
-      "createdBy": "Dung Nguyễn"
+      "createdBy": "Dung Nguyễn",
+      "appointment_detail": [
+        {
+          "_id": "40000000-0000-0000-0000-000000000004",
+          "appointment_id": "40000000-0000-0000-0000-000000000001",
+          "specialization_id": "30000000-0000-0000-0000-000000000001",
+          "specialization": {
+            "_id": "30000000-0000-0000-0000-000000000001",
+            "name": "Khoa Cấp cứu",
+            "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743520993/MedEase/specialization/capcuu_alexzm.jpg",
+            "description": "Tiếp nhận và xử lý các trường hợp khẩn cấp, tai nạn, chấn thương.",
+            "base_price": 300000
+          },
+          "time": "09:00",
+          "examStatus": "not_examined",
+          "doctor_id": "20000000-0000-0000-0000-000000000001",
+          "doctor": {
+            "_id": "20000000-0000-0000-0000-000000000001",
+            "email": "doctor1@medease.com",
+            "password": "12345678",
+            "name": "GS.TS. Nguyễn Văn Đạt",
+            "role": "doctor",
+            "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+            "gender": "male",
+            "date_of_birth": "1970-04-12",
+            "position": "general_doctor",
+            "tel": "0911222333",
+            "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM",
+            "room": "Phòng 101 - Khoa Nội tổng quát"
+          },
+          "address": "Phòng 101 - Khoa Nội tổng quát",
+          "price": 500000,
+          "description": "Khám tổng quát đầu năm"
+        },
+        {
+          "_id": "40000000-0000-0000-0000-000000000005",
+          "appointment_id": "40000000-0000-0000-0000-000000000002",
+          "specialization_id": "30000000-0000-0000-0000-000000000002",
+          "specialization": {
+            "_id": "30000000-0000-0000-0000-000000000001",
+            "name": "Khoa Cấp cứu",
+            "image": "https://res.cloudinary.com/deei5izfg/image/upload/v1743520993/MedEase/specialization/capcuu_alexzm.jpg",
+            "description": "Tiếp nhận và xử lý các trường hợp khẩn cấp, tai nạn, chấn thương.",
+            "base_price": 300000
+          },
+          "time": "10:30",
+          "examStatus": "in_progress",
+          "doctor_id": "20000000-0000-0000-0000-000000000002",
+          "doctor": {
+            "_id": "20000000-0000-0000-0000-000000000001",
+            "email": "doctor1@medease.com",
+            "password": "12345678",
+            "name": "GS.TS. Nguyễn Văn Đạt",
+            "role": "doctor",
+            "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+            "gender": "male",
+            "date_of_birth": "1970-04-12",
+            "position": "general_doctor",
+            "tel": "0911222333",
+            "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM",
+            "room": "Phòng 101 - Khoa Nội tổng quát"
+          },
+          "address": "Phòng 202 - Khoa Tim mạch",
+          "price": 1000000,
+          "description": "Khám chuyên sâu tim mạch"
+        }
+      ],
+      "medical_record": [
+        {
+          "_id": "50000000-0000-0000-0000-000000000001",
+          "patient_id": "10000000-0000-0000-0000-000000000001",
+          "doctor_id": "20000000-0000-0000-0000-000000000001",
+          "doctor": {
+            "_id": "20000000-0000-0000-0000-000000000001",
+            "email": "doctor1@medease.com",
+            "password": "12345678",
+            "name": "GS.TS. Nguyễn Văn Đạt",
+            "role": "doctor",
+            "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+            "gender": "male",
+            "date_of_birth": "1970-04-12",
+            "tel": "0911222333",
+            "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM"
+          },
+          "symptoms": "Sốt cao, ho, đau họng",
+          "diagnosis": "Cảm cúm",
+          "prescription": [
+            {
+              "medicine": "paracetamol",
+              "dosage": "500mg",
+              "frequency": "2 viên/ngày",
+              "duration": "5 ngày"
+            },
+            {
+              "medicine": "nước muối sinh lý",
+              "dosage": "10ml",
+              "frequency": "2 lần/ngày",
+              "duration": "5 ngày"
+            }
+          ],
+          "note": "Bệnh nhân cần nghỉ ngơi nhiều, bổ sung nước và vitamin C.",
+          "appointment_id": "40000000-0000-0000-0000-000000000001",
+          "appointment": {
+            "_id": "40000000-0000-0000-0000-000000000001",
+            "patient_id": "10000000-0000-0000-0000-000000000001",
+            "title": "Khám tổng quát định kỳ",
+            "status": "done",
+            "appointment_date": "2025-03-01",
+            "start_time": "08:00",
+            "symptoms": "Đau đầu, mệt mỏi",
+            "predicted_disease": { "name": "Thiếu máu", "percent": 80 },
+            "number": 1,
+            "paymentMethod": "cash",
+            "reasonCancel": null,
+            "isPaid": true,
+            "price": 500000,
+            "type": "health_checkup",
+            "createdAt": "2025-02-25",
+            "updatedAt": "2025-03-01",
+            "createdBy": "Dung Nguyễn",
+            "re-exam": [
+              {
+                "_id": "40000000-0000-0000-0000-000000000007",
+                "medical_record_id": "40000000-0000-0000-0000-000000000006",
+                "re_exam_date": "2025-03-20",
+                "doctor_id": 1,
+                "doctor": {
+                  "_id": "20000000-0000-0000-0000-000000000001",
+                  "email": "doctor1@medease.com",
+                  "password": "12345678",
+                  "name": "GS.TS. Nguyễn Văn Đạt",
+                  "role": "doctor",
+                  "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+                  "gender": "male",
+                  "date_of_birth": "1970-04-12",
+                  "tel": "0911222333",
+                  "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM"
+                },
+                "parent_appointment_id": "40000000-0000-0000-0000-000000000003",
+                "appointment_id": "40000000-0000-0000-0000-000000000003",
+                "price": 250000,
+                "isPaid": false,
+                "note": "Hẹn tái khám để đánh giá hiệu quả điều trị",
+                "createdAt": "2025-03-01"
+              },
+              {
+                "_id": "40000000-0000-0000-0000-000000000007",
+                "medical_record_id": "40000000-0000-0000-0000-000000000006",
+                "re_exam_date": "2025-03-20",
+                "doctor_id": 1,
+                "doctor": {
+                  "_id": "20000000-0000-0000-0000-000000000001",
+                  "email": "doctor1@medease.com",
+                  "password": "12345678",
+                  "name": "GS.TS. Nguyễn Văn Đạt",
+                  "role": "doctor",
+                  "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+                  "gender": "male",
+                  "date_of_birth": "1970-04-12",
+                  "tel": "0911222333",
+                  "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM"
+                },
+                "parent_appointment_id": "40000000-0000-0000-0000-000000000003",
+                "appointment_id": null,
+                "price": 250000,
+                "isPaid": false,
+                "note": "Hẹn tái khám để đánh giá hiệu quả điều trị",
+                "createdAt": "2025-03-01"
+              }
+            ]
+          },
+          "createdAt": "2025-03-19",
+          "updatedAt": "2025-03-19"
+        },
+        {
+          "_id": "50000000-0000-0000-0000-000000000002",
+          "patient_id": "10000000-0000-0000-0000-000000000001",
+          "doctor_id": "20000000-0000-0000-0000-000000000001",
+          "symptoms": "Đau đầu, chóng mặt",
+          "diagnosis": "Thiếu máu nhẹ",
+          "prescription": [
+            {
+              "name": "sắt hữu cơ",
+              "dosage": "100mg",
+              "frequency": "1 viên/ngày",
+              "duration": "30 ngày"
+            }
+          ],
+          "note": "Theo dõi huyết áp, bổ sung thực phẩm giàu sắt.",
+          "appointment_id": "40000000-0000-0000-0000-000000000001",
+          "createdAt": "2025-03-19",
+          "updatedAt": "2025-03-19"
+        },
+        {
+          "_id": "50000000-0000-0000-0000-000000000003",
+          "patient_id": "10000000-0000-0000-0000-000000000001",
+          "doctor_id": "20000000-0000-0000-0000-000000000001",
+          "symptoms": "Đau bụng, buồn nôn",
+          "diagnosis": "Viêm dạ dày",
+          "prescription": [
+            {
+              "name": "omeprazol",
+              "dosage": "20mg",
+              "frequency": "1 viên trước ăn sáng",
+              "duration": "14 ngày"
+            },
+            {
+              "name": "smecta",
+              "dosage": "1 gói",
+              "frequency": "2 lần/ngày",
+              "duration": "5 ngày"
+            }
+          ],
+          "note": "Tránh thức ăn cay, nóng, không uống rượu bia.",
+          "appointment_id": "40000000-0000-0000-0000-000000000001",
+          "createdAt": "2025-03-19",
+          "updatedAt": "2025-03-19"
+        }
+      ]
     },
     {
       "_id": "40000000-0000-0000-0000-000000000002",
@@ -551,6 +773,559 @@
       "createdAt": "2025-03-15",
       "updatedAt": "2025-03-19",
       "createdBy": "Dung Nguyễn"
+    },
+    {
+      "_id": "40000000-0000-0000-0000-000000000003",
+      "patient_id": "10000000-0000-0000-0000-000000000001",
+      "title": "Tái khám sau điều trị",
+      "status": "cancel",
+      "appointment_date": "2025-03-20",
+      "start_time": "08:00",
+      "symptoms": "Theo dõi sau điều trị",
+      "predicted_disease": { "name": "Phục hồi", "percent": 95 },
+      "number": 486,
+      "paymentMethod": "zalopay",
+      "reasonCancel": "Bận công việc đột xuất",
+      "isPaid": false,
+      "price": 250000,
+      "type": "re_examination",
+      "createdAt": "2025-03-15",
+      "updatedAt": "2025-03-19",
+      "createdBy": "Dung Nguyễn"
+    },
+    {
+      "_id": "40000000-0000-0000-0000-000000000003",
+      "patient_id": "10000000-0000-0000-0000-000000000001",
+      "title": "Tái khám sau điều trị",
+      "status": "cancel",
+      "appointment_date": "2025-03-20",
+      "start_time": "08:00",
+      "symptoms": "Theo dõi sau điều trị",
+      "predicted_disease": { "name": "Phục hồi", "percent": 95 },
+      "number": 486,
+      "paymentMethod": "zalopay",
+      "reasonCancel": "Bận công việc đột xuất",
+      "isPaid": false,
+      "price": 250000,
+      "type": "re_examination",
+      "createdAt": "2025-03-15",
+      "updatedAt": "2025-03-19",
+      "createdBy": "Dung Nguyễn"
+    },
+    {
+      "_id": "40000000-0000-0000-0000-000000000003",
+      "patient_id": "10000000-0000-0000-0000-000000000001",
+      "title": "Tái khám sau điều trị",
+      "status": "cancel",
+      "appointment_date": "2025-03-20",
+      "start_time": "08:00",
+      "symptoms": "Theo dõi sau điều trị",
+      "predicted_disease": { "name": "Phục hồi", "percent": 95 },
+      "number": 486,
+      "paymentMethod": "zalopay",
+      "reasonCancel": "Bận công việc đột xuất",
+      "isPaid": false,
+      "price": 250000,
+      "type": "re_examination",
+      "createdAt": "2025-03-15",
+      "updatedAt": "2025-03-19",
+      "createdBy": "Dung Nguyễn"
+    },
+    {
+      "_id": "40000000-0000-0000-0000-000000000003",
+      "patient_id": "10000000-0000-0000-0000-000000000001",
+      "title": "Tái khám sau điều trị",
+      "status": "cancel",
+      "appointment_date": "2025-03-20",
+      "start_time": "08:00",
+      "symptoms": "Theo dõi sau điều trị",
+      "predicted_disease": { "name": "Phục hồi", "percent": 95 },
+      "number": 486,
+      "paymentMethod": "zalopay",
+      "reasonCancel": "Bận công việc đột xuất",
+      "isPaid": false,
+      "price": 250000,
+      "type": "re_examination",
+      "createdAt": "2025-03-15",
+      "updatedAt": "2025-03-19",
+      "createdBy": "Dung Nguyễn"
+    }
+  ],
+  "medical_records": [
+    {
+      "_id": "50000000-0000-0000-0000-000000000001",
+      "patient_id": "10000000-0000-0000-0000-000000000001",
+      "doctor_id": "20000000-0000-0000-0000-000000000001",
+      "doctor": {
+        "_id": "20000000-0000-0000-0000-000000000001",
+        "email": "doctor1@medease.com",
+        "password": "12345678",
+        "name": "GS.TS. Nguyễn Văn Đạt",
+        "role": "doctor",
+        "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+        "gender": "male",
+        "date_of_birth": "1970-04-12",
+        "tel": "0911222333",
+        "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM"
+      },
+      "symptoms": "Sốt cao, ho, đau họng",
+      "diagnosis": "Cảm cúm",
+      "prescription": [
+        {
+          "medicine": "paracetamol",
+          "dosage": "500mg",
+          "frequency": "2 viên/ngày",
+          "duration": "5 ngày"
+        },
+        {
+          "medicine": "nước muối sinh lý",
+          "dosage": "10ml",
+          "frequency": "2 lần/ngày",
+          "duration": "5 ngày"
+        }
+      ],
+      "note": "Bệnh nhân cần nghỉ ngơi nhiều, bổ sung nước và vitamin C.",
+      "appointment_id": "40000000-0000-0000-0000-000000000001",
+      "appointment": {
+        "_id": "40000000-0000-0000-0000-000000000001",
+        "patient_id": "10000000-0000-0000-0000-000000000001",
+        "title": "Khám tổng quát định kỳ",
+        "status": "done",
+        "appointment_date": "2025-03-01",
+        "start_time": "08:00",
+        "symptoms": "Đau đầu, mệt mỏi",
+        "predicted_disease": { "name": "Thiếu máu", "percent": 80 },
+        "number": 1,
+        "paymentMethod": "cash",
+        "reasonCancel": null,
+        "isPaid": true,
+        "price": 500000,
+        "type": "health_checkup",
+        "createdAt": "2025-02-25",
+        "updatedAt": "2025-03-01",
+        "createdBy": "Dung Nguyễn",
+        "re-exam": [
+          {
+            "_id": "40000000-0000-0000-0000-000000000007",
+            "medical_record_id": "40000000-0000-0000-0000-000000000006",
+            "re_exam_date": "2025-03-20",
+            "doctor_id": 1,
+            "doctor": {
+              "_id": "20000000-0000-0000-0000-000000000001",
+              "email": "doctor1@medease.com",
+              "password": "12345678",
+              "name": "GS.TS. Nguyễn Văn Đạt",
+              "role": "doctor",
+              "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+              "gender": "male",
+              "date_of_birth": "1970-04-12",
+              "tel": "0911222333",
+              "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM"
+            },
+            "parent_appointment_id": "40000000-0000-0000-0000-000000000003",
+            "appointment_id": "40000000-0000-0000-0000-000000000003",
+            "price": 250000,
+            "isPaid": false,
+            "note": "Hẹn tái khám để đánh giá hiệu quả điều trị",
+            "createdAt": "2025-03-01"
+          },
+          {
+            "_id": "40000000-0000-0000-0000-000000000007",
+            "medical_record_id": "40000000-0000-0000-0000-000000000006",
+            "re_exam_date": "2025-03-20",
+            "doctor_id": 1,
+            "doctor": {
+              "_id": "20000000-0000-0000-0000-000000000001",
+              "email": "doctor1@medease.com",
+              "password": "12345678",
+              "name": "GS.TS. Nguyễn Văn Đạt",
+              "role": "doctor",
+              "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+              "gender": "male",
+              "date_of_birth": "1970-04-12",
+              "tel": "0911222333",
+              "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM"
+            },
+            "parent_appointment_id": "40000000-0000-0000-0000-000000000003",
+            "appointment_id": null,
+            "price": 250000,
+            "isPaid": false,
+            "note": "Hẹn tái khám để đánh giá hiệu quả điều trị",
+            "createdAt": "2025-03-01"
+          }
+        ]
+      },
+      "createdAt": "2025-03-19",
+      "updatedAt": "2025-03-19"
+    },
+    {
+      "_id": "50000000-0000-0000-0000-000000000002",
+      "patient_id": "10000000-0000-0000-0000-000000000001",
+      "doctor_id": "20000000-0000-0000-0000-000000000001",
+      "symptoms": "Đau đầu, chóng mặt",
+      "diagnosis": "Thiếu máu nhẹ",
+      "prescription": [
+        {
+          "name": "sắt hữu cơ",
+          "dosage": "100mg",
+          "frequency": "1 viên/ngày",
+          "duration": "30 ngày"
+        }
+      ],
+      "note": "Theo dõi huyết áp, bổ sung thực phẩm giàu sắt.",
+      "appointment_id": "40000000-0000-0000-0000-000000000001",
+      "createdAt": "2025-03-19",
+      "updatedAt": "2025-03-19"
+    },
+    {
+      "_id": "50000000-0000-0000-0000-000000000003",
+      "patient_id": "10000000-0000-0000-0000-000000000001",
+      "doctor_id": "20000000-0000-0000-0000-000000000001",
+      "symptoms": "Đau bụng, buồn nôn",
+      "diagnosis": "Viêm dạ dày",
+      "prescription": [
+        {
+          "name": "omeprazol",
+          "dosage": "20mg",
+          "frequency": "1 viên trước ăn sáng",
+          "duration": "14 ngày"
+        },
+        {
+          "name": "smecta",
+          "dosage": "1 gói",
+          "frequency": "2 lần/ngày",
+          "duration": "5 ngày"
+        }
+      ],
+      "note": "Tránh thức ăn cay, nóng, không uống rượu bia.",
+      "appointment_id": "40000000-0000-0000-0000-000000000001",
+      "createdAt": "2025-03-19",
+      "updatedAt": "2025-03-19"
+    }
+  ],
+  "questions": [
+    {
+      "_id": "60000000-0000-0000-0000-000000000001",
+      "content": "Tôi cần nhịn ăn bao lâu trước khi nội soi dạ dày?",
+      "createdAt": "2025-01-01T08:00:00Z",
+      "account_id": "10000000-0000-0000-0000-000000000001",
+      "answer": [
+        {
+          "_id": "60000000-0000-0000-0000-000000000101",
+          "question_id": "60000000-0000-0000-0000-000000000001",
+          "answer": "Trước khi nội soi dạ dày, bạn cần nhịn ăn ít nhất 6–8 tiếng để đảm bảo an toàn và kết quả chính xác.",
+          "createdAt": "2025-01-01T09:00:00Z",
+          "account_id": "20000000-0000-0000-0000-000000000001",
+          "account": {
+            "_id": "20000000-0000-0000-0000-000000000001",
+            "email": "doctor1@medease.com",
+            "password": "12345678",
+            "name": "GS.TS. Nguyễn Văn Đạt",
+            "role": "doctor",
+            "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+            "gender": "male",
+            "date_of_birth": "1970-04-12",
+            "tel": "0911222333",
+            "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM"
+          },
+          "updatedAt": "2025-01-01T09:00:00Z"
+        },
+        {
+          "_id": "60000000-0000-0000-0000-000000000102",
+          "question_id": "60000000-0000-0000-0000-000000000002",
+          "answer": "Bệnh viện làm việc từ 7h00 đến 17h00 từ thứ 2 đến thứ 6, và từ 7h00 đến 11h30 vào thứ 7.",
+          "createdAt": "2025-01-01T09:01:00Z",
+          "account_id": "robot",
+          "account": {
+            "_id": "20000000-0000-0000-0000-000000000001",
+            "email": "doctor1@medease.com",
+            "password": "12345678",
+            "name": "ChatBox",
+            "role": "doctor",
+            "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1745127486/MedEase/Avatar/chat-box-avatar_anp2ee.png",
+            "gender": "male",
+            "date_of_birth": "1970-04-12",
+            "tel": "0911222333",
+            "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM"
+          },
+          "updatedAt": "2025-01-01T09:01:00Z"
+        },
+        {
+          "_id": "60000000-0000-0000-0000-000000000103",
+          "question_id": "60000000-0000-0000-0000-000000000003",
+          "answer": "Bạn hoàn toàn có thể đặt lịch khám trực tuyến qua website hoặc ứng dụng của bệnh viện.",
+          "createdAt": "2025-01-01T09:02:00Z",
+          "account_id": "robot",
+          "account": {
+            "_id": "20000000-0000-0000-0000-000000000001",
+            "email": "doctor1@medease.com",
+            "password": "12345678",
+            "name": "ChatBox",
+            "role": "doctor",
+            "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1745127486/MedEase/Avatar/chat-box-avatar_anp2ee.png",
+            "gender": "male",
+            "date_of_birth": "1970-04-12",
+            "tel": "0911222333",
+            "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM"
+          },
+          "updatedAt": "2025-01-01T09:02:00Z"
+        },
+        {
+          "_id": "60000000-0000-0000-0000-000000000104",
+          "question_id": "60000000-0000-0000-0000-000000000004",
+          "answer": "Sốt nhẹ sau tiêm là phản ứng bình thường. Bạn nên nghỉ ngơi, uống nhiều nước và theo dõi nếu sốt kéo dài quá 48h.",
+          "createdAt": "2025-01-01T09:03:00Z",
+          "account_id": "20000000-0000-0000-0000-000000000001",
+          "account": {
+            "_id": "20000000-0000-0000-0000-000000000001",
+            "email": "doctor1@medease.com",
+            "password": "12345678",
+            "name": "GS.TS. Nguyễn Văn Đạt",
+            "role": "doctor",
+            "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+            "gender": "male",
+            "date_of_birth": "1970-04-12",
+            "tel": "0911222333",
+            "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM"
+          },
+          "updatedAt": "2025-01-01T09:03:00Z"
+        }
+      ],
+      "account": {
+        "_id": "10000000-0000-0000-0000-000000000001",
+        "email": "patient1@medease.com",
+        "password": "12345678",
+        "name": "Nguyễn Văn Khang",
+        "role": "patient",
+        "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519582/MedEase/Avatar/avatar-patient_epvgvs.jpg",
+        "gender": "male",
+        "date_of_birth": "1990-05-15",
+        "tel": "0912345678",
+        "address": "456 Đường Lê Lợi, Quận 3, TP.HCM"
+      },
+      "updatedAt": "2025-01-01T08:00:00Z"
+    },
+    {
+      "_id": "60000000-0000-0000-0000-000000000002",
+      "content": "Giờ làm việc của bệnh viện là từ mấy giờ đến mấy giờ?",
+      "createdAt": "2025-01-01T08:01:00Z",
+      "account_id": "10000000-0000-0000-0000-000000000001",
+      "account": {
+        "_id": "10000000-0000-0000-0000-000000000001",
+        "email": "patient1@medease.com",
+        "password": "12345678",
+        "name": "Nguyễn Văn Khang",
+        "role": "patient",
+        "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519582/MedEase/Avatar/avatar-patient_epvgvs.jpg",
+        "gender": "male",
+        "date_of_birth": "1990-05-15",
+        "tel": "0912345678",
+        "address": "456 Đường Lê Lợi, Quận 3, TP.HCM"
+      },
+      "answer": [
+        {
+          "_id": "60000000-0000-0000-0000-000000000101",
+          "question_id": "60000000-0000-0000-0000-000000000001",
+          "answer": "Trước khi nội soi dạ dày, bạn cần nhịn ăn ít nhất 6–8 tiếng để đảm bảo an toàn và kết quả chính xác.",
+          "createdAt": "2025-01-01T09:00:00Z",
+          "account_id": "20000000-0000-0000-0000-000000000001",
+          "account": {
+            "_id": "20000000-0000-0000-0000-000000000001",
+            "email": "doctor1@medease.com",
+            "password": "12345678",
+            "name": "GS.TS. Nguyễn Văn Đạt",
+            "role": "doctor",
+            "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+            "gender": "male",
+            "date_of_birth": "1970-04-12",
+            "tel": "0911222333",
+            "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM"
+          },
+          "updatedAt": "2025-01-01T09:00:00Z"
+        },
+        {
+          "_id": "60000000-0000-0000-0000-000000000102",
+          "question_id": "60000000-0000-0000-0000-000000000002",
+          "answer": "Bệnh viện làm việc từ 7h00 đến 17h00 từ thứ 2 đến thứ 6, và từ 7h00 đến 11h30 vào thứ 7.",
+          "createdAt": "2025-01-01T09:01:00Z",
+          "account_id": "robot",
+          "account": {
+            "_id": "20000000-0000-0000-0000-000000000001",
+            "email": "doctor1@medease.com",
+            "password": "12345678",
+            "name": "ChatBox",
+            "role": "doctor",
+            "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1745127486/MedEase/Avatar/chat-box-avatar_anp2ee.png",
+            "gender": "male",
+            "date_of_birth": "1970-04-12",
+            "tel": "0911222333",
+            "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM"
+          },
+          "updatedAt": "2025-01-01T09:01:00Z"
+        },
+        {
+          "_id": "60000000-0000-0000-0000-000000000103",
+          "question_id": "60000000-0000-0000-0000-000000000003",
+          "answer": "Bạn hoàn toàn có thể đặt lịch khám trực tuyến qua website hoặc ứng dụng của bệnh viện.",
+          "createdAt": "2025-01-01T09:02:00Z",
+          "account_id": "robot",
+          "account": {
+            "_id": "20000000-0000-0000-0000-000000000001",
+            "email": "doctor1@medease.com",
+            "password": "12345678",
+            "name": "ChatBox",
+            "role": "doctor",
+            "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1745127486/MedEase/Avatar/chat-box-avatar_anp2ee.png",
+            "gender": "male",
+            "date_of_birth": "1970-04-12",
+            "tel": "0911222333",
+            "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM"
+          },
+          "updatedAt": "2025-01-01T09:02:00Z"
+        },
+        {
+          "_id": "60000000-0000-0000-0000-000000000104",
+          "question_id": "60000000-0000-0000-0000-000000000004",
+          "answer": "Sốt nhẹ sau tiêm là phản ứng bình thường. Bạn nên nghỉ ngơi, uống nhiều nước và theo dõi nếu sốt kéo dài quá 48h.",
+          "createdAt": "2025-01-01T09:03:00Z",
+          "account_id": "20000000-0000-0000-0000-000000000001",
+          "account": {
+            "_id": "20000000-0000-0000-0000-000000000001",
+            "email": "doctor1@medease.com",
+            "password": "12345678",
+            "name": "GS.TS. Nguyễn Văn Đạt",
+            "role": "doctor",
+            "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+            "gender": "male",
+            "date_of_birth": "1970-04-12",
+            "tel": "0911222333",
+            "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM"
+          },
+          "updatedAt": "2025-01-01T09:03:00Z"
+        }
+      ],
+      "updatedAt": "2025-01-01T08:01:00Z"
+    },
+    {
+      "_id": "60000000-0000-0000-0000-000000000003",
+      "content": "Tôi có thể đặt lịch khám trực tuyến không?",
+      "createdAt": "2025-01-01T08:02:00Z",
+      "account_id": "10000000-0000-0000-0000-000000000001",
+      "account": {
+        "_id": "10000000-0000-0000-0000-000000000001",
+        "email": "patient1@medease.com",
+        "password": "12345678",
+        "name": "Nguyễn Văn Khang",
+        "role": "patient",
+        "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519582/MedEase/Avatar/avatar-patient_epvgvs.jpg",
+        "gender": "male",
+        "date_of_birth": "1990-05-15",
+        "tel": "0912345678",
+        "address": "456 Đường Lê Lợi, Quận 3, TP.HCM"
+      },
+      "answer": [
+        {
+          "_id": "60000000-0000-0000-0000-000000000101",
+          "question_id": "60000000-0000-0000-0000-000000000001",
+          "answer": "Trước khi nội soi dạ dày, bạn cần nhịn ăn ít nhất 6–8 tiếng để đảm bảo an toàn và kết quả chính xác.",
+          "createdAt": "2025-01-01T09:00:00Z",
+          "account_id": "20000000-0000-0000-0000-000000000001",
+          "account": {
+            "_id": "20000000-0000-0000-0000-000000000001",
+            "email": "doctor1@medease.com",
+            "password": "12345678",
+            "name": "GS.TS. Nguyễn Văn Đạt",
+            "role": "doctor",
+            "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+            "gender": "male",
+            "date_of_birth": "1970-04-12",
+            "tel": "0911222333",
+            "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM"
+          },
+          "updatedAt": "2025-01-01T09:00:00Z"
+        },
+        {
+          "_id": "60000000-0000-0000-0000-000000000102",
+          "question_id": "60000000-0000-0000-0000-000000000002",
+          "answer": "Bệnh viện làm việc từ 7h00 đến 17h00 từ thứ 2 đến thứ 6, và từ 7h00 đến 11h30 vào thứ 7.",
+          "createdAt": "2025-01-01T09:01:00Z",
+          "account_id": "robot",
+          "account": {
+            "_id": "20000000-0000-0000-0000-000000000001",
+            "email": "doctor1@medease.com",
+            "password": "12345678",
+            "name": "ChatBox",
+            "role": "doctor",
+            "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1745127486/MedEase/Avatar/chat-box-avatar_anp2ee.png",
+            "gender": "male",
+            "date_of_birth": "1970-04-12",
+            "tel": "0911222333",
+            "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM"
+          },
+          "updatedAt": "2025-01-01T09:01:00Z"
+        },
+        {
+          "_id": "60000000-0000-0000-0000-000000000103",
+          "question_id": "60000000-0000-0000-0000-000000000003",
+          "answer": "Bạn hoàn toàn có thể đặt lịch khám trực tuyến qua website hoặc ứng dụng của bệnh viện.",
+          "createdAt": "2025-01-01T09:02:00Z",
+          "account_id": "robot",
+          "account": {
+            "_id": "20000000-0000-0000-0000-000000000001",
+            "email": "doctor1@medease.com",
+            "password": "12345678",
+            "name": "ChatBox",
+            "role": "doctor",
+            "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1745127486/MedEase/Avatar/chat-box-avatar_anp2ee.png",
+            "gender": "male",
+            "date_of_birth": "1970-04-12",
+            "tel": "0911222333",
+            "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM"
+          },
+          "updatedAt": "2025-01-01T09:02:00Z"
+        },
+        {
+          "_id": "60000000-0000-0000-0000-000000000104",
+          "question_id": "60000000-0000-0000-0000-000000000004",
+          "answer": "Sốt nhẹ sau tiêm là phản ứng bình thường. Bạn nên nghỉ ngơi, uống nhiều nước và theo dõi nếu sốt kéo dài quá 48h.",
+          "createdAt": "2025-01-01T09:03:00Z",
+          "account_id": "20000000-0000-0000-0000-000000000001",
+          "account": {
+            "_id": "20000000-0000-0000-0000-000000000001",
+            "email": "doctor1@medease.com",
+            "password": "12345678",
+            "name": "GS.TS. Nguyễn Văn Đạt",
+            "role": "doctor",
+            "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+            "gender": "male",
+            "date_of_birth": "1970-04-12",
+            "tel": "0911222333",
+            "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM"
+          },
+          "updatedAt": "2025-01-01T09:03:00Z"
+        }
+      ],
+      "updatedAt": "2025-01-01T08:02:00Z"
+    },
+    {
+      "_id": "60000000-0000-0000-0000-000000000004",
+      "content": "Sau khi tiêm vaccine, tôi bị sốt nhẹ thì có sao không?",
+      "createdAt": "2025-01-01T08:03:00Z",
+      "account_id": "10000000-0000-0000-0000-000000000001",
+      "answer": [],
+      "account": {
+        "_id": "10000000-0000-0000-0000-000000000001",
+        "email": "patient1@medease.com",
+        "password": "12345678",
+        "name": "Nguyễn Văn Khang",
+        "role": "patient",
+        "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519582/MedEase/Avatar/avatar-patient_epvgvs.jpg",
+        "gender": "male",
+        "date_of_birth": "1990-05-15",
+        "tel": "0912345678",
+        "address": "456 Đường Lê Lợi, Quận 3, TP.HCM"
+      },
+      "updatedAt": "2025-01-01T08:03:00Z"
     }
   ]
 }

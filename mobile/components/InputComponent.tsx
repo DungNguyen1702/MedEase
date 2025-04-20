@@ -10,6 +10,7 @@ export default function InputComponent(props: any) {
     style = {},
     numberOfLines = 1,
     multiline = false,
+    editable = true,
   } = props;
 
   const [inputHeight, setInputHeight] = useState(40);
@@ -32,6 +33,7 @@ export default function InputComponent(props: any) {
       ]}
       multiline={multiline}
       numberOfLines={numberOfLines}
+      editable={editable}
     />
   );
 }

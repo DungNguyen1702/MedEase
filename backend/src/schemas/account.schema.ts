@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { AccountRoleEnum, AccountGenderEnum } from '../common/enums';
 import { v4 as uuidv4 } from 'uuid';
-import { DEFAULT_AVA } from '../common/constants';
+import { DEFAULT_AVA_PATIENT } from '../common/constants';
 export type AccountDocument = HydratedDocument<Account>;
 
 @Schema({ timestamps: true })
@@ -27,7 +27,7 @@ export class Account {
 
   @Prop({
     type: String,
-    default: DEFAULT_AVA,
+    default: DEFAULT_AVA_PATIENT,
   })
   avatar: string;
 

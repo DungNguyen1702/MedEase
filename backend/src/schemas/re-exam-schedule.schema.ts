@@ -24,7 +24,7 @@ export class ReExamSchedule {
     required: true,
     ref: 'Appointment',
   })
-  appointment_id: string;
+  parent_appointment_id: string;
 
   @Prop()
   price: number;
@@ -34,6 +34,11 @@ export class ReExamSchedule {
 
   @Prop()
   note: string;
+
+  @Prop({
+    ref: 'Appointment',
+  })
+  appointment_id: string;
 
   createdAt?: Date;
   updatedAt?: Date;

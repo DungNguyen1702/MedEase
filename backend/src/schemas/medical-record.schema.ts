@@ -6,7 +6,7 @@ export type MedicalRecordDocument = HydratedDocument<MedicalRecord>;
 
 @Schema({ timestamps: true })
 export class MedicalRecord {
-  @Prop({ type:String, required: true, default: uuidv4 })
+  @Prop({ type: String, required: true, default: uuidv4 })
   _id: string;
 
   @Prop({
@@ -24,7 +24,12 @@ export class MedicalRecord {
   @Prop()
   diagnosis: string;
 
-  @Prop({ type: Object })
+  @Prop({
+    type: [
+      { medicine: String, dosage: String, frequency: String, duration: String },
+    ],
+    default: [],
+  })
   prescription: object;
 
   @Prop()

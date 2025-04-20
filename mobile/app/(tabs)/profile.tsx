@@ -41,18 +41,21 @@ export default function TabTwoScreen() {
     {
       title: "Sổ khám bệnh",
       onPress: () => {
+        router.push("/medical-record");
         console.log("Sổ khám bệnh");
       },
     },
     {
       title: "Liên hệ",
       onPress: () => {
-        console.log("Sổ khám bệnh");
+        router.push("/contact");
+        console.log("Liên hệ");
       },
     },
     {
       title: "Đăng xuất",
       onPress: () => {
+        router.push("/login");
         console.log("Logout");
       },
     },
@@ -122,6 +125,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary.main,
     marginBottom: 70,
     paddingBottom: 50,
+    paddingTop: 50,
   },
   userAvatar: {
     width: 80,
@@ -155,7 +159,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 20,
     position: "absolute",
-    top: 165,
+    bottom: -70,
     borderColor: Colors.primary.main,
     borderWidth: 1,
   },

@@ -64,13 +64,16 @@ export class SeedersService {
       await this.seedReExams();
       console.log('Seeder re-exams completed!');
 
+      await this.seedMedicalRecords();
+      console.log('Seeder medical records completed!');
+
       console.log('Seeder completed!');
     } catch (error) {
       console.error('Seeder failed:', error);
     }
   }
 
-  async seedSpecialization() {
+  private async seedSpecialization() {
     const dataPath = path.join(__dirname, 'data', 'specialization.json');
     const specializations = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
 
@@ -208,6 +211,18 @@ export class SeedersService {
 
     const createdReExams = await this.reExamModel.insertMany(reExams);
     return createdReExams.map(app => app._id);
+  }
+
+  private async seedMedicalRecords() {
+    const dataPath = path.join(__dirname, 'data', 'medical_record.json');
+    const medicalRecords = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+
+    await this.medicalRecordModel.deleteMany({});
+
+    // Thêm dữ liệu mới và lưu ID để sử dụng cho các bảng liên quan
+    const createdMedicalRecords =
+      await this.medicalRecordModel.insertMany(medicalRecords);
+    return createdMedicalRecords.map(app => app._id);
   }
 
   async clearData() {

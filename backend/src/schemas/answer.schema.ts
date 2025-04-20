@@ -15,6 +15,9 @@ export class Answer {
   @Prop()
   answer: string;
 
+  @Prop({ required: true })
+  accountId: string;
+
   createdAt?: Date;
   updatedAt?: Date;
 }

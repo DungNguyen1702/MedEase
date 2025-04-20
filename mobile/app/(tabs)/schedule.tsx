@@ -26,37 +26,9 @@ import {
   type DoctorPosition,
 } from "@/constants/Constants";
 import { SelectList } from "react-native-dropdown-select-list";
-import { FormatNumberWithDots } from "@/utils/string.utils";
-import { calculateFee } from "@/utils/free-calculate.utils";
+import { FormatNumberWithDots, getKeyFromValue } from "@/utils/string.utils";
+import { calculateFee, calculateSumFee } from "@/utils/free-calculate.utils";
 import { useRouter } from "expo-router";
-
-const getKeyFromValue = (value: string): string | undefined => {
-  const entry = Object.entries(AppointmentType).find(
-    ([key, val]) => val === value
-  );
-  return entry ? entry[0] : undefined; // Trả về key nếu tìm thấy, ngược lại trả về undefined
-};
-
-const calculateSumFee = (
-  selectedSpecs: any[],
-  appointmentType: string
-): number => {
-  let totalFee = 0;
-  selectedSpecs.forEach((spec) => {
-    const basePrice = spec.spec.base_price;
-    const doctorPosition = spec.doctor.position;
-    const appointmentTypeKey = getKeyFromValue(appointmentType);
-    if (appointmentTypeKey) {
-      const fee = calculateFee(
-        basePrice,
-        doctorPosition,
-        appointmentTypeKey as keyof typeof AppointmentTypeFee
-      );
-      totalFee += fee;
-    }
-  });
-  return totalFee;
-};
 
 export default function ScheduleScreen() {
   const router = useRouter();
@@ -164,10 +136,7 @@ export default function ScheduleScreen() {
         backgroundColor: Colors.light.main,
       }}
     >
-      <ScrollView
-        style={styles.container}
-        keyboardShouldPersistTaps="handled"
-      >
+      <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
         <StatusBar
           backgroundColor={Colors.light.main}
           barStyle="dark-content"
@@ -594,6 +563,7 @@ export default function ScheduleScreen() {
                         spec.spec.base_price,
                         spec.doctor.position,
                         getKeyFromValue(
+                          AppointmentType,
                           appointmentType
                         ) as keyof typeof AppointmentTypeFee
                       )

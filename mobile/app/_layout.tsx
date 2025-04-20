@@ -19,6 +19,7 @@ export default function RootLayout() {
           headerTitleStyle: styles.headerTitleStyle,
           headerTitleAlign: "center",
           headerTintColor: Colors.light.main,
+          headerBackTitle: "Quay lại",
         }}
       />
       <Stack.Screen
@@ -30,6 +31,7 @@ export default function RootLayout() {
           headerTitleStyle: styles.headerTitleStyle,
           headerTitleAlign: "center",
           headerTintColor: Colors.light.main,
+          headerBackTitle: "Quay lại",
         }}
       />
       <Stack.Screen
@@ -41,6 +43,7 @@ export default function RootLayout() {
           headerTitleStyle: styles.headerTitleStyle,
           headerTitleAlign: "center",
           headerTintColor: Colors.light.main,
+          headerBackTitle: "Quay lại",
         }}
       />
       <Stack.Screen
@@ -52,6 +55,7 @@ export default function RootLayout() {
           headerTitleStyle: styles.headerTitleStyle,
           headerTitleAlign: "center",
           headerTintColor: Colors.light.main,
+          headerBackTitle: "Quay lại",
         }}
       />
       <Stack.Screen
@@ -63,6 +67,7 @@ export default function RootLayout() {
           headerTitleStyle: styles.headerTitleStyle,
           headerTitleAlign: "center",
           headerTintColor: Colors.light.main,
+          headerBackTitle: "Quay lại",
         }}
       />
       <Stack.Screen
@@ -74,6 +79,55 @@ export default function RootLayout() {
           headerTitleStyle: styles.headerTitleStyle,
           headerTitleAlign: "center",
           headerTintColor: Colors.light.main,
+          headerBackTitle: "Quay lại",
+        }}
+      />
+      <Stack.Screen
+        name="medical-record"
+        options={{
+          headerShown: true,
+          title: "Sổ khám bệnh",
+          headerStyle: styles.headerStyle,
+          headerTitleStyle: styles.headerTitleStyle,
+          headerTitleAlign: "center",
+          headerTintColor: Colors.light.main,
+          headerBackTitle: "Quay lại",
+        }}
+      />
+      <Stack.Screen
+        name="medical-record-detail"
+        options={{
+          headerShown: true,
+          title: "Chi tiết hồ sơ khám bệnh",
+          headerStyle: styles.headerStyle,
+          headerTitleStyle: styles.headerTitleStyle,
+          headerTitleAlign: "center",
+          headerTintColor: Colors.light.main,
+          headerBackTitle: "Quay lại",
+        }}
+      />
+      <Stack.Screen
+        name="appointment-detail"
+        options={{
+          headerShown: true,
+          title: "Chi tiết lịch hẹn",
+          headerStyle: styles.headerStyle,
+          headerTitleStyle: styles.headerTitleStyle,
+          headerTitleAlign: "center",
+          headerTintColor: Colors.light.main,
+          headerBackTitle: "Quay lại",
+        }}
+      />
+      <Stack.Screen
+        name="contact"
+        options={{
+          headerShown: true,
+          title: "Liên hệ bệnh viện",
+          headerStyle: styles.headerStyle,
+          headerTitleStyle: styles.headerTitleStyle,
+          headerTitleAlign: "center",
+          headerTintColor: Colors.light.main,
+          headerBackTitle: "Quay lại",
         }}
       />
     </Stack>

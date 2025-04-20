@@ -3,8 +3,10 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Colors } from "@/constants/Colors";
 import { AppointmentStatus } from "@/constants/Constants";
 import { TruncateText } from "@/utils/string.utils";
+import { useRouter } from "expo-router";
 
 interface AppointmentProps {
+  id: string;
   number: string;
   title: string;
   time: string;
@@ -20,6 +22,7 @@ export default function AppointmentComponent({
   date,
   symptoms,
   status,
+  id,
 }: AppointmentProps) {
   const getStatusStyle = () => {
     switch (status) {
@@ -34,8 +37,17 @@ export default function AppointmentComponent({
     }
   };
 
+  const router = useRouter();
+
+  const onPress = () => {
+    router.push({
+      pathname: "/appointment-detail",
+      params: { appointmentId: id },
+    });
+  };
+
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.numberContainer}>
         <Text style={styles.number}>{number}</Text>
       </View>

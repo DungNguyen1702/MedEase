@@ -1,16 +1,25 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Colors } from "@/constants/Colors";
+import { TruncateText } from "@/utils/string.utils";
+import InputComponent from "./InputComponent";
 
 export default function PredictedDiseaseComponent(props: any) {
   const { index, predictedDisease } = props;
   return (
     <View style={styles.container}>
-      <Text style={[styles.text, { width: "15%" }]}>{index}</Text>
-      <Text style={[styles.text, { width: "65%" }]}>
-        {predictedDisease.name}
+      <Text style={[styles.text, { width: "15%", textAlign: "center" }]}>
+        {index}
       </Text>
-      <Text style={[styles.text, { width : "15%"}]}>{predictedDisease.probability}</Text>
+      <InputComponent
+        value={predictedDisease.name}
+        editable={false}
+        style={[styles.text, { width: "60%", color: "black" }]}
+      />
+
+      <Text style={[styles.text, { width: "20%", textAlign: "center" }]}>
+        {predictedDisease.probability}%
+      </Text>
     </View>
   );
 }
@@ -25,7 +34,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     borderColor: Colors.primary.main,
-    
+
     borderWidth: 1,
     borderRadius: 10,
     padding: 10,

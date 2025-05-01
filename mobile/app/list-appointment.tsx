@@ -9,20 +9,27 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Colors } from "@/constants/Colors";
 import InputComponent from "@/components/InputComponent";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import FakeData from "@/data/fake_data.json";
 import ScheduleComponent from "@/components/ScheduleComponent";
 import { useRouter } from "expo-router";
+import { AppointmentDetailAPI } from "@/api/appointment-detail";
+import { formatDateToYYYYMMDD } from "@/utils/string.utils";
 
 export default function ListAppointment() {
   const router = useRouter();
-  
-  const [appoinmentDetail, setAppointmentDetail] = useState(
-    FakeData["appoinment_detail"]
-  );
+
+  interface AppointmentDetail {
+    address: string;
+    doctor: { name: string };
+    specialization: { name: string };
+  }
+
+  const [appoinmentDetail, setAppointmentDetail] = useState<
+    AppointmentDetail[]
+  >([]);
 
   const [filterAppoinmentDetail, setFilterAppointmentDetail] =
     useState(appoinmentDetail);
@@ -30,6 +37,27 @@ export default function ListAppointment() {
   const [showDate, setShowDate] = useState(false);
   const [date, setDate] = useState(new Date());
   const [search, setSearch] = useState("");
+
+  const callAPI = async () => {
+    try {
+      console.log(formatDateToYYYYMMDD(date.toISOString().split("T")[0]));
+      const response = await AppointmentDetailAPI.getAppointmentDetailByDate(
+        formatDateToYYYYMMDD(date.toISOString().split("T")[0])
+      );
+      console.log(response);
+      setAppointmentDetail(response);
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    callAPI();
+  }, [date]);
+
+  useEffect(() => {
+    setFilterAppointmentDetail(appoinmentDetail);
+  }, [appoinmentDetail]);
 
   const onPressAddAppointment = () => {
     router.push("/(tabs)/schedule");

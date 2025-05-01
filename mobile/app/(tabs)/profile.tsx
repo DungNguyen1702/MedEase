@@ -8,13 +8,36 @@ import {
   ScrollView,
   StatusBar,
 } from "react-native";
-import FakeData from "@/data/fake_data.json";
 import { Colors } from "@/constants/Colors";
 import { useRouter } from "expo-router";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "@/redux/slices/authSlice";
+import axiosClient from "@/utils/axios-custom";
+import type { RootState } from "@/redux/store";
+import { useEffect, useState } from "react";
+import { AppointmentAPI } from "@/api/appointment";
 
 export default function TabTwoScreen() {
   const router = useRouter();
-  const account = FakeData.account;
+  const account = useSelector((state: RootState) => state.auth.account);
+
+  const [appNum, setAppNum] = useState({
+    appointmentToday: 0,
+    appointmentTotal: 0,
+  });
+
+  const callAPI = async () => {
+    try {
+      const response = await AppointmentAPI.getAppointmentNum();
+      setAppNum(response);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    callAPI();
+  }, []);
+
+  const dispatch = useDispatch();
 
   const buttons = [
     {
@@ -55,7 +78,12 @@ export default function TabTwoScreen() {
     {
       title: "Đăng xuất",
       onPress: () => {
-        router.push("/login");
+        // Xóa header Authorization trong các instance của axiosClient
+        delete axiosClient.application.defaults.headers.common["Authorization"];
+        delete axiosClient.formData.defaults.headers.common["Authorization"];
+
+        dispatch(logout());
+        router.replace("/login");
         console.log("Logout");
       },
     },
@@ -84,7 +112,7 @@ export default function TabTwoScreen() {
             <Text style={styles.headerTableTitle}>Tổng số lịch hẹn</Text>
             <Text style={styles.headerTableValue}>
               {" "}
-              {account.TotalAppointment}
+              {appNum.appointmentTotal}
             </Text>
           </View>
           <View style={styles.headerLine}></View>
@@ -92,7 +120,7 @@ export default function TabTwoScreen() {
             <Text style={styles.headerTableTitle}>Số lịch hẹn hôm nay</Text>
             <Text style={styles.headerTableValue}>
               {" "}
-              {account.TodayAppointment}
+              {appNum.appointmentToday}
             </Text>
           </View>
         </View>

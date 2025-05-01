@@ -1,13 +1,29 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TruncateText } from "@/utils/string.utils";
 import { Colors } from "@/constants/Colors";
 import { useRouter } from "expo-router";
+import { doctorAPI } from "@/api/doctor";
 
 export default function DoctorSpecComponent(props: any) {
   const router = useRouter();
 
   const { doctor, key } = props;
+
+  const [currentNumber, setCurrentNumber] = useState(0);
+
+  const callAPI = async () => {
+    try {
+      const response = await doctorAPI.getCurrentNumber(doctor._id);
+      setCurrentNumber(response);
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    callAPI();
+  }, []);
 
   const onClickDoctor = () => {
     router.push({
@@ -24,13 +40,13 @@ export default function DoctorSpecComponent(props: any) {
     >
       <View style={styles.mark}></View>
       <View style={styles.bodyContainer}>
-        <Text style={styles.doctorName}>{doctor.name}</Text>
+        <Text style={styles.doctorName}>{doctor.account.name}</Text>
         <Text style={styles.doctorAddress}>
           <Text style={{ fontWeight: "bold" }}>Phòng : </Text>
-          <Text>{TruncateText(doctor.address, 10)}</Text>
+          <Text>{TruncateText(doctor.room, 10)}</Text>
         </Text>
         <Image
-          source={{ uri: doctor.avatar }}
+          source={{ uri: doctor.account.avatar }}
           resizeMode="cover"
           style={styles.avatarImage}
         />
@@ -39,7 +55,7 @@ export default function DoctorSpecComponent(props: any) {
             Số hiện tại :{" "}
           </Text>
           <Text style={styles.doctorNumber}>
-            {doctor.number ? doctor.number : "Không có"}
+            {currentNumber != 0 ? currentNumber : "Không có"}
           </Text>
         </View>
       </View>

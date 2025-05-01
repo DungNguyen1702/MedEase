@@ -1,28 +1,141 @@
 import {
   Image,
+  Linking,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
+  Alert,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
 import { Colors } from "@/constants/Colors";
 import FakeData from "@/data/fake_data.json";
 import AppointmentDetailComponent from "@/components/AppointmentDetailComponent";
+import { useSearchParams } from "expo-router/build/hooks";
+import { AppointmentDetailAPI } from "@/api/appointment-detail";
+import { AppointmentAPI } from "@/api/appointment";
+import { convertTimeToMilliseconds } from "@/utils/time.utils";
+import { PaymentWaitTime } from "@/constants/Constants";
+
+const delayWithTimeout = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
 
 export default function BookingSuccess() {
   const router = useRouter();
 
-  const number = 486;
-  const isSuccess = true;
+  let interval: NodeJS.Timeout | null = null;
+  let timeout: NodeJS.Timeout | null = null;
 
-  const appointmentDetails = FakeData.appoinment_detail;
+  const searchParams = useSearchParams();
+  const appointmentId = searchParams.get("appointment_id");
+
+  const paymentCode = searchParams.get("paymentCode");
+  const paymentMethod = searchParams.get("paymentMethod");
+
+  const paymentLink = searchParams.get("paymentLink");
+
+  const [number, setNumber] = useState(0);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [appointmentDetails, setAppointmentDetails] = useState([]);
+  const [message, setMessage] = useState(
+    `“ Xin cảm ơn Quý khách đã tin tưởng và sử dụng dịch vụ tại bệnh viện chúng tôi. Lịch khám của Quý khách ${
+      isSuccess ? "đã" : "đang"
+    } được xác nhận. Chúng tôi mong được phục vụ và chúc Quý khách sức khỏe dồi dào! “`
+  );
+
+  const callAPI = async () => {
+    console.log("appointmentId : ", paymentCode, paymentMethod, paymentLink);
+
+    if (appointmentId) {
+      const response = await AppointmentAPI.getAppHistoryDetail(appointmentId);
+      console.log("response detail : ", response);
+      setAppointmentDetails(response[0].appointment_detail);
+      setIsSuccess(true);
+      setNumber(response[0].number);
+    }
+
+    if (paymentCode && paymentMethod && paymentLink) {
+      const checkPaymentStatus = async () => {
+        try {
+          let response;
+          if (paymentMethod === "momo") {
+            response = await AppointmentAPI.checkStatusMomo(paymentCode);
+          } else if (paymentMethod === "zalopay") {
+            response = await AppointmentAPI.checkStatusZalo(paymentCode);
+          }
+
+          console.log("Payment status response:", response.resultCode);
+
+          console.log("Payment status response:", response.return_code);
+
+          console.log(
+            (paymentMethod === "zalopay" && response?.return_code === 1) ||
+              (paymentMethod === "momo" && response?.resultCode === 99)
+          );
+          if (
+            (paymentMethod === "zalopay" && response?.return_code === 1) ||
+            (paymentMethod === "momo" && response?.resultCode === 99)
+          ) {
+            console.log("Payment successful");
+            if (interval) {
+              clearInterval(interval);
+            }
+            if (timeout) {
+              clearTimeout(timeout);
+            }
+
+            await delayWithTimeout(5000);
+
+            const detailResponse =
+              await AppointmentAPI.getAppoinemtmentDetailPayment(
+                paymentCode,
+                paymentMethod
+              );
+            console.log("response detail : ", detailResponse);
+            setAppointmentDetails(detailResponse[0].appointment_detail);
+            setIsSuccess(true);
+            setNumber(detailResponse[0].number);
+          }
+        } catch (error) {
+          console.error("Error checking payment status:", error);
+        }
+      };
+
+      // Đặt thời gian chờ tối đa
+      const maxWaitTime = convertTimeToMilliseconds(
+        PaymentWaitTime[paymentMethod as keyof typeof PaymentWaitTime]
+      );
+      timeout = setTimeout(() => {
+        clearInterval(interval!); // Dừng kiểm tra định kỳ
+        setIsSuccess(false); // Đặt trạng thái thanh toán thất bại
+        Alert.alert("Thông báo", "Thanh toán thất bại. Vui lòng thử lại", [
+          {
+            text: "OK",
+            onPress: () => router.replace("/(tabs)"),
+          },
+        ]);
+      }, maxWaitTime);
+
+      // Kiểm tra trạng thái thanh toán định kỳ (cách 5 giây)
+      interval = setInterval(checkPaymentStatus, 10000);
+    }
+  };
+
+  useEffect(() => {
+    callAPI();
+  }, []);
 
   const handleBackToHome = () => {
-    router.push("/(tabs)");
+    if (interval) {
+      clearInterval(interval);
+    }
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+    router.replace("/(tabs)");
   };
 
   return (
@@ -38,35 +151,46 @@ export default function BookingSuccess() {
         <Text style={styles.headerTitle}>
           {isSuccess ? "Thanh toán thành công" : "Vui lòng chờ đợi"}
         </Text>
-
+        <Image
+          source={
+            isSuccess
+              ? require("../assets/icons/party.png")
+              : require("../assets/icons/sand.png")
+          }
+          style={styles.headerImage}
+          resizeMode="cover"
+        />
         {isSuccess && (
-          <Image
-            source={require("../assets/icons/party.png")}
-            style={styles.headerImage}
-            resizeMode="cover"
-          />
-        )}
-        <View style={styles.tagContainer}>
-          <View style={styles.tag}>
-            <Text style={styles.tagTitle}>Số của bạn</Text>
-            <Text style={styles.tagNumber}>{number}</Text>
+          <View style={styles.tagContainer}>
+            <View style={styles.tag}>
+              <Text style={styles.tagTitle}>Số của bạn</Text>
+              <Text style={styles.tagNumber}>{number}</Text>
+            </View>
           </View>
-        </View>
+        )}
       </View>
-      <Text style={styles.thanksText}>
-        “ Xin cảm ơn Quý khách đã tin tưởng và sử dụng dịch vụ tại bệnh viện
-        chúng tôi. Lịch khám của Quý khách đã được xác nhận. Chúng tôi mong được
-        phục vụ và chúc Quý khách sức khỏe dồi dào! “
-      </Text>
+      <Text style={styles.thanksText}>{message}</Text>
 
       {/* Body */}
       <View style={styles.body}>
         {appointmentDetails.map((item, index) => {
-          return <AppointmentDetailComponent key={index} appointmentDetail={item} />;
+          return (
+            <AppointmentDetailComponent key={index} appointmentDetail={item} />
+          );
         })}
       </View>
 
       {/* Footer */}
+      {paymentLink && !isSuccess && (
+        <View style={{ paddingHorizontal: 20 }}>
+          <TouchableOpacity
+            onPress={() => Linking.openURL(paymentLink)}
+            style={styles.backButton}
+          >
+            <Text style={styles.backButtonText}>Thanh toán ngay</Text>
+          </TouchableOpacity>
+        </View>
+      )}
       <View style={{ paddingHorizontal: 20 }}>
         <TouchableOpacity onPress={handleBackToHome} style={styles.backButton}>
           <Text style={styles.backButtonText}>Quay về trang chủ</Text>
@@ -97,6 +221,7 @@ const styles = StyleSheet.create({
     width: "100%",
     marginBottom: 20,
     zIndex: 1,
+    marginTop: 20,
   },
   headerImage: {
     width: "100%",
@@ -148,6 +273,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     width: "100%",
     alignItems: "center",
+    marginVertical: 20,
   },
   backButtonText: {
     fontSize: 16,

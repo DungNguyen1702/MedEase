@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Colors } from "@/constants/Colors";
 import { AppointmentStatus } from "@/constants/Constants";
-import { TruncateText } from "@/utils/string.utils";
+import { formatDateToYYYYMMDD, TruncateText } from "@/utils/string.utils";
 import { useRouter } from "expo-router";
 
 interface AppointmentProps {
@@ -59,12 +59,12 @@ export default function AppointmentComponent({
           </View>
         </View>
         <Text style={styles.detail}>
-          <Text style={{ fontWeight: "bold" }}>Thời gian:</Text>
+          <Text style={{ fontWeight: "bold" }}>Thời gian: </Text>
           <Text>{time}</Text>
         </Text>
         <Text style={styles.detail}>
           <Text style={{ fontWeight: "bold" }}>Ngày khám: </Text>
-          <Text>{date}</Text>
+          <Text>{formatDateToYYYYMMDD(date)}</Text>
         </Text>
         <Text style={[styles.detail, { fontWeight: "bold" }]}>Triệu chứng</Text>
         <Text style={styles.symptoms}>{symptoms}</Text>

@@ -12,7 +12,7 @@ export class Question {
   content: string;
 
   @Prop({ required: true })
-  accountId: string;
+  account_id: string;
 
   createdAt?: Date;
   updatedAt?: Date;

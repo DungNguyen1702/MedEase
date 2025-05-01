@@ -1,3 +1,4 @@
+import { AuthAPI } from "@/api/auth";
 import ButtonComponent from "@/components/ButtonComponent";
 import { Colors } from "@/constants/Colors";
 import { useRouter } from "expo-router";
@@ -14,6 +15,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from "react-native";
 
 const { width, height } = Dimensions.get("window");
@@ -21,18 +23,13 @@ const { width, height } = Dimensions.get("window");
 export default function LoginPage() {
   const router = useRouter();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [name, setName] = useState("");
+  const [email, setEmail] = useState("vandung17022003@gmail.com");
+  const [password, setPassword] = useState("dung1702");
+  const [confirmPassword, setConfirmPassword] = useState("dung1702");
+  const [name, setName] = useState("Nguyen Van Dung");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
     useState(false);
-  const [errorPassword, setErrorPassword] = useState("");
-  const [errorEmail, setErrorEmail] = useState("");
-  const [errorConfirmPassword, setErrorConfirmPassword] =
-    useState("");
-  const [errorName, setErrorName] = useState("");
 
   const onChangeEmail = (text: string) => {
     setEmail(text);
@@ -48,6 +45,52 @@ export default function LoginPage() {
   };
 
   const onLogin = () => {
+    router.replace("/login");
+  };
+
+  const onRegister = async () => {
+    if (!email || !password || !confirmPassword || !name) {
+      Alert.alert("Đăng kí thất bại", "Vui lòng điền đầy đủ thông tin!");
+      return;
+    }
+    if (password !== confirmPassword) {
+      Alert.alert("Đăng kí thất bại", "Mật khẩu xác nhận không khớp!");
+      return;
+    }
+    if (password.length < 6) {
+      Alert.alert("Đăng kí thất bại", "Mật khẩu phải có ít nhất 6 ký tự!");
+      return;
+    }
+    if (!email.includes("@")) {
+      Alert.alert("Đăng kí thất bại", "Email không hợp lệ!");
+      return;
+    }
+    if (!email.includes(".com")) {
+      Alert.alert("Đăng kí thất bại", "Email không hợp lệ!");
+      return;
+    }
+
+    try {
+      const response = await AuthAPI.Register({
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+        name: name,
+      });
+      if (response) {
+        Alert.alert(
+          "Đăng ký thành công!",
+          "Vui lòng kiểm tra email để xác nhận"
+        );
+      }
+    } catch (error: any) {
+      Alert.alert(
+        "Đăng kí thất bại",
+        error.response.data.message ||
+          "Đã xảy ra lỗi trong quá trình đăng ký. Vui lòng thử lại sau."
+      );
+    }
+
     router.replace("/login");
   };
 
@@ -105,9 +148,6 @@ export default function LoginPage() {
               placeholderTextColor={Colors.primary.mainLight}
               style={styles.inputText}
             />
-            {errorEmail ? (
-              <Text style={styles.errorText}>{errorEmail}</Text>
-            ) : null}
           </View>
 
           <View style={styles.inputGroup}>
@@ -119,9 +159,6 @@ export default function LoginPage() {
               placeholderTextColor={Colors.primary.mainLight}
               style={styles.inputText}
             />
-            {errorName ? (
-              <Text style={styles.errorText}>{errorName}</Text>
-            ) : null}
           </View>
 
           <View style={styles.inputGroup}>
@@ -162,9 +199,6 @@ export default function LoginPage() {
                 )}
               </TouchableOpacity>
             </View>
-            {errorPassword ? (
-              <Text style={styles.errorText}>{errorPassword}</Text>
-            ) : null}
           </View>
 
           <View style={styles.inputGroup}>
@@ -207,14 +241,11 @@ export default function LoginPage() {
                 )}
               </TouchableOpacity>
             </View>
-            {errorConfirmPassword ? (
-              <Text style={styles.errorText}>{errorConfirmPassword}</Text>
-            ) : null}
           </View>
 
           <ButtonComponent
             title="Đăng ký"
-            onPress={onLogin}
+            onPress={onRegister}
             backgroundColor={Colors.primary.main}
             fontSize={18}
             textColor={Colors.light.main}

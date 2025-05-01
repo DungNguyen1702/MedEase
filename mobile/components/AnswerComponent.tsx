@@ -1,6 +1,9 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Colors } from "@/constants/Colors";
+import {
+  formatDateToYYYYMMDDHHmm,
+} from "@/utils/string.utils";
 
 export default function AnswerComponent(props: any) {
   const { answer } = props;
@@ -27,7 +30,9 @@ export default function AnswerComponent(props: any) {
           <Text style={styles.accountName}>{account.name}</Text>
         </View>
         <Text style={styles.answerContent}>{answer.answer}</Text>
-        <Text style={styles.answerDate}>{answer.createdAt}</Text>
+        <Text style={styles.answerDate}>
+          {formatDateToYYYYMMDDHHmm(answer.createdAt)}
+        </Text>
       </View>
     </View>
   );
@@ -71,6 +76,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "#999",
     textAlign: "right",
-    marginTop: 5, 
+    marginTop: 5,
   },
 });

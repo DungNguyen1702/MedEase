@@ -8,6 +8,16 @@ import { AuthModule } from './modules/auth/auth.module';
 import { SeedersModule } from './database/seeders/seeders.module';
 import { AppointmentModule } from './modules/appointment/appointment.module';
 import { AppointmentDetailModule } from './modules/appointment-detail/appointment-detail.module';
+import { SpecializationModule } from './modules/specialization/specialization.module';
+import { DoctorModule } from './modules/doctor/doctor.module';
+import { NotificationModule } from './modules/notification/notification.module';
+import { QuestionAnswerModule } from './modules/question-answer/question-answer.module';
+import { MedicalRecordModule } from './modules/medical-record/medical-record.module';
+import { CloudinaryConfig } from './common/config/cloudinary.config';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggingInterceptor } from './common/interceptors';
+import { UploadModule } from './modules/upload/upload.module';
+import { PaymentModule } from './modules/payment/payment.module';
 
 @Module({
   imports: [
@@ -21,8 +31,23 @@ import { AppointmentDetailModule } from './modules/appointment-detail/appointmen
     SeedersModule,
     AppointmentModule,
     AppointmentDetailModule,
+    SpecializationModule,
+    DoctorModule,
+    NotificationModule,
+    QuestionAnswerModule,
+    MedicalRecordModule,
+    UploadModule,
+    PaymentModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    CloudinaryConfig,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor,
+    },
+  ],
+  exports: [CloudinaryConfig],
 })
 export class AppModule {}

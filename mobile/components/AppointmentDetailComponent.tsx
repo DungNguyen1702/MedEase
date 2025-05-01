@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import { Colors } from "@/constants/Colors";
-import { TruncateText } from "@/utils/string.utils";
+import { formatDateToYYYYMMDD, TruncateText } from "@/utils/string.utils";
 import { useRouter } from "expo-router";
 
 export default function AppointmentDetailComponent(props: any) {
@@ -32,7 +32,7 @@ export default function AppointmentDetailComponent(props: any) {
         style={{ paddingVertical: 20, display: "flex", flexDirection: "row" }}
       >
         <Image
-          source={{ uri: appointmentDetail?.doctor?.avatar }}
+          source={{ uri: appointmentDetail?.doctor?.account?.avatar }}
           style={styles.doctorImage}
           resizeMode="cover"
         />
@@ -43,7 +43,7 @@ export default function AppointmentDetailComponent(props: any) {
           </Text>
           <Text>
             <Text style={{ fontWeight: "bold" }}>Bác sĩ</Text>{" "}
-            {TruncateText(appointmentDetail.doctor.name, 20)}
+            {TruncateText(appointmentDetail.doctor?.account?.name, 20)}
           </Text>
           <Text>
             <Text style={{ fontWeight: "bold" }}>Thời gian</Text>{" "}
@@ -51,7 +51,9 @@ export default function AppointmentDetailComponent(props: any) {
           </Text>
           <Text>
             <Text style={{ fontWeight: "bold" }}>Ngày khám</Text>{" "}
-            {appointmentDetail.appointment.appointment_date}
+            {formatDateToYYYYMMDD(
+              appointmentDetail.appointment.appointment_date
+            )}
           </Text>
         </View>
       </View>

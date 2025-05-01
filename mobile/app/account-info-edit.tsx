@@ -9,14 +9,28 @@ import {
   ScrollView,
   Alert,
   Modal,
+  TouchableWithoutFeedback,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { Colors } from "@/constants/Colors";
-import FakeData from "@/data/fake_data.json";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "@/redux/store";
+import { formatDateToYYYYMMDD } from "@/utils/string.utils";
+import validator from "validator";
+import { AccountAPI } from "@/api/account";
+import { setAccount } from "@/redux/slices/authSlice";
+import { useRouter } from "expo-router";
 
 export default function AccountInfoEdit() {
-  const account = FakeData.account;
+  const account = useSelector((state: RootState) => state.auth.account);
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  console.log(formatDateToYYYYMMDD(account.date_of_birth));
 
   const [showDate, setShowDate] = useState(false);
 
@@ -26,9 +40,10 @@ export default function AccountInfoEdit() {
   const [address, setAddress] = useState(account.address);
   const [gender, setGender] = useState(account.gender);
   const [dateOfBirth, setDateOfBirth] = useState(
-    new Date(account.date_of_birth)
+    new Date(formatDateToYYYYMMDD(account.date_of_birth))
   );
   const [avatar, setAvatar] = useState(account.avatar);
+  const [initialAvatar, setInitialAvatar] = useState(account.avatar); // Avatar ban đầu
 
   const handleChooseImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -39,13 +54,69 @@ export default function AccountInfoEdit() {
     });
 
     if (!result.canceled) {
-      setAvatar(result.assets[0].uri);
+      setAvatar(result.assets[0].uri); // Cập nhật avatar hiện tại
     }
   };
 
-  const handleSave = () => {
-    Alert.alert("Thông báo", "Thông tin cá nhân đã được cập nhật!");
-    // Thực hiện lưu thông tin lên server tại đây
+  const handleSave = async () => {
+    // Validate input fields
+    if (!name || !email || !tel || !address || !gender || !dateOfBirth) {
+      Alert.alert("Thông báo", "Vui lòng điền đầy đủ thông tin!");
+      return;
+    }
+    if (tel.length > 10) {
+      Alert.alert("Thông báo", "Số điện thoại không hợp lệ!");
+      return;
+    }
+    if (!validator.isEmail(email)) {
+      Alert.alert("Thông báo", "Địa chỉ email không hợp lệ!");
+      return;
+    }
+    if (address.length > 100) {
+      Alert.alert("Thông báo", "Địa chỉ không hợp lệ!");
+      return;
+    }
+    if (name.length > 100) {
+      Alert.alert("Thông báo", "Tên không hợp lệ!");
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("tel", tel);
+      formData.append("address", address);
+      formData.append("gender", gender);
+      formData.append("date_of_birth", dateOfBirth.toISOString());
+
+      // Chỉ thêm avatar nếu nó đã thay đổi
+      if (avatar !== initialAvatar) {
+        const response = await fetch(avatar);
+        console.log("fetch res", response.ok);
+        const blob = await response.blob();
+        console.log(blob.size);
+        formData.append("avatar", {
+          uri: avatar,
+          type: "image/jpeg",
+          name: "avatar.jpg",
+        } as any);
+      }
+
+      console.log(formData);
+
+      const responseUpdate = await AccountAPI.updateInfo(formData);
+      dispatch(setAccount(responseUpdate));
+
+      Alert.alert("Thông báo", "Thông tin cá nhân đã được cập nhật!", [
+        {
+          text: "OK",
+          onPress: () => router.back(),
+        },
+      ]);
+    } catch (error: any) {
+      console.log(error.response.data.message);
+      Alert.alert("Thông báo", error?.response?.data?.message || "Đã xảy ra lỗi. Vui lòng thử lại sau.");
+    }
   };
 
   const onChangeDate = (event: any, selectedDate: Date | undefined) => {
@@ -56,142 +127,150 @@ export default function AccountInfoEdit() {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      {/* Avatar */}
-      <View style={styles.avatarContainer}>
-        <Image source={{ uri: avatar }} style={styles.avatar} />
-        <TouchableOpacity
-          style={styles.editAvatarButton}
-          onPress={handleChooseImage}
-        >
-          <Text style={styles.editAvatarText}>Chỉnh sửa ảnh</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Form */}
-      <View style={styles.form}>
-        {/* Name */}
-        <Text style={styles.label}>Họ và tên</Text>
-        <TextInput
-          style={styles.input}
-          value={name}
-          onChangeText={setName}
-          placeholder="Nhập họ và tên"
-        />
-
-        {/* Email */}
-        <Text style={styles.label}>Email</Text>
-        <TextInput
-          style={styles.input}
-          value={email}
-          onChangeText={setEmail}
-          placeholder="Nhập email"
-          keyboardType="email-address"
-        />
-
-        {/* Phone */}
-        <Text style={styles.label}>Số điện thoại</Text>
-        <TextInput
-          style={styles.input}
-          value={tel}
-          onChangeText={setTel}
-          placeholder="Nhập số điện thoại"
-          keyboardType="phone-pad"
-        />
-
-        {/* Address */}
-        <Text style={styles.label}>Địa chỉ</Text>
-        <TextInput
-          style={styles.input}
-          value={address}
-          onChangeText={setAddress}
-          placeholder="Nhập địa chỉ"
-        />
-
-        {/* Gender */}
-        <Text style={styles.label}>Giới tính</Text>
-        <View style={styles.genderContainer}>
-          <TouchableOpacity
-            style={[
-              styles.genderButton,
-              gender === "male" && styles.genderButtonSelected,
-            ]}
-            onPress={() => setGender("male")}
-          >
-            <Text
-              style={[
-                styles.genderText,
-                gender === "male"
-                  ? { color: Colors.light.main }
-                  : { color: Colors.primary.main },
-              ]}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 70 : 0}
+      >
+        <ScrollView>
+          {/* Avatar */}
+          <View style={styles.avatarContainer}>
+            <Image source={{ uri: avatar }} style={styles.avatar} />
+            <TouchableOpacity
+              style={styles.editAvatarButton}
+              onPress={handleChooseImage}
             >
-              Nam
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.genderButton,
-              gender === "female" && styles.genderButtonSelected,
-            ]}
-            onPress={() => setGender("female")}
-          >
-            <Text
-              style={[
-                styles.genderText,
-                gender === "female"
-                  ? { color: Colors.light.main }
-                  : { color: Colors.primary.main },
-              ]}
-            >
-              Nữ
-            </Text>
-          </TouchableOpacity>
-        </View>
+              <Text style={styles.editAvatarText}>Chỉnh sửa ảnh</Text>
+            </TouchableOpacity>
+          </View>
 
-        {/* Date of Birth */}
-        <Text style={styles.label}>Ngày sinh</Text>
-        <TouchableOpacity
-          onPress={() => setShowDate(true)}
-          style={styles.textInputContainer}
-        >
-          <TextInput
-            style={[styles.input, { marginBottom: 0 }]}
-            value={dateOfBirth.toLocaleDateString()} // Hiển thị ngày đã chọn
-            placeholder="Chọn ngày"
-            editable={false}
-          />
-          <Image
-            source={require("@/assets/icons/select_calendar.png")}
-            resizeMode="contain"
-            style={styles.selectIcon}
-          />
-        </TouchableOpacity>
-        {showDate && (
-          <Modal transparent={true} animationType="slide">
-            <View style={styles.modalContainer}>
-              <DateTimePicker
-                value={dateOfBirth}
-                mode="date"
-                display="spinner"
-                onChange={onChangeDate}
-              />
+          {/* Form */}
+          <View style={styles.form}>
+            {/* Name */}
+            <Text style={styles.label}>Họ và tên</Text>
+            <TextInput
+              style={styles.input}
+              value={name}
+              onChangeText={setName}
+              placeholder="Nhập họ và tên"
+            />
+
+            {/* Email */}
+            <Text style={styles.label}>Email</Text>
+            <TextInput
+              style={styles.input}
+              value={email}
+              onChangeText={setEmail}
+              placeholder="Nhập email"
+              keyboardType="email-address"
+            />
+
+            {/* Phone */}
+            <Text style={styles.label}>Số điện thoại</Text>
+            <TextInput
+              style={styles.input}
+              value={tel}
+              onChangeText={setTel}
+              placeholder="Nhập số điện thoại"
+              keyboardType="phone-pad"
+            />
+
+            {/* Address */}
+            <Text style={styles.label}>Địa chỉ</Text>
+            <TextInput
+              style={styles.input}
+              value={address}
+              onChangeText={setAddress}
+              placeholder="Nhập địa chỉ"
+            />
+
+            {/* Gender */}
+            <Text style={styles.label}>Giới tính</Text>
+            <View style={styles.genderContainer}>
               <TouchableOpacity
-                style={styles.modalCloseButton}
-                onPress={() => setShowDate(false)}
+                style={[
+                  styles.genderButton,
+                  gender === "male" && styles.genderButtonSelected,
+                ]}
+                onPress={() => setGender("male")}
               >
-                <Text style={styles.modalCloseText}>Đóng</Text>
+                <Text
+                  style={[
+                    styles.genderText,
+                    gender === "male"
+                      ? { color: Colors.light.main }
+                      : { color: Colors.primary.main },
+                  ]}
+                >
+                  Nam
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.genderButton,
+                  gender === "female" && styles.genderButtonSelected,
+                ]}
+                onPress={() => setGender("female")}
+              >
+                <Text
+                  style={[
+                    styles.genderText,
+                    gender === "female"
+                      ? { color: Colors.light.main }
+                      : { color: Colors.primary.main },
+                  ]}
+                >
+                  Nữ
+                </Text>
               </TouchableOpacity>
             </View>
-          </Modal>
-        )}
-      </View>
 
-      {/* Save Button */}
-      <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-        <Text style={styles.saveButtonText}>Lưu thông tin</Text>
-      </TouchableOpacity>
-    </ScrollView>
+            {/* Date of Birth */}
+            <Text style={styles.label}>Ngày sinh</Text>
+            <TouchableOpacity
+              onPress={() => setShowDate(true)}
+              style={styles.textInputContainer}
+            >
+              <TextInput
+                style={[styles.input, { marginBottom: 0 }]}
+                value={dateOfBirth.toLocaleDateString()} // Hiển thị ngày đã chọn
+                placeholder="Chọn ngày"
+                editable={false}
+              />
+              <Image
+                source={require("@/assets/icons/select_calendar.png")}
+                resizeMode="contain"
+                style={styles.selectIcon}
+              />
+            </TouchableOpacity>
+            {showDate && (
+              <Modal transparent={true} animationType="slide">
+                <View style={styles.modalContainer}>
+                  <DateTimePicker
+                    value={dateOfBirth}
+                    mode="date"
+                    display="spinner"
+                    onChange={onChangeDate}
+                  />
+                  <TouchableOpacity
+                    style={styles.modalCloseButton}
+                    onPress={() => setShowDate(false)}
+                  >
+                    <Text style={styles.modalCloseText}>Đóng</Text>
+                  </TouchableOpacity>
+                </View>
+              </Modal>
+            )}
+          </View>
+
+          {/* Save Button */}
+          <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
+            <Text style={styles.saveButtonText}>Lưu thông tin</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 }
 

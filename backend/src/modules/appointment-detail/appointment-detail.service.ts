@@ -1,7 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { AppointmentDetail, AppointmentDetailDocument } from '../../schemas';
+import {
+  AppointmentDetail,
+  AppointmentDetailDocument,
+  type Account,
+} from '../../schemas';
 
 @Injectable()
 export class AppointmentDetailService {
@@ -10,34 +14,89 @@ export class AppointmentDetailService {
     private readonly appointmentDetailModel: Model<AppointmentDetailDocument>
   ) {}
 
-  async findDetailsByDate(date: string) {
+  async findDetailsByDate(date: string, account: Account) {
     const startOfDay = new Date(date);
     const endOfDay = new Date(date);
     endOfDay.setDate(endOfDay.getDate() + 1);
 
-    return this.appointmentDetailModel
-      .find()
-      .populate({
-        path: 'appointment_id',
-        match: {
-          appointment_date: {
+    return this.appointmentDetailModel.aggregate([
+      {
+        $lookup: {
+          from: 'appointments',
+          localField: 'appointment_id',
+          foreignField: '_id',
+          as: 'appointment',
+        },
+      },
+      {
+        $addFields: {
+          appointment: { $arrayElemAt: ['$appointment', 0] },
+        },
+      },
+      {
+        $lookup: {
+          from: 'doctors',
+          localField: 'doctor_id',
+          foreignField: '_id',
+          as: 'doctor',
+          pipeline: [
+            {
+              $lookup: {
+                from: 'accounts',
+                localField: 'account_id',
+                foreignField: '_id',
+                as: 'account',
+              },
+            },
+            {
+              $addFields: {
+                account: { $arrayElemAt: ['$account', 0] },
+              },
+            },
+            {
+              $project: {
+                'account.password': 0,
+              },
+            },
+          ],
+        },
+      },
+      {
+        $addFields: {
+          doctor: { $arrayElemAt: ['$doctor', 0] },
+        },
+      },
+      {
+        $lookup: {
+          from: 'specializations',
+          localField: 'specialization_id',
+          foreignField: '_id',
+          as: 'specialization',
+        },
+      },
+      {
+        $addFields: {
+          specialization: { $arrayElemAt: ['$specialization', 0] },
+        },
+      },
+      {
+        $match: {
+          'appointment.appointment_date': {
             $gte: startOfDay,
             $lt: endOfDay,
           },
+          'appointment.patient_id': account._id,
         },
-        // 'appointment_id'
-      })
-      .populate('doctor_id')
-      .populate('specialization_id')
-      .then(results => results.filter(detail => detail.appointment_id)); // lọc bỏ những cái không match ngày
+      },
+    ]);
   }
 
   async findAll() {
     return this.appointmentDetailModel
       .find()
-      .populate('appointment_id') // Populate thông tin cuộc hẹn
-      .populate('doctor_id') // Populate thông tin bác sĩ
-      .populate('specialization_id') // Populate thông tin chuyên khoa
-      .exec(); // Thực thi truy vấn
+      .populate('appointment_id')
+      .populate('doctor_id')
+      .populate('specialization_id')
+      .exec();
   }
 }

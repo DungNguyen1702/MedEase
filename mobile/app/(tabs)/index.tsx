@@ -6,26 +6,48 @@ import {
   Text,
   ScrollView,
 } from "react-native";
-import FakeData from "@/data/fake_data.json";
 import { Colors } from "@/constants/Colors";
 import Slider from "@/components/SliderComponent";
 import ButtonComponent from "@/components/ButtonComponent";
 import ScheduleComponent from "@/components/ScheduleComponent";
 import SpecializationComponent from "@/components/SpecializationComponent";
 import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import { SpecAPI } from "@/api/spec";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/redux/store";
+import { AppointmentDetailAPI } from "@/api/appointment-detail";
 
 export default function HomeScreen() {
   const router = useRouter();
 
-  const user = FakeData.account;
-  const appoinmentDetail = FakeData["appoinment_detail"];
-  const specializations = FakeData["specializations"];
+  const account = useSelector((state: RootState) => state.auth.account);
+
+  const [appoinmentDetail, setAppointmentDetail] = useState([]);
+  const [specializations, setSpecializations] = useState([]);
+
+  const callAPI = async () => {
+    try {
+      const specResponse = await SpecAPI.getAllSpec();
+
+      const today = new Date();
+      const formattedDate = today.toISOString().split("T")[0];
+
+      const appointmentDetailResponse =
+        await AppointmentDetailAPI.getAppointmentDetailByDate(formattedDate);
+      setSpecializations(specResponse);
+      setAppointmentDetail(appointmentDetailResponse);
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    callAPI();
+  }, []);
 
   const onPressSeeAll = () => {
     router.push("/list-appointment");
-  };
-  const onPressBook = () => {
-    console.log("Book clicked");
   };
 
   return (
@@ -36,13 +58,13 @@ export default function HomeScreen() {
       {/* Header */}
       <View style={styles.headerContainer}>
         <Image
-          source={{ uri: user.avatar }}
+          source={{ uri: account.avatar }}
           resizeMode="cover"
           style={styles.userAvatar}
         />
         <View style={styles.headerTextContainer}>
           <Text style={styles.headerAccountNameText}>
-            Xin chào, {user.name}
+            Xin chào, {account.name}
           </Text>
           <Text style={styles.headerBottomText}>
             Chúc bạn có một ngày tốt lành
@@ -72,7 +94,7 @@ export default function HomeScreen() {
           </View>
         </View>
         <View style={styles.body1Container}>
-          {appoinmentDetail.length !== 0 ? (
+          {appoinmentDetail && appoinmentDetail.length !== 0 ? (
             appoinmentDetail.map((item, index) => {
               return (
                 <View style={{ marginBottom: 10 }} key={index}>

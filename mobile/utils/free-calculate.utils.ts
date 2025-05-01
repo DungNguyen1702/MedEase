@@ -34,15 +34,12 @@ export const calculateSumFee = (
   selectedSpecs.forEach((spec) => {
     const basePrice = spec.spec.base_price;
     const doctorPosition = spec.doctor.position;
-    const appointmentTypeKey = getKeyFromValue(
-      AppointmentType,
-      appointmentType
-    );
-    if (appointmentTypeKey) {
+
+    if (appointmentType) {
       const fee = calculateFee(
         basePrice,
         doctorPosition,
-        appointmentTypeKey as keyof typeof AppointmentTypeFee
+        appointmentType as keyof typeof AppointmentTypeFee
       );
       totalFee += fee;
     }

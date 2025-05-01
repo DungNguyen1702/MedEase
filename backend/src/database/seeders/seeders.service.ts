@@ -17,6 +17,8 @@ import {
   NotificationDocument,
   ReExamSchedule,
   ReExamScheduleDocument,
+  Question,
+  Answer,
 } from '../../schemas';
 import { Model } from 'mongoose';
 import * as path from 'path';
@@ -41,7 +43,11 @@ export class SeedersService {
     @InjectModel(Notification.name)
     private notificationModel: Model<NotificationDocument>,
     @InjectModel(ReExamSchedule.name)
-    private reExamModel: Model<ReExamScheduleDocument>
+    private reExamModel: Model<ReExamScheduleDocument>,
+    @InjectModel(Question.name)
+    private questionModel: Model<Question>,
+    @InjectModel(Answer.name)
+    private answerModel: Model<Answer>
   ) {}
 
   async seedData() {
@@ -66,6 +72,12 @@ export class SeedersService {
 
       await this.seedMedicalRecords();
       console.log('Seeder medical records completed!');
+
+      await this.seedQuestions();
+      console.log('Seeder questions completed!');
+
+      await this.seedAnswers();
+      console.log('Seeder answers completed!');
 
       console.log('Seeder completed!');
     } catch (error) {
@@ -223,6 +235,28 @@ export class SeedersService {
     const createdMedicalRecords =
       await this.medicalRecordModel.insertMany(medicalRecords);
     return createdMedicalRecords.map(app => app._id);
+  }
+
+  async seedQuestions() {
+    const dataPath = path.join(__dirname, 'data', 'question.json');
+    const questions = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+
+    await this.questionModel.deleteMany({});
+
+    // Thêm dữ liệu mới và lưu ID để sử dụng cho các bảng liên quan
+    const createdQuestions = await this.questionModel.insertMany(questions);
+    return createdQuestions.map(app => app._id);
+  }
+
+  async seedAnswers() {
+    const dataPath = path.join(__dirname, 'data', 'answer.json');
+    const answers = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+
+    await this.answerModel.deleteMany({});
+
+    // Thêm dữ liệu mới và lưu ID để sử dụng cho các bảng liên quan
+    const createdAnswers = await this.answerModel.insertMany(answers);
+    return createdAnswers.map(app => app._id);
   }
 
   async clearData() {

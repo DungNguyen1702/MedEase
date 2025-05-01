@@ -8,13 +8,17 @@ import {
   Alert,
 } from "react-native";
 import { Colors } from "@/constants/Colors";
+import { AccountAPI } from "@/api/account";
+import { useRouter } from "expo-router";
 
 export default function ChangePassword() {
+  const router = useRouter();
+
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!oldPassword || !newPassword || !confirmPassword) {
       Alert.alert("Lỗi", "Vui lòng điền đầy đủ thông tin.");
       return;
@@ -25,8 +29,26 @@ export default function ChangePassword() {
       return;
     }
 
-    // Thực hiện logic thay đổi mật khẩu tại đây
-    Alert.alert("Thành công", "Mật khẩu đã được thay đổi.");
+    try {
+      await AccountAPI.updatePassword({
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+        confirmPassword: confirmPassword,
+      });
+      Alert.alert("Thành công", "Đã đổi mật khẩu thành công", [
+        {
+          text: "OK",
+          onPress: () => router.back(),
+        },
+      ]);
+    } catch (error: any) {
+      Alert.alert(
+        "Lỗi",
+        error.response.data.message ||
+          "Có lỗi xảy ra trong quá trình thay đổi mật khẩu."
+      );
+      return;
+    }
   };
 
   return (

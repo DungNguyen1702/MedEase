@@ -18,7 +18,7 @@ export default function PredictedDiseaseComponent(props: any) {
       />
 
       <Text style={[styles.text, { width: "20%", textAlign: "center" }]}>
-        {predictedDisease.probability}%
+        {predictedDisease.percent}%
       </Text>
     </View>
   );

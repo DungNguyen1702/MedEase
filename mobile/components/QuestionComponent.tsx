@@ -1,17 +1,18 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
-import FakeData from "@/data/fake_data.json";
 import { Colors } from "@/constants/Colors";
 import AnswerComponent from "./AnswerComponent";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/redux/store";
+import { formatDateToYYYYMMDDHHmm } from "@/utils/string.utils";
 
 export default function QuestionComponent(props: any) {
-  const account = FakeData.account;
+  const account = useSelector((state: RootState) => state.auth.account);
 
   const { question, answer } = props;
   const [viewAnswer, setViewAnswer] = useState(false);
 
   const onPressViewAnswer = () => {
-    // Handle view answer action here
     console.log("View answer pressed");
     setViewAnswer(!viewAnswer);
   };
@@ -22,7 +23,9 @@ export default function QuestionComponent(props: any) {
         <View style={styles.accountInfo}>
           <Text style={styles.accountName}>{account.name}</Text>
           <Text style={styles.QuestionContent}>{question.content}</Text>
-          <Text style={styles.createdDate}>{question.createdAt}</Text>
+          <Text style={styles.createdDate}>
+            {formatDateToYYYYMMDDHHmm(question.createdAt)}
+          </Text>
           <View style={styles.answerContainer}>
             {viewAnswer &&
               answer &&

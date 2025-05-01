@@ -10,16 +10,21 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot(),
     MailerModule.forRoot({
       transport: {
-        host: process.env.MAIL_HOST,
-        port: +process.env.MAIL_PORT,
-        secure: process.env.MAIL_PORT === '465', // Đặt true nếu dùng SSL (port 465)
+        // host: process.env.MAIL_HOST,
+        host: 'smtp.gmail.com',
+        // port: +process.env.MAIL_PORT,
+        port: 465,
+        // secure: process.env.MAIL_PORT === '465', // Đặt true nếu dùng SSL (port 465)
+        secure: true, // Đặt true nếu dùng SSL (port 465)
         auth: {
-          user: process.env.MAIL_USER,
-          pass: process.env.MAIL_PASSWORD,
+          // user: process.env.MAIL_USER,
+          user: 'vandung17022003@gmail.com',
+          // pass: process.env.MAIL_PASSWORD,
+          pass: 'wsnu hmpp rwzb euke',
         },
       },
       defaults: {
-        from: '"No Reply" <test-email@gmail.com>',
+        from: 'test-email@gmail.com',
       },
     }),
     forwardRef(() => AuthModule),

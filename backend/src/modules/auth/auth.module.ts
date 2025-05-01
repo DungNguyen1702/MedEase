@@ -6,19 +6,20 @@ import { Account, AccountSchema } from '../../schemas';
 import { JwtModule } from '@nestjs/jwt';
 import { AccountModule } from '../account/account.module';
 import { CustomMailerModule } from '../mailer/mailer.module';
+import { AuthGuard } from '../../common/guards/auth.guard';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{name : Account.name, schema: AccountSchema}]),
+    MongooseModule.forFeature([{ name: Account.name, schema: AccountSchema }]),
     JwtModule.register({
       global: true,
       signOptions: { expiresIn: process.env.JWT_EXPIRES_IN },
     }),
     AccountModule,
-    CustomMailerModule
+    CustomMailerModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuard],
   exports: [AuthService],
 })
 export class AuthModule {}

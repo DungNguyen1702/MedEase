@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SelectList } from "react-native-dropdown-select-list";
 import { DoctorPosition } from "@/constants/Constants";
 import { Colors } from "@/constants/Colors";
@@ -7,14 +7,28 @@ import { Colors } from "@/constants/Colors";
 export default function ScheduleSpecializationComponent(props: any) {
   const {
     index,
-    specialization,
-    doctor,
+    spec,
     specializations,
-    doctors,
-    onChangeSpecialization,
-    onChangeDoctor,
+    updateSpec,
     onClickDeleteSpecialization,
   } = props;
+
+  const [specialization, setSpecialization] = useState(spec.spec);
+
+  const [doctors, setDoctors] = useState(
+    specializations.find((spec: any) => spec._id === specialization?._id)
+      ?.doctors
+  );
+
+  const [doctor, setDoctor] = useState(doctors[0]);
+
+  useEffect(() => {
+    const selectedSpecialization = specializations.find(
+      (spec: any) => spec._id === specialization?._id
+    );
+    setDoctors(selectedSpecialization?.doctors);
+    setDoctor(selectedSpecialization?.doctors[0] || null);
+  }, [specialization]);
 
   // Dữ liệu cho SelectList
   const specData = specializations.map((spec: any) => ({
@@ -24,7 +38,7 @@ export default function ScheduleSpecializationComponent(props: any) {
 
   const docData = doctors.map((doc: any) => ({
     key: doc._id,
-    value: doc.name,
+    value: doc.account.name,
   }));
 
   return (
@@ -52,7 +66,10 @@ export default function ScheduleSpecializationComponent(props: any) {
             const selectedSpecialization = specializations.find(
               (spec: any) => spec._id === val
             );
-            onChangeSpecialization(selectedSpecialization || null);
+            updateSpec(index - 1, { spec: selectedSpecialization || null });
+            setSpecialization(selectedSpecialization || null);
+            setDoctor(selectedSpecialization?.doctors[0] || null);
+            setDoctors(selectedSpecialization?.doctors || []);
           }}
           data={specData}
           save="key"
@@ -71,7 +88,8 @@ export default function ScheduleSpecializationComponent(props: any) {
         <SelectList
           setSelected={(val: string) => {
             const selectedDoctor = doctors.find((doc: any) => doc._id === val);
-            onChangeDoctor(selectedDoctor || null);
+            updateSpec(index - 1, { doctor: selectedDoctor || null });
+            setDoctor(selectedDoctor || null);
           }}
           data={docData}
           save="key"
@@ -79,7 +97,7 @@ export default function ScheduleSpecializationComponent(props: any) {
           placeholder="Chọn bác sĩ"
           defaultOption={{
             key: doctor?._id || "",
-            value: doctor?.name || "Chưa chọn",
+            value: doctor?.account?.name || "Chưa chọn",
           }}
         />
       </View>
@@ -88,7 +106,7 @@ export default function ScheduleSpecializationComponent(props: any) {
       <View style={styles.fieldContainer}>
         <Text style={styles.label}>Chức vụ:</Text>
         <Text style={styles.value}>
-          {doctor
+          {doctor && doctor.position
             ? DoctorPosition[doctor.position as keyof typeof DoctorPosition]
             : "Chưa chọn"}
         </Text>

@@ -3,13 +3,24 @@ import React from "react";
 import { Colors } from "@/constants/Colors";
 import ButtonComponent from "./ButtonComponent";
 import { useRouter } from "expo-router";
+import { formatDateToYYYYMMDD } from "@/utils/string.utils";
 
 export default function MedicalRecordReExam(props: any) {
   const router = useRouter();
   const { reExam } = props;
 
   const handlePress = () => {
-    router.push("/(tabs)/schedule");
+    router.push({
+      pathname: "/(tabs)/schedule",
+      params: {
+        reExamId: reExam._id,
+        doctorId: reExam?.doctor?._id,
+        specilizationId: reExam?.doctor?.specialization_id,
+        appointmentId: reExam?.appointment_id,
+        reExamDate: reExam.re_exam_date,
+        doctorName: reExam?.doctor?._id,
+      },
+    });
     console.log("Đặt lịch tái khám");
   };
 
@@ -19,12 +30,14 @@ export default function MedicalRecordReExam(props: any) {
         <Text style={[styles.tagText, { fontWeight: "bold" }]}>
           Ngày tái khám
         </Text>
-        <Text style={styles.tagText}>{reExam.re_exam_date}</Text>
+        <Text style={styles.tagText}>
+          {formatDateToYYYYMMDD(reExam.re_exam_date)}
+        </Text>
       </View>
       <View style={styles.infoContainer}>
         <Text>
           <Text style={styles.itemTitle}>Bác sĩ : </Text>
-          <Text style={styles.itemValue}>{reExam.doctor.name}</Text>
+          <Text style={styles.itemValue}>{reExam?.doctor?.account?.name}</Text>
         </Text>
         <Text style={styles.itemTitle}>Ghi chú</Text>
         <Text style={styles.itemValue}>{reExam.note}</Text>
@@ -49,7 +62,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 10,
     marginVertical: 5,
-    marginHorizontal: 20,
     overflow: "hidden",
     borderColor: Colors.primary.main,
     borderWidth: 1,

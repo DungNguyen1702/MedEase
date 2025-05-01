@@ -63,14 +63,16 @@
       },
       "doctor": {
         "_id": "20000000-0000-0000-0000-000000000001",
-        "email": "doctor1@medease.com",
-        "password": "12345678",
-        "name": "GS.TS. Nguyễn Văn Đạt",
-        "role": "doctor",
-        "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
-        "gender": "male",
-        "date_of_birth": "1970-04-12",
-        "tel": "0911222333",
+        "account": {
+          "email": "doctor1@medease.com",
+          "password": "12345678",
+          "name": "GS.TS. Nguyễn Văn Đạt",
+          "role": "doctor",
+          "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+          "gender": "male",
+          "date_of_birth": "1970-04-12",
+          "tel": "0911222333"
+        },
         "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM",
         "room": "Phòng 101 - Khoa Nội tổng quát"
       }
@@ -124,14 +126,16 @@
       },
       "doctor": {
         "_id": "20000000-0000-0000-0000-000000000001",
-        "email": "doctor1@medease.com",
-        "password": "12345678",
-        "name": "GS.TS. Nguyễn Văn Đạt",
-        "role": "doctor",
-        "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
-        "gender": "male",
-        "date_of_birth": "1970-04-12",
-        "tel": "0911222333",
+        "account": {
+          "email": "doctor1@medease.com",
+          "password": "12345678",
+          "name": "GS.TS. Nguyễn Văn Đạt",
+          "role": "doctor",
+          "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+          "gender": "male",
+          "date_of_birth": "1970-04-12",
+          "tel": "0911222333"
+        },
         "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM",
         "room": "Phòng 101 - Khoa Nội tổng quát"
       }
@@ -504,9 +508,9 @@
       "start_time": "08:00",
       "symptoms": "Đau đầu, mệt mỏi, Đau đầu, mệt mỏi, Đau đầu, mệt mỏi, Đau đầu, mệt mỏi, Đau đầu, mệt mỏi, Đau đầu, mệt mỏi",
       "predicted_disease": [
-        { "name": "Thiếu máu", "probability": 80 },
-        { "name": "Thiếu máu", "probability": 80 },
-        { "name": "Thiếu máu", "probability": 80 }
+        { "name": "Thiếu máu", "percent": 80 },
+        { "name": "Thiếu máu", "percent": 80 },
+        { "name": "Thiếu máu", "percent": 80 }
       ],
       "number": 1,
       "paymentMethod": "cash",
@@ -733,6 +737,60 @@
           "appointment_id": "40000000-0000-0000-0000-000000000001",
           "createdAt": "2025-03-19",
           "updatedAt": "2025-03-19"
+        }
+      ],
+      "re-exam": [
+        {
+          "_id": "40000000-0000-0000-0000-000000000007",
+          "medical_record_id": "40000000-0000-0000-0000-000000000006",
+          "re_exam_date": "2025-03-20",
+          "doctor_id": 1,
+          "doctor": {
+            "account": {
+              "_id": "20000000-0000-0000-0000-000000000001",
+              "email": "doctor1@medease.com",
+              "password": "12345678",
+              "name": "GS.TS. Nguyễn Văn Đạt",
+              "role": "doctor",
+              "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+              "gender": "male",
+              "date_of_birth": "1970-04-12",
+              "tel": "0911222333",
+              "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM"
+            }
+          },
+          "parent_appointment_id": "40000000-0000-0000-0000-000000000003",
+          "appointment_id": "40000000-0000-0000-0000-000000000003",
+          "price": 250000,
+          "isPaid": false,
+          "note": "Hẹn tái khám để đánh giá hiệu quả điều trị",
+          "createdAt": "2025-03-01"
+        },
+        {
+          "_id": "40000000-0000-0000-0000-000000000007",
+          "medical_record_id": "40000000-0000-0000-0000-000000000006",
+          "re_exam_date": "2025-03-20",
+          "doctor_id": 1,
+          "doctor": {
+            "account": {
+              "_id": "20000000-0000-0000-0000-000000000001",
+              "email": "doctor1@medease.com",
+              "password": "12345678",
+              "name": "GS.TS. Nguyễn Văn Đạt",
+              "role": "doctor",
+              "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+              "gender": "male",
+              "date_of_birth": "1970-04-12",
+              "tel": "0911222333",
+              "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM"
+            }
+          },
+          "parent_appointment_id": "40000000-0000-0000-0000-000000000003",
+          "appointment_id": null,
+          "price": 250000,
+          "isPaid": false,
+          "note": "Hẹn tái khám để đánh giá hiệu quả điều trị",
+          "createdAt": "2025-03-01"
         }
       ]
     },

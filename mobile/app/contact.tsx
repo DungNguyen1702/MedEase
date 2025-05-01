@@ -10,19 +10,39 @@ import {
   TouchableWithoutFeedback,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
-import FakeData from "@/data/fake_data.json";
+import React, { useEffect, useState } from "react";
 import InputComponent from "@/components/InputComponent";
 import QuestionComponent from "@/components/QuestionComponent";
 import { Colors } from "@/constants/Colors";
+import { questionAPI } from "@/api/question";
 
 export default function ChatBox() {
-  const questions = FakeData.questions;
+  const [questions, setQuestions] = useState<
+    { question: string; answers: string }[]
+  >([]);
   const [question, setQuestion] = useState("");
 
-  const onPressSend = () => {
-    console.log("Question sent:", question);
-    setQuestion(""); // Clear the input after sending
+  const callAPI = async () => {
+    try {
+      const response = await questionAPI.getAll();
+      setQuestions(response);
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    callAPI();
+  }, []);
+
+  const onPressSend = async () => {
+    try {
+      const response = await questionAPI.createQuestion(question);
+      setQuestions((prev) => [...prev, response]);
+      setQuestion("");
+    } catch (error) {
+      console.log("Error sending question:", error);
+    }
   };
 
   return (
@@ -35,15 +55,17 @@ export default function ChatBox() {
         <ScrollView
           style={styles.questionList}
           contentContainerStyle={{ paddingBottom: 100 }} // Đảm bảo nội dung không bị che
-          keyboardShouldPersistTaps="handled" // Cho phép ẩn bàn phím khi chạm vào ScrollView
+          keyboardShouldPersistTaps="always" // Cho phép ẩn bàn phím khi chạm vào ScrollView
         >
-          {questions.map((item, index) => (
-            <QuestionComponent
-              key={index}
-              question={item}
-              answer={item.answer}
-            />
-          ))}
+          {questions.map((item, index) => {
+            return (
+              <QuestionComponent
+                key={index}
+                question={item}
+                answer={item.answers}
+              />
+            );
+          })}
         </ScrollView>
         <View style={styles.questionCreateBox}>
           <InputComponent

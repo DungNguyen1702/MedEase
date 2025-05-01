@@ -61,3 +61,8 @@ export const AppointmentStatus = {
   wait: "Đang chờ",
   done: "Đã hoàn thành",
 };
+
+export const PaymentWaitTime = {
+  momo: "01:40", // 1 giờ 40 phút
+  zalopay: "00:15", // 15 phút
+};

@@ -32,14 +32,17 @@ export class Appointment {
   @Prop()
   symptoms: string;
 
-  @Prop({ type: Object })
-  predicted_disease: { name: string; probability: number };
+  @Prop({ type: [{ name: String, percent: Number }], default: [] })
+  predicted_disease: object;
 
   @Prop()
   number: number;
 
   @Prop({ enum: OrderPaymentMethodEnum, required: true })
   paymentMethod: OrderPaymentMethodEnum;
+
+  @Prop()
+  paymentCode: string;
 
   @Prop()
   reasonCancel: string;

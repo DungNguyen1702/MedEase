@@ -30,6 +30,8 @@ export class AuthController {
   async registerUser(@Body() registerDto: RegisterDto) {
     const result = await this.authService.registerAccount(registerDto);
 
+    // console.log(result);
+
     // Gửi email xác minh sau khi đăng ký thành công
     await this.customMailerService.sendVerificationEmail(
       result.email,
@@ -58,14 +60,13 @@ export class AuthController {
     };
   }
 
-  @Get('verify')
+  @Get('/verify')
   @Redirect()
   async verifyEmail(@Query('token') token: string) {
     try {
       await this.authService.verifyEmail(token);
-      // console.log(result);
       return {
-        url: `http://localhost:3000/auth/login?message=${encodeURIComponent(
+        url: `${process.env.DEPLOY_SERVICE_LINK}/auth/login?message=${encodeURIComponent(
           'Tài khoản đã được kích hoạt'
         )}`,
       };
@@ -80,9 +81,18 @@ export class AuthController {
     const result = await this.authService.resetPassword(token);
     await this.customMailerService.sendPasswordReset(result.emailreset);
     return {
-      url: `http://localhost:3000/auth/login?message=${encodeURIComponent(
+      url: `${process.env.DEPLOY_SERVICE_LINK}/auth/login?message=${encodeURIComponent(
         'Yêu cầu tạo mới mật khẩu đã được gửi. Vui lòng kiểm tra email!'
       )}`,
+    };
+  }
+
+  @Get('/test-send-mail')
+  async testSendMail() {
+    const result = await this.customMailerService.testSendMail();
+    return {
+      message: 'Test email sent successfully',
+      result,
     };
   }
 }

@@ -29,7 +29,7 @@ export class AuthService {
     );
 
     if (!accountByEmail) {
-      throw new BadRequestException('Invalid Credentials!');
+      throw new BadRequestException('Không tìm thấy tài khoản!');
     }
 
     //check password
@@ -38,7 +38,7 @@ export class AuthService {
       accountByEmail.password
     );
     if (!isMatchPassword) {
-      throw new BadRequestException('Invalid Credentials!');
+      throw new BadRequestException('Mật khẩu không chính xác!');
     }
 
     //generate jwt token
@@ -48,15 +48,16 @@ export class AuthService {
       address: accountByEmail.address,
       email: accountByEmail.email,
       role: accountByEmail.role,
+      date_of_birth: accountByEmail.date_of_birth,
     };
 
-    const acess_token = await this.jwtService.signAsync(payload, {
+    const access_token = await this.jwtService.signAsync(payload, {
       secret: process.env.JWT_SECRET,
     });
 
     return {
-      msg: 'User has been login successfully!',
-      acess_token,
+      msg: 'Đăng nhập thành công',
+      access_token,
       name: accountByEmail.name,
       address: accountByEmail.address,
       email: accountByEmail.email,
@@ -64,9 +65,9 @@ export class AuthService {
       avatar: accountByEmail.avatar,
       gender: accountByEmail.gender,
       role: accountByEmail.role,
+      date_of_birth: accountByEmail.date_of_birth,
     };
   }
-
   async registerAccount(accountData: RegisterDto) {
     const accountFound = await this.accountService.findByEmail(
       accountData.email
@@ -109,13 +110,13 @@ export class AuthService {
     if (!user) {
       return new UnauthorizedException('User not found');
     }
-    
+
     // await this.accountService.create(payload.newAccount);
     // // Cập nhật trạng thái xác minh của người dùng
     // user.isVerified = true; // Hoặc trường tương ứng trong mô hình của bạn
     // await this.userService.update(user.id, user); // Cập nhật thông tin người dùng
 
-    return user; 
+    return user;
   }
   async sendPasswordReset(email: string) {
     const account = await this.accountService.findByEmail(email);
@@ -133,7 +134,10 @@ export class AuthService {
       `/auth/get-reset-password?token=${resetToken}`;
 
     // Gửi email reset mật khẩu qua MailerService
-    // await this.customMailerService.sendPasswordResetEmail(account.email, resetLink);
+    await this.customMailerService.sendVerificationPasswordResetEmail(
+      account.email,
+      resetLink
+    );
 
     return { email: account.email, resetLink };
   }

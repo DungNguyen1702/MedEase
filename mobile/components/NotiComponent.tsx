@@ -8,11 +8,18 @@ import {
 } from "react-native";
 import React from "react";
 import { Colors } from "@/constants/Colors";
+import { notifiAPI } from "@/api/notification";
 
 export default function NotiComponent(props: any) {
   const { noti, onUpdateNotis } = props;
 
-  const handlePress = () => {
+  const handlePress = async () => {
+    try {
+      const response = await notifiAPI.readNoti(noti._id);
+      console.log("response", response);
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
     onUpdateNotis({ status: true }, noti._id);
   };
 
@@ -43,14 +50,14 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal : 10,
+    paddingHorizontal: 10,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
     backgroundColor: Colors.light.main,
-    paddingVertical : 20,
+    paddingVertical: 20,
   },
-  notReadContainer : {
-    backgroundColor : Colors.primary.lightBackground,
+  notReadContainer: {
+    backgroundColor: Colors.primary.lightBackground,
   },
   image: {
     width: 50,

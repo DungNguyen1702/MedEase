@@ -1,15 +1,33 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import FakeData from "@/data/fake_data.json";
 import InputComponent from "@/components/InputComponent";
 import { Colors } from "@/constants/Colors";
 import MedicalRecordComponent from "@/components/MedicalRecordComponent";
+import { MedicalRecordAPI } from "@/api/medical-record";
 
 export default function MedicalRecord() {
-  const medicalRecord = FakeData.medical_records;
+  const [medicalRecord, setMedicalRecord] = useState<
+    { diagnosis: string; symptoms: string }[]
+  >([]);
   const [search, setSearch] = useState("");
   const [filteredMedicalRecords, setFilteredMedicalRecords] =
     useState(medicalRecord);
+
+  const callAPI = async () => {
+    try {
+      const response = await MedicalRecordAPI.getMedicalRecord();
+      setMedicalRecord(response);
+    } catch (error) {
+      console.error("Error fetching medical records:", error);
+    }
+  };
+  useEffect(() => {
+    callAPI();
+  }, []);
+
+  useEffect(() => {
+    setFilteredMedicalRecords(medicalRecord);
+  }, [medicalRecord]);
 
   useEffect(() => {
     // Filter medical records based on search input

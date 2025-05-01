@@ -5,18 +5,20 @@
     "doctor_id": "20000000-0000-0000-0000-000000000001",
     "symptoms": "Sốt cao, ho, đau họng",
     "diagnosis": "Cảm cúm",
-    "prescription": {
-      "paracetamol": {
+    "prescription": [
+      {
+        "medicine": "paracetamol",
         "dosage": "500mg",
         "frequency": "2 viên/ngày",
         "duration": "5 ngày"
       },
-      "nước muối sinh lý": {
+      {
+        "medicine": "nước muối sinh lý",
         "dosage": "10ml",
         "frequency": "2 lần/ngày",
         "duration": "5 ngày"
       }
-    },
+    ],
     "note": "Bệnh nhân cần nghỉ ngơi nhiều, bổ sung nước và vitamin C.",
     "appointment_id": "40000000-0000-0000-0000-000000000001",
     "createdAt": "2025-04-18T08:00:00.000Z",
@@ -28,15 +30,16 @@
     "doctor_id": "20000000-0000-0000-0000-000000000001",
     "symptoms": "Đau đầu, chóng mặt",
     "diagnosis": "Thiếu máu nhẹ",
-    "prescription": {
-      "sắt hữu cơ": {
+    "prescription": [
+      {
+        "medicine": "sắt hữu cơ",
         "dosage": "100mg",
         "frequency": "1 viên/ngày",
         "duration": "30 ngày"
       }
-    },
+    ],
     "note": "Theo dõi huyết áp, bổ sung thực phẩm giàu sắt.",
-    "parent_appointment_id": "40000000-0000-0000-0000-000000000001",
+    "appointment_id": "40000000-0000-0000-0000-000000000001",
     "createdAt": "2025-04-17T10:30:00.000Z",
     "updatedAt": "2025-04-17T10:30:00.000Z"
   },
@@ -61,7 +64,7 @@
       }
     ],
     "note": "Tránh thức ăn cay, nóng, không uống rượu bia.",
-    "parent_appointment_id": "40000000-0000-0000-0000-000000000001",
+    "appointment_id": "40000000-0000-0000-0000-000000000001",
     "createdAt": "2025-04-16T14:45:00.000Z",
     "updatedAt": "2025-04-16T14:45:00.000Z"
   }

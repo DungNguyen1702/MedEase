@@ -6,17 +6,38 @@ import {
   Text,
   View,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router/build/hooks";
 import { Colors } from "@/constants/Colors";
-import FakeData from "@/data/fake_data.json";
 import DoctorSpecComponent from "@/components/DoctorSpecComponent";
+import { SpecAPI } from "@/api/spec";
 
 export default function SpecDetail() {
   const { specializationId } = useLocalSearchParams();
-  const spec = FakeData.specializations[0];
-  const doctorNum = 10;
-  const doctors = FakeData.doctors;
+  const [spec, setSpec] = useState<{
+    name: string;
+    description: string;
+    image: string;
+  } | null>();
+  const [doctorNum, setDoctorNum] = useState<number>(0);
+  const [doctors, setDoctors] = useState<any[]>([]);
+
+  const callAPI = async () => {
+    try {
+      const responseSpec = await SpecAPI.getSpecById(
+        specializationId as string
+      );
+      setSpec(responseSpec[0]);
+      console.log("responseSpec", responseSpec[0]);
+      setDoctors(responseSpec[0].doctors);
+      setDoctorNum(responseSpec[0].doctors.length);
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
+  };
+  useEffect(() => {
+    callAPI();
+  }, []);
 
   return (
     <ScrollView style={styles.container}>
@@ -30,7 +51,7 @@ export default function SpecDetail() {
           <View style={styles.headerTitleContainer}>
             <Text style={styles.headerTitle}>
               <Text style={{ fontWeight: "bold" }}>Khoa : </Text>{" "}
-              <Text>{spec.name}</Text>
+              <Text>{spec?.name}</Text>
             </Text>
             <Text style={styles.headerTitle}>
               <Text style={{ fontWeight: "bold" }}>Số lượng bác sĩ : </Text>{" "}
@@ -39,12 +60,12 @@ export default function SpecDetail() {
           </View>
           <Text style={styles.headerTitle}>
             <Text style={{ fontWeight: "bold" }}>Miêu tả : </Text>{" "}
-            <Text>{spec.description}</Text>
+            <Text>{spec?.description}</Text>
           </Text>
         </View>
         <View style={styles.headerImageContainer}>
           <Image
-            source={{ uri: spec.image }}
+            source={{ uri: spec?.image }}
             resizeMode="cover"
             style={styles.headerImage}
           />

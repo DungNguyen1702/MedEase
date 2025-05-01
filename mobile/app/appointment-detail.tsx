@@ -1,31 +1,43 @@
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
-import FakeData from "@/data/fake_data.json";
+import React, { useEffect, useMemo, useState } from "react";
+
 import {
   AppointmentStatus,
   AppointmentType,
   OrderPaymentMethod,
-  type AppointmentTypeFee,
   type DoctorPosition,
 } from "@/constants/Constants";
 import InputComponent from "@/components/InputComponent";
 import PredictedDiseaseComponent from "@/components/PredictedDiseaseComponent";
 import MedicalRecordComponent from "@/components/MedicalRecordComponent";
 import AppointmentDetailComponent from "@/components/AppointmentDetailComponent";
-import { FormatNumberWithDots, getKeyFromValue } from "@/utils/string.utils";
+import {
+  formatDateToYYYYMMDD,
+  FormatNumberWithDots,
+  getKeyFromValue,
+} from "@/utils/string.utils";
 import { calculateFee, calculateSumFee } from "@/utils/free-calculate.utils";
 import { Colors } from "@/constants/Colors";
+import MedicalRecordReExam from "@/components/MedicalRecordReExam";
+import { AppointmentAPI } from "@/api/appointment";
+import { useLocalSearchParams } from "expo-router";
 
 export default function AppointmentDetail() {
-  const appointment: {
+  const { appointmentId } = useLocalSearchParams();
+
+  interface Appointment {
     status: keyof typeof AppointmentStatus;
     type: keyof typeof AppointmentType;
     [key: string]: any;
-  } = {
-    ...FakeData.appointments[0],
-    status: FakeData.appointments[0].status as keyof typeof AppointmentStatus,
-    type: FakeData.appointments[0].type as keyof typeof AppointmentType,
-  };
+  }
+
+  const [appointment, setAppointment] = useState<Appointment>({
+    status: "wait",
+    type: "general_consultation",
+    predicted_disease: [],
+    medical_record: [],
+    "re-exam": [],
+  });
 
   const [selectedSpecs, setSelectedSpecs] = useState<
     {
@@ -34,15 +46,35 @@ export default function AppointmentDetail() {
     }[]
   >([]);
 
+  const [appointmentDetail, setAppointmentDetail] = useState([]);
+
+  const callAPI = async () => {
+    try {
+      const response = await AppointmentAPI.getAppHistoryDetail(
+        appointmentId as string
+      );
+      setAppointment(response[0]);
+      setAppointmentDetail(response[0].appointment_detail);
+      console.log(response[0].predicted_disease.length);
+    } catch (error) {
+      console.error("Error fetching medical record detail:", error);
+    }
+  };
+
   useEffect(() => {
-    const filteredSpecs = appointment.appointment_detail.map((item: any) => {
-      return {
-        spec: item.specialization,
-        doctor: item.doctor,
-      };
-    });
+    callAPI();
+  }, []);
+
+  const filteredSpecs = useMemo(() => {
+    return appointmentDetail.map((item: any) => ({
+      spec: item.specialization,
+      doctor: item.doctor,
+    }));
+  }, [appointmentDetail]);
+
+  useEffect(() => {
     setSelectedSpecs(filteredSpecs);
-  }, [appointment.appointment_detail]);
+  }, [filteredSpecs]);
 
   return (
     <ScrollView style={styles.container}>
@@ -113,7 +145,9 @@ export default function AppointmentDetail() {
           </View>
           <View style={styles.itemContainer}>
             <Text style={styles.itemTitle}>Ngày tạo</Text>
-            <Text style={styles.itemValue}>{appointment.createdAt}</Text>
+            <Text style={styles.itemValue}>
+              {formatDateToYYYYMMDD(appointment.createdAt)}
+            </Text>
           </View>
         </View>
 
@@ -142,14 +176,17 @@ export default function AppointmentDetail() {
           <View style={styles.itemColContainer}>
             <Text style={styles.itemTitle}>Bệnh dự đoán</Text>
             {appointment.predicted_disease.length > 0 ? (
-              appointment.predicted_disease.map((disease: any, index: any) => (
-                <View key={index}>
-                  <PredictedDiseaseComponent
-                    index={index + 1}
-                    predictedDisease={disease}
-                  />
-                </View>
-              ))
+              appointment.predicted_disease.map((disease: any, index: any) => {
+                console.log(disease);
+                return (
+                  <View key={index}>
+                    <PredictedDiseaseComponent
+                      index={index + 1}
+                      predictedDisease={disease}
+                    />
+                  </View>
+                );
+              })
             ) : (
               <View style={styles.bodyNoDiseaseContainer}>
                 <Image
@@ -169,7 +206,8 @@ export default function AppointmentDetail() {
             <Text style={[styles.itemTitle, { marginBottom: 10 }]}>
               Bệnh chuẩn đoán
             </Text>
-            {appointment.medical_record.length > 0 ? (
+            {appointment.medical_record &&
+            appointment.medical_record.length > 0 ? (
               appointment.medical_record.map((disease: any, index: any) => (
                 <View key={index}>
                   <MedicalRecordComponent key={index} medicalRecord={disease} />
@@ -199,7 +237,7 @@ export default function AppointmentDetail() {
             </Text>
             <View style={[styles.lines, { flex: 1 }]} />
           </View>
-          {appointment.appointment_detail.map((item: any, index: any) => {
+          {appointmentDetail.map((item: any, index: any) => {
             const newItem = {
               ...item,
               appointment: appointment,
@@ -211,6 +249,39 @@ export default function AppointmentDetail() {
               />
             );
           })}
+        </View>
+
+        {/* Lịch tái khám */}
+        <View style={styles.itemColContainer}>
+          <View
+            style={{
+              width: "100%",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <View style={[styles.lines, { flex: 1 }]} />
+            <Text style={[styles.itemTitle, { marginHorizontal: 10 }]}>
+              Lịch tái khám
+            </Text>
+            <View style={[styles.lines, { flex: 1 }]} />
+          </View>
+          {appointment?.["re-exam"].length > 0 ? (
+            appointment?.["re-exam"].map((item: any, index: any) => (
+              <MedicalRecordReExam key={index} reExam={item} />
+            ))
+          ) : (
+            <View style={styles.noReExamContainer}>
+              <Image
+                source={require("@/assets/icons/no-calendar.png")}
+                style={styles.noReExamImage}
+                resizeMode="contain"
+              />
+              <Text style={[styles.itemValue, { marginTop: 5 }]}>
+                Bạn không có lịch tái khám
+              </Text>
+            </View>
+          )}
         </View>
 
         {/* Thanh toán */}
@@ -244,23 +315,21 @@ export default function AppointmentDetail() {
           <View style={styles.itemColContainer}>
             <Text style={styles.itemTitle}>Thông tin chi tiết</Text>
           </View>
+        </View>
 
-          {/* Chi tiết giá tiền */}
-          <View style={styles.itemColContainer}>
-            {/* Title  */}
-            <View style={styles.paymentTableContainer}>
-              <Text style={[styles.paymentNumber, styles.paymentTitle]}>
-                STT
-              </Text>
-              <Text style={[styles.paymentSpec, styles.paymentTitle]}>
-                Khoa
-              </Text>
-              <Text style={[styles.paymentFee, styles.paymentTitle]}>
-                Giá tiền
-              </Text>
-              {/* Body  */}
-            </View>
-            {selectedSpecs.map((spec, index) => (
+        {/* Chi tiết giá tiền */}
+        <View style={styles.itemColContainer}>
+          {/* Title  */}
+          <View style={styles.paymentTableContainer}>
+            <Text style={[styles.paymentNumber, styles.paymentTitle]}>STT</Text>
+            <Text style={[styles.paymentSpec, styles.paymentTitle]}>Khoa</Text>
+            <Text style={[styles.paymentFee, styles.paymentTitle]}>
+              Giá tiền
+            </Text>
+            {/* Body  */}
+          </View>
+          {selectedSpecs &&
+            selectedSpecs.map((spec, index) => (
               <View key={index} style={styles.paymentTableContainer}>
                 <Text style={[styles.paymentNumber]}>{index + 1}</Text>
                 <Text style={[styles.paymentSpec]}>{spec.spec.name}</Text>
@@ -276,20 +345,16 @@ export default function AppointmentDetail() {
                 </Text>
               </View>
             ))}
-          </View>
+        </View>
 
-          <View style={[styles.itemContainer, styles.totalPrice]}>
-            <Text style={styles.footerTitle}>
-              Tổng tiền :{" "}
-              {FormatNumberWithDots(
-                calculateSumFee(
-                  selectedSpecs,
-                  AppointmentType[appointment.type]
-                )
-              )}{" "}
-              VND
-            </Text>
-          </View>
+        <View style={[styles.itemContainer, styles.totalPrice]}>
+          <Text style={styles.footerTitle}>
+            Tổng tiền :{" "}
+            {FormatNumberWithDots(
+              calculateSumFee(selectedSpecs, AppointmentType[appointment.type])
+            )}{" "}
+            VND
+          </Text>
         </View>
       </View>
     </ScrollView>
@@ -464,5 +529,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 1,
     borderColor: "#FF0000",
+  },
+  noReExamContainer: {
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 20,
+  },
+  noReExamImage: {
+    width: 50,
+    height: 50,
   },
 });

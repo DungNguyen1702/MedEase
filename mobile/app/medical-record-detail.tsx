@@ -1,15 +1,62 @@
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
-import FakeData from "@/data/fake_data.json";
+
 import InputComponent from "@/components/InputComponent";
 import { Colors } from "@/constants/Colors";
 import MedicalRecordReExam from "@/components/MedicalRecordReExam";
 import MedicalRecordMedicine from "@/components/MedicalRecordMedicine";
+import { MedicalRecordAPI } from "@/api/medical-record";
 
 export default function MedicalRecordDetail() {
   const { medicalRecordId } = useLocalSearchParams();
-  const medicalRecord = FakeData.medical_records[0];
+
+  interface Account {
+    avatar: string;
+    name: string;
+  }
+
+  interface Doctor {
+    account: Account;
+  }
+
+  interface Appointment {
+    appointment_date: string;
+    "re-exam"?: Array<any>;
+  }
+
+  interface MedicalRecord {
+    doctor?: Doctor;
+    appointment?: Appointment;
+    symptoms?: string;
+    diagnosis?: string;
+    note?: string;
+    prescription?: Array<any>;
+  }
+
+  const [medicalRecord, setMedicalRecord] = useState<MedicalRecord>({
+    doctor: { account: { avatar: "", name: "" } },
+    appointment: { appointment_date: "" },
+    symptoms: "",
+    diagnosis: "",
+    note: "",
+    prescription: [],
+  });
+
+  const callAPI = async () => {
+    try {
+      const response = await MedicalRecordAPI.getMedicalRecordDetail(
+        medicalRecordId as string
+      );
+      setMedicalRecord(response[0]);
+    } catch (error) {
+      console.error("Error fetching medical record detail:", error);
+    }
+  };
+
+  useEffect(() => {
+    callAPI();
+  }, []);
 
   console.log("medicalRecordId", medicalRecordId);
 
@@ -19,11 +66,13 @@ export default function MedicalRecordDetail() {
       <View style={styles.itemContainer}>
         <Text style={styles.itemTitle}>Bác sĩ khám : </Text>
         <Image
-          source={{ uri: medicalRecord.doctor?.avatar || "" }}
+          source={{ uri: medicalRecord?.doctor?.account?.avatar || "" }}
           resizeMode="cover"
           style={styles.avatarImage}
         />
-        <Text style={styles.itemValue}>{medicalRecord.doctor?.name}</Text>
+        <Text style={styles.itemValue}>
+          {medicalRecord?.doctor?.account?.name}
+        </Text>
       </View>
       <View style={styles.itemContainer}>
         <Text style={styles.itemTitle}>Ngày khám : </Text>
@@ -73,34 +122,38 @@ export default function MedicalRecordDetail() {
         </Text>
         <View style={[styles.lines, { flex: 1 }]} />
       </View>
-      {medicalRecord.prescription.map((item, index) => (
+      {(medicalRecord.prescription ?? []).map((item, index) => (
         <MedicalRecordMedicine item={item} key={index} />
       ))}
 
       {/* Lịch tái khám */}
-      <View style={styles.itemContainer}>
-        <View style={[styles.lines, { flex: 1 }]} />
-        <Text style={[styles.itemTitle, { marginHorizontal: 10 }]}>
-          Lịch tái khám
-        </Text>
-        <View style={[styles.lines, { flex: 1 }]} />
-      </View>
-      {medicalRecord.appointment?.["re-exam"] ? (
-        medicalRecord.appointment?.["re-exam"].map((item, index) => (
-          <MedicalRecordReExam key={index} reExam={item} />
-        ))
-      ) : (
-        <View style={styles.noReExamContainer}>
-          <Image
-            source={require("@/assets/icons/no-calendar.png")}
-            style={styles.noReExamImage}
-            resizeMode="contain"
-          />
-          <Text style={[styles.itemValue, { marginTop: 5 }]}>
-            Bạn không có lịch tái khám
+      <View style={styles.itemColContainer}>
+        <View
+          style={{ width: "100%", flexDirection: "row", alignItems: "center" }}
+        >
+          <View style={[styles.lines, { flex: 1 }]} />
+          <Text style={[styles.itemTitle, { marginHorizontal: 10 }]}>
+            Lịch tái khám
           </Text>
+          <View style={[styles.lines, { flex: 1 }]} />
         </View>
-      )}
+        {medicalRecord.appointment?.["re-exam"] ? (
+          medicalRecord.appointment?.["re-exam"].map((item, index) => (
+            <MedicalRecordReExam key={index} reExam={item} />
+          ))
+        ) : (
+          <View style={styles.noReExamContainer}>
+            <Image
+              source={require("@/assets/icons/no-calendar.png")}
+              style={styles.noReExamImage}
+              resizeMode="contain"
+            />
+            <Text style={[styles.itemValue, { marginTop: 5 }]}>
+              Bạn không có lịch tái khám
+            </Text>
+          </View>
+        )}
+      </View>
     </ScrollView>
   );
 }

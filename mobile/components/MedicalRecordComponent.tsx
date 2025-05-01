@@ -2,6 +2,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { Colors } from "@/constants/Colors";
 import { useRouter } from "expo-router";
+import { formatDateToYYYYMMDD } from "@/utils/string.utils";
 
 export default function MedicalRecordComponent(props: any) {
   const router = useRouter();
@@ -34,7 +35,9 @@ export default function MedicalRecordComponent(props: any) {
           {medicalRecord.symptoms}
         </Text>
       </View>
-      <Text style={styles.date}>{medicalRecord.createdAt}</Text>
+      <Text style={styles.date}>
+        {formatDateToYYYYMMDD(medicalRecord.createdAt)}
+      </Text>
       <View style={styles.detailContainer}>
         <Text style={styles.detailText}>Chi tiết</Text>
         <Image

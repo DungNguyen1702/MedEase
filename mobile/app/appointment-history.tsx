@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, ScrollView } from "react-native";
 import AppointmentHistoryComponent from "@/components/AppointmentHistoryComponent";
 import { Colors } from "@/constants/Colors";
 import InputComponent from "@/components/InputComponent";
-import FakeData from "@/data/fake_data.json";
+import { AppointmentAPI } from "@/api/appointment";
 
 type Appointment = {
   _id: string;
@@ -11,7 +11,7 @@ type Appointment = {
   title: string;
   status: string;
   appointment_date: string;
-  start_time: string;
+  time: string;
   symptoms: string;
   predicted_disease: { name: string; percent: number };
   number: number;
@@ -26,7 +26,7 @@ type Appointment = {
 };
 
 export default function AppointmentHistory() {
-  const appointments: Appointment[] = FakeData.appointments;
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
 
   const [search, setSearch] = useState("");
   const [filteredAppointments, setFilteredAppointments] =
@@ -39,6 +39,23 @@ export default function AppointmentHistory() {
     );
     setFilteredAppointments(filteredAppointments);
   }, [search]);
+
+  const callAPI = async () => {
+    const response = await AppointmentAPI.getAppHistory();
+    setAppointments(response);
+    try {
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    callAPI();
+  }, []);
+
+  useEffect(() => {
+    setFilteredAppointments(appointments);
+  }, [appointments]);
 
   return (
     <View style={styles.container}>
@@ -56,7 +73,7 @@ export default function AppointmentHistory() {
               key={index}
               number={String(appointment.number)}
               title={appointment.title}
-              time={appointment.start_time}
+              time={appointment.time}
               date={appointment.appointment_date}
               symptoms={appointment.symptoms}
               status={

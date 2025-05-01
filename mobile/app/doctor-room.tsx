@@ -1,21 +1,71 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
-import FakeData from "@/data/fake_data.json";
 import { getCurrentDate } from "@/utils/string.utils";
 import {
   ExaminationStatusColor,
   ExaminationStatusEnum,
 } from "@/constants/Constants";
 import { Colors } from "@/constants/Colors";
+import { doctorAPI } from "@/api/doctor";
+
+interface Doctor {
+  account: {
+    name: string;
+  };
+  room: string;
+  specialization: {
+    name: string;
+  };
+}
+
+interface AppointmentDetail {
+  examStatus: string;
+  appointment: {
+    number: number;
+    patient: {
+      name: string;
+    };
+  };
+  time: string;
+}
 
 export default function DoctorRoom() {
   const { doctorId } = useLocalSearchParams();
-  const doctor = FakeData.doctors[0];
-  const appointmentDetail = FakeData.appoinment_detail;
-  const currentNumber = 486;
 
-  console.log(doctorId);
+  const [doctor, setDoctor] = useState<Doctor | null>(null);
+
+  const [appointmentDetail, setAppointmentDetail] = useState<
+    AppointmentDetail[]
+  >([]);
+  const [currentNumber, setCurrentNumber] = useState(0);
+
+  const callAPI = async () => {
+    try {
+      const response = await doctorAPI.getDoctorRoom(doctorId as string);
+      setDoctor(response[0]);
+      setAppointmentDetail(response[0].appointmentDetails);
+      if (response[0].appointmentDetails.length > 0) {
+        response[0].appointmentDetails.forEach((element: any) => {
+          console.log(element.examStatus);
+          if (
+            ExaminationStatusEnum[
+              element.examStatus as keyof typeof ExaminationStatusEnum
+            ] === ExaminationStatusEnum.in_progress
+          ) {
+            setCurrentNumber(element.appointment.number);
+          }
+        });
+      }
+    } catch (error: any) {
+      console.log("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    callAPI();
+  }, []);
+
   return (
     <ScrollView style={styles.container}>
       {/* Header */}
@@ -26,7 +76,7 @@ export default function DoctorRoom() {
           {/* Doctor name */}
           <Text style={styles.headerText}>
             <Text style={{ fontWeight: "bold" }}>Bác sĩ : </Text>
-            <Text>{doctor.name}</Text>
+            <Text>{doctor?.account.name}</Text>
           </Text>
 
           {/* Current date */}
@@ -38,7 +88,7 @@ export default function DoctorRoom() {
           {/* Room */}
           <Text style={styles.headerText}>
             <Text style={{ fontWeight: "bold" }}>Phòng : </Text>
-            <Text>{doctor.room}</Text>
+            <Text>{doctor?.room}</Text>
           </Text>
 
           {/* Appointment number */}
@@ -50,14 +100,16 @@ export default function DoctorRoom() {
           {/* Specialization */}
           <Text style={styles.headerText}>
             <Text style={{ fontWeight: "bold" }}>Chuyên khoa : </Text>
-            <Text>{doctor.specialization.name}</Text>
+            <Text>{doctor?.specialization.name}</Text>
           </Text>
         </View>
 
         {/* Current Number */}
         <View style={styles.headerCurrentNumContainer}>
           <Text style={styles.headerCurrentNumTitle}>Số hiện tại</Text>
-          <Text style={styles.headerCurrentNum}>{currentNumber}</Text>
+          <Text style={styles.headerCurrentNum}>
+            {currentNumber !== 0 ? currentNumber : "Không có số"}
+          </Text>
         </View>
       </View>
 

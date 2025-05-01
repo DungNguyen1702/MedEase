@@ -59,7 +59,7 @@ export default function ScheduleComponent(props: any) {
         <View style={styles.bodyItemContainer}>
           <Text style={styles.bodyItemTitle}>Bác sĩ : </Text>
           <Text style={styles.bodyItemData}>
-            {TruncateText(data.doctor.name, 15)}
+            {TruncateText(data.doctor.account.name, 15)}
           </Text>
         </View>
       </View>

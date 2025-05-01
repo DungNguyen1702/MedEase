@@ -1,5 +1,8 @@
+import { AuthAPI } from "@/api/auth";
 import ButtonComponent from "@/components/ButtonComponent";
 import { Colors } from "@/constants/Colors";
+import { setAccount, setToken } from "@/redux/slices/authSlice";
+import axiosClient from "@/utils/axios-custom";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -14,18 +17,19 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from "react-native";
+import { useDispatch } from "react-redux";
 
 const { width, height } = Dimensions.get("window");
 
 export default function LoginPage() {
   const router = useRouter();
+  const dispatch = useDispatch();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("patient1@medease.com");
+  const [password, setPassword] = useState("12345678");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [errorPassword, setErrorPassword] = useState("");
-  const [errorEmail, setErrorEmail] = useState("");
 
   const onChangeEmail = (text: string) => {
     setEmail(text);
@@ -34,11 +38,59 @@ export default function LoginPage() {
     setPassword(text);
   };
 
-  const onLogin = () => {
-    router.replace("/(tabs)");
+  const onLogin = async () => {
+    if (!email) {
+      Alert.alert("Đăng nhập thất bại", "Vui lòng nhập email");
+      return;
+    }
+    if (!password) {
+      Alert.alert("Đăng nhập thất bại", "Vui lòng nhập mật khẩu");
+      return;
+    }
+
+    console.log("env: ", process.env.EXPO_PUBLIC_API_URL);
+
+    try {
+      const response = await AuthAPI.LoginAPI({ gmail: email, password });
+
+      dispatch(setToken(response.access_token)); // Lưu token vào Redux store
+      dispatch(setAccount(response));
+
+      // Cập nhật header Authorization cho các instance của axios
+      axiosClient.application.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${response.access_token}`;
+      axiosClient.formData.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${response.access_token}`;
+
+      // Chuyển sang trang (tabs) nếu đăng nhập thành công
+      router.replace("/(tabs)");
+    } catch (error: any) {
+      console.log("Login failed:", error.response.data.message);
+      Alert.alert(
+        "Đăng nhập thất bại",
+        error.response.data.message || "Có lỗi xảy ra"
+      );
+    }
   };
 
-  const onForgotPassword = () => {
+  const onForgotPassword = async () => {
+    try {
+      const response = await AuthAPI.ResetPassword(email);
+      console.log(response);
+      Alert.alert(
+        "Quên mật khẩu thành công",
+        "Vui lòng kiểm tra email để đặt lại mật khẩu"
+      );
+    } catch (error: any) {
+      console.log("Quên mật khẩu thất bại:", error.response.data.message);
+
+      Alert.alert(
+        "Quên mật khẩu thất bại",
+        error.response.data.message || "Có lỗi xảy ra"
+      );
+    }
     console.log("Quên mật khẩu");
   };
   const onRegister = () => {
@@ -97,9 +149,6 @@ export default function LoginPage() {
               placeholderTextColor={Colors.primary.mainLight}
               style={styles.inputText}
             />
-            {errorEmail ? (
-              <Text style={styles.errorText}>{errorEmail}</Text>
-            ) : null}
           </View>
 
           <View style={styles.inputGroup}>
@@ -140,9 +189,6 @@ export default function LoginPage() {
                 )}
               </TouchableOpacity>
             </View>
-            {errorPassword ? (
-              <Text style={styles.errorText}>{errorPassword}</Text>
-            ) : null}
           </View>
 
           <View

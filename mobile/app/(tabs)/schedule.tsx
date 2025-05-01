@@ -12,12 +12,13 @@ import {
   Image,
   StatusBar,
   Modal,
+  Alert,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import ButtonComponent from "@/components/ButtonComponent";
 import PredictedDiseaseComponent from "@/components/PredictedDiseaseComponent";
 import ScheduleSpecializationComponent from "@/components/ScheduleSpecializationComponent";
-import FakeData from "../../data/fake_data.json";
+
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {
   AppointmentType,
@@ -26,61 +27,146 @@ import {
   type DoctorPosition,
 } from "@/constants/Constants";
 import { SelectList } from "react-native-dropdown-select-list";
-import { FormatNumberWithDots, getKeyFromValue } from "@/utils/string.utils";
+import {
+  formatDateToYYYYMMDD,
+  FormatNumberWithDots,
+  getKeyFromValue,
+} from "@/utils/string.utils";
 import { calculateFee, calculateSumFee } from "@/utils/free-calculate.utils";
 import { useRouter } from "expo-router";
+import { SpecAPI } from "@/api/spec";
+import { useSearchParams } from "expo-router/build/hooks";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { AppointmentAPI } from "@/api/appointment";
+
+interface DoctorInterface {
+  _id: string;
+  account: any;
+  position: keyof typeof DoctorPosition;
+}
 
 export default function ScheduleScreen() {
   const router = useRouter();
+  const account = useSelector((state: RootState) => state.auth.account);
 
-  const [title, setTitle] = useState("");
-  const [time, setTime] = useState(new Date());
-  const [date, setDate] = useState(new Date());
-  const [symptoms, setSymptoms] = useState("");
-  const [PredictedDiseases, setPredictedDiseases] = useState([
-    {
-      name: "Bệnh sốt xuất huyết",
-      probability: "80%",
-    },
-    {
-      name: "Bệnh sốt rét",
-      probability: "70%",
-    },
-  ]);
+  const searchParams = useSearchParams();
+  const reExamId = searchParams.get("reExamId");
+  const doctorId = searchParams.get("doctorId");
+  const specilizationId = searchParams.get("specilizationId");
+  const appointmentId = searchParams.get("appointmentId");
+  const reExamDate = searchParams.get("reExamDate");
 
-  const specializations = FakeData.specializations;
-  const doctors = FakeData.doctors.map((doctor: any) => ({
-    ...doctor,
-    position: doctor.position as keyof typeof DoctorPosition,
-  }));
+  const [title, setTitle] = useState("Khám sức khỏe");
+  // const [time, setTime] = useState(new Date());
+  const [time, setTime] = useState(() => {
+    const defaultTime = new Date();
+    defaultTime.setHours(10, 0, 0, 0); // Đặt giờ là 10:00:00.000
+    return defaultTime;
+  });
+  // const [date, setDate] = useState(
+  //   reExamDate ? new Date(reExamDate) : new Date()
+  // );
+  const [date, setDate] = useState(
+    reExamDate ? new Date(reExamDate) : new Date("2025-05-30")
+  );
+  const [symptoms, setSymptoms] = useState("Đau họng, đau bụng");
+  const [PredictedDiseases, setPredictedDiseases] = useState([]);
+
+  const [specializations, setSpecializations] = useState<
+    {
+      _id: string;
+      name: string;
+      base_price: number;
+      doctors: DoctorInterface[];
+    }[]
+  >([]);
 
   const appointmentTypeOptions = Object.entries(AppointmentType).map(
     ([key, value]) => ({
       key,
       value,
+      disabled: key === "re_examination" && !reExamId,
     })
   );
 
   const [showTime, setShowTime] = useState(false);
   const [showDate, setShowDate] = useState(false);
-  const [selectedSpecs, setSelectedSpecs] = useState([
+  const [selectedSpecs, setSelectedSpecs] = useState<
     {
-      spec: {
-        _id: specializations[0]._id,
-        name: specializations[0].name,
-        base_price: specializations[0].base_price,
-      },
+      spec: { _id: string; name: string; base_price: number };
       doctor: {
-        _id: doctors[0]._id,
-        name: doctors[0].name,
-        position: doctors[0].position,
-      },
-    },
-  ]);
+        _id: string;
+        name: string;
+        position: keyof typeof DoctorPosition;
+      };
+    }[]
+  >([]);
   const [paymentMethod, setPaymentMethod] = useState(OrderPaymentMethod.momo);
-  const [appointmentType, setAppointmentType] = useState(
-    AppointmentType.general_consultation
-  );
+  const [appointmentType, setAppointmentType] = useState<
+    keyof typeof AppointmentType
+  >("general_consultation");
+
+  const callAPI = async () => {
+    try {
+      const reponseSpec = await SpecAPI.getAllSpec();
+      setSpecializations(reponseSpec);
+      if (specilizationId) {
+        const selectedSpec = reponseSpec.find(
+          (spec: any) => spec._id === specilizationId
+        );
+        if (selectedSpec) {
+          const selectedDoctor = selectedSpec.doctors.find(
+            (doctor: any) => doctor._id === doctorId
+          );
+          if (selectedDoctor) {
+            setSelectedSpecs([
+              {
+                spec: {
+                  _id: selectedSpec._id,
+                  name: selectedSpec.name,
+                  base_price: selectedSpec.base_price,
+                },
+                doctor: {
+                  _id: selectedDoctor._id,
+                  name: selectedDoctor.account.name,
+                  position: selectedDoctor.position,
+                },
+              },
+            ]);
+          }
+        }
+      } else {
+        setSelectedSpecs([
+          {
+            spec: {
+              _id: reponseSpec[0]._id,
+              name: reponseSpec[0].name,
+              base_price: reponseSpec[0].base_price,
+            },
+            doctor: {
+              _id: reponseSpec[0].doctors[0]._id,
+              name: reponseSpec[0].doctors[0].account.name,
+              position: reponseSpec[0].doctors[0].position,
+            },
+          },
+        ]);
+      }
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    callAPI();
+  }, []);
+
+  useEffect(() => {
+    if (reExamId) {
+      setAppointmentType("re_examination");
+    }
+    // console.log("Re exam id ", reExamId);
+  }, [reExamId]);
 
   const onChangeTitle = (text: string) => {
     setTitle(text);
@@ -107,9 +193,9 @@ export default function ScheduleScreen() {
           base_price: specializations[0].base_price,
         },
         doctor: {
-          _id: doctors[0]._id,
-          name: doctors[0].name,
-          position: doctors[0].position,
+          _id: specializations[0].doctors[0]._id,
+          name: specializations[0].doctors[0].account.name,
+          position: specializations[0].doctors[0].position,
         },
       },
     ]);
@@ -121,10 +207,163 @@ export default function ScheduleScreen() {
     setSelectedSpecs(newSpecs);
   };
 
-  const onClickPayment = () => {
-    // Handle payment logic here
-    // console.log("Payment clicked");
-    router.push("/booking-success");
+  const onClickPayment = async () => {
+    // validate data
+    if (title === "") {
+      Alert.alert("Thông báo", "Vui lòng nhập tiêu đề");
+      return;
+    }
+    if (date < new Date()) {
+      Alert.alert("Thông báo", "Vui lòng chọn ngày khám hợp lệ");
+      return;
+    }
+    if (
+      time.getHours() < 8 ||
+      (time.getHours() >= 12 && time.getHours() < 13) ||
+      time.getHours() >= 17
+    ) {
+      Alert.alert(
+        "Thông báo",
+        "Vui lòng chọn thời gian khám trong giờ hành chính (8h-12h hoặc 13h-17h)"
+      );
+      return;
+    }
+    if (selectedSpecs.length === 0) {
+      Alert.alert("Thông báo", "Vui lòng chọn khoa khám");
+      return;
+    }
+    if (selectedSpecs.some((spec) => spec.doctor === undefined)) {
+      Alert.alert("Thông báo", "Vui lòng chọn bác sĩ");
+      return;
+    }
+    if (selectedSpecs.some((spec) => spec.spec === undefined)) {
+      Alert.alert("Thông báo", "Vui lòng chọn chuyên khoa");
+      return;
+    }
+    if (symptoms === "") {
+      Alert.alert("Thông báo", "Vui lòng nhập triệu chứng");
+      return;
+    }
+
+    const createAppointment: {
+      title: string;
+      appointment_date: string;
+      time: string;
+      type:
+        | "general_consultation"
+        | "specialist_consultation"
+        | "re_examination"
+        | "health_checkup";
+      symptoms: string;
+      predicted_disease: never[];
+      appointment_detail: {
+        specialization_id: string;
+        doctor_id: string;
+        price: number;
+      }[];
+      totalPrice: number;
+      createdBy: any;
+      paymentMethod: string | undefined;
+      re_exam_id?: string;
+    } = {
+      title,
+      appointment_date: formatDateToYYYYMMDD(date.toISOString()),
+      time: time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      type: appointmentType,
+      symptoms,
+      predicted_disease: PredictedDiseases,
+      appointment_detail: selectedSpecs.map((spec) => ({
+        specialization_id: spec.spec._id,
+        doctor_id: spec.doctor._id,
+        price: calculateFee(
+          spec.spec.base_price,
+          spec.doctor.position,
+          appointmentType
+        ),
+      })),
+      totalPrice: calculateSumFee(selectedSpecs, appointmentType),
+      createdBy: account.name,
+      paymentMethod: getKeyFromValue(OrderPaymentMethod, paymentMethod),
+    };
+
+    if (reExamId) {
+      createAppointment.re_exam_id = reExamId;
+    }
+
+    // console.log("Create appointment", createAppointment);
+    try {
+      if (paymentMethod === OrderPaymentMethod.momo) {
+        console.log(
+          "---------------------------Momo payment---------------------------"
+        );
+        console.log("input : ", {
+          ...createAppointment,
+          rootRedirectUrl: process.env.EXPO_PUBLIC_API_ROOT_REDIRECT_URL,
+        });
+
+        const response = await AppointmentAPI.createAppoinetmentMomo({
+          ...createAppointment,
+          rootRedirectUrl: process.env.EXPO_PUBLIC_API_ROOT_REDIRECT_URL,
+        });
+
+        console.log(response);
+        router.push({
+          pathname: "/booking-success",
+          params: {
+            paymentCode: response.requestId,
+            paymentMethod: getKeyFromValue(OrderPaymentMethod, paymentMethod),
+            paymentLink: response.payUrl,
+          },
+        });
+      } else if (paymentMethod === OrderPaymentMethod.zalopay) {
+        console.log(
+          "---------------------------Zalppay payment---------------------------"
+        );
+        const response = await AppointmentAPI.createAppoinetmentZalo({
+          ...createAppointment,
+          rootRedirectUrl: process.env.EXPO_PUBLIC_API_ROOT_REDIRECT_URL,
+        });
+        console.log(response);
+        router.push({
+          pathname: "/booking-success",
+          params: {
+            paymentCode: response.app_trans_id,
+            paymentMethod: getKeyFromValue(OrderPaymentMethod, paymentMethod),
+            paymentLink: response.order_url,
+          },
+        });
+      } else if (paymentMethod === OrderPaymentMethod.cash) {
+        console.log(
+          "---------------------------Cash payment---------------------------"
+        );
+        const response = await AppointmentAPI.createAppointment(
+          createAppointment
+        );
+        console.log("Response create appointment", response);
+        router.push({
+          pathname: "/booking-success",
+          params: {
+            appointment_id: response._id,
+          },
+        });
+      }
+    } catch (error: any) {
+      console.log(error.response.data.message);
+      Alert.alert(
+        "Thông báo",
+        error?.response?.data?.message || "Đã xảy ra lỗi. Vui lòng thử lại sau."
+      );
+    }
+  };
+
+  const updateSpec = (
+    index: number,
+    updatedValues: Partial<(typeof selectedSpecs)[0]>
+  ) => {
+    const newSpecs = [...selectedSpecs];
+    // console.log("test", index, { ...newSpecs[index], ...updatedValues });
+    newSpecs[index] = { ...newSpecs[index], ...updatedValues }; // Cập nhật giá trị
+    setSelectedSpecs(newSpecs);
   };
 
   return (
@@ -245,7 +484,7 @@ export default function ScheduleScreen() {
                   mode="time"
                   is24Hour={true}
                   display="spinner"
-                  onChange={(event, selectedTime) => {
+                  onChange={(event: any, selectedTime: any) => {
                     setShowTime(false); // Đóng picker
                     if (selectedTime) {
                       setTime(selectedTime); // Cập nhật thời gian
@@ -267,7 +506,7 @@ export default function ScheduleScreen() {
               mode="time"
               is24Hour={true}
               display="default"
-              onChange={(event, selectedTime) => {
+              onChange={(event: any, selectedTime: any) => {
                 setShowTime(false); // Đóng picker
                 if (selectedTime) {
                   setTime(selectedTime); // Cập nhật thời gian
@@ -295,6 +534,13 @@ export default function ScheduleScreen() {
               save="key"
               placeholder="Chọn loại cuộc hẹn"
               boxStyles={styles.typeSelectBox}
+              defaultOption={{
+                key: appointmentType, // Key là giá trị hiện tại của appointmentType
+                value:
+                  AppointmentType[
+                    appointmentType as keyof typeof AppointmentType
+                  ],
+              }}
             />
           </View>
         </View>
@@ -373,20 +619,9 @@ export default function ScheduleScreen() {
               <ScheduleSpecializationComponent
                 key={index}
                 index={index + 1}
-                specialization={spec.spec}
-                doctor={spec.doctor}
+                spec={spec}
                 specializations={specializations}
-                doctors={doctors}
-                onChangeSpecialization={(specialization: any) => {
-                  const newSpecs = [...selectedSpecs];
-                  newSpecs[index].spec = specialization;
-                  setSelectedSpecs(newSpecs);
-                }}
-                onChangeDoctor={(doctor: any) => {
-                  const newSpecs = [...selectedSpecs];
-                  newSpecs[index].doctor = doctor;
-                  setSelectedSpecs(newSpecs);
-                }}
+                updateSpec={updateSpec}
                 onClickDeleteSpecialization={onClickDeleteSpecialization}
               />
             ))}
@@ -562,10 +797,7 @@ export default function ScheduleScreen() {
                       calculateFee(
                         spec.spec.base_price,
                         spec.doctor.position,
-                        getKeyFromValue(
-                          AppointmentType,
-                          appointmentType
-                        ) as keyof typeof AppointmentTypeFee
+                        appointmentType
                       )
                     )}{" "}
                     VND

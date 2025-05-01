@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -9,18 +9,38 @@ import {
 } from "react-native";
 import { NotificationTypeEnum } from "@/constants/Constants";
 import { Colors } from "@/constants/Colors";
-import FakeData from "@/data/fake_data.json";
 import NotiComponent from "@/components/NotiComponent";
 import { getKeyFromValue } from "@/utils/string.utils";
+import { notifiAPI } from "@/api/notification";
 
 export default function NotificationPage() {
-  const [notifications, setNotifications] = useState(FakeData.notifications);
+  const [notifications, setNotifications] = useState<
+    { _id: string; type: string; [key: string]: any }[]
+  >([]);
 
   const [selectedNotification, setSelectedNotification] = useState(
     NotificationTypeEnum.all
   );
 
-  const [filterNotis, setFilterNotis] = useState(notifications);
+  const [filterNotis, setFilterNotis] =
+    useState<{ _id: string; type: string; [key: string]: any }[]>(
+      notifications
+    );
+
+  const callAPI = async () => {
+    try {
+      const response = await notifiAPI.getNoti();
+      console.log("response", response.length);
+      setNotifications(response);
+      setFilterNotis(response);
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    callAPI();
+  }, []);
 
   const onSelectNotiType = (type: string) => {
     console.log(type);
@@ -109,6 +129,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary.main,
     padding: 20,
     marginBottom: 20,
+    paddingTop: 45,
   },
   headerTitle: {
     fontSize: 24,

@@ -12,6 +12,7 @@ import {
 } from '../../schemas';
 import { AccountService } from '../account/account.service';
 import { AuthGuard } from '../../common/guards/auth.guard';
+import { ChatbotService } from '../chatbot/chatbot.service';
 
 @Module({
   imports: [
@@ -22,6 +23,6 @@ import { AuthGuard } from '../../common/guards/auth.guard';
     ]),
   ],
   controllers: [QuestionAnswerController],
-  providers: [QuestionAnswerService, AccountService, AuthGuard],
+  providers: [QuestionAnswerService, AccountService, AuthGuard, ChatbotService],
 })
 export class QuestionAnswerModule {}

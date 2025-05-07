@@ -14,11 +14,14 @@ export default function PredictedDiseaseComponent(props: any) {
       <InputComponent
         value={predictedDisease.name}
         editable={false}
-        style={[styles.text, { width: "60%", color: "black" }]}
+        style={[styles.text, { width: "55%", color: "black" }]}
       />
 
-      <Text style={[styles.text, { width: "20%", textAlign: "center" }]}>
-        {predictedDisease.percent}%
+      <Text style={[styles.text, { width: "25%", textAlign: "center" }]}>
+        {Number(predictedDisease.percent) % 1 === 0
+          ? Number(predictedDisease.percent) // Nếu là số nguyên, hiển thị nguyên
+          : Number(predictedDisease.percent).toFixed(2)}
+        %
       </Text>
     </View>
   );

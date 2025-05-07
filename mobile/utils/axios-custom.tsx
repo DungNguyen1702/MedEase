@@ -40,6 +40,14 @@ const axiosClient = {
       "content-type": "multipart/form-data",
     },
   }),
+
+  predictedAxios: axios.create({
+    baseURL: process.env.EXPO_PUBLIC_API_AI_URL,
+    headers: {
+      "content-type": "application/json",
+    },
+    paramsSerializer: serializeParams,
+  }),
 };
 
 // // Add interceptors to inject token into requests

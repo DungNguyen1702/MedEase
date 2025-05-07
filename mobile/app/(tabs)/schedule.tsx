@@ -39,6 +39,7 @@ import { useSearchParams } from "expo-router/build/hooks";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { AppointmentAPI } from "@/api/appointment";
+import { predictDiseaseAPI } from "@/api/predict_disease";
 
 interface DoctorInterface {
   _id: string;
@@ -361,9 +362,28 @@ export default function ScheduleScreen() {
     updatedValues: Partial<(typeof selectedSpecs)[0]>
   ) => {
     const newSpecs = [...selectedSpecs];
-    // console.log("test", index, { ...newSpecs[index], ...updatedValues });
     newSpecs[index] = { ...newSpecs[index], ...updatedValues }; // Cập nhật giá trị
     setSelectedSpecs(newSpecs);
+  };
+
+  const onPredictedDisease = async () => {
+    if (symptoms === "") {
+      Alert.alert("Thông báo", "Vui lòng nhập triệu chứng");
+      return;
+    }
+    // console.log("Symptoms", symptoms);
+
+    try {
+      const response = await predictDiseaseAPI.getPredictDisease(symptoms);
+      // console.log("Response predict disease", response);
+      setPredictedDiseases(response.predicted_disease.slice(0, 5));
+    } catch (error: any) {
+      console.log("Error fetching data:", error);
+      Alert.alert(
+        "Thông báo",
+        error?.response?.data?.message || "Đã xảy ra lỗi. Vui lòng thử lại sau."
+      );
+    }
   };
 
   return (
@@ -552,7 +572,7 @@ export default function ScheduleScreen() {
             <ButtonComponent
               backgroundColor={Colors.primary.main}
               title="Phân tích"
-              onPress={() => {}}
+              onPress={onPredictedDisease}
               textColor={Colors.light.main}
               borderColor={Colors.primary.main}
               fontSize={14}

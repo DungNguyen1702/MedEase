@@ -351,7 +351,7 @@ export default function AppointmentDetail() {
           <Text style={styles.footerTitle}>
             Tổng tiền :{" "}
             {FormatNumberWithDots(
-              calculateSumFee(selectedSpecs, AppointmentType[appointment.type])
+              calculateSumFee(selectedSpecs, appointment.type)
             )}{" "}
             VND
           </Text>

@@ -18,6 +18,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './common/interceptors';
 import { UploadModule } from './modules/upload/upload.module';
 import { PaymentModule } from './modules/payment/payment.module';
+import { ChatbotModule } from './modules/chatbot/chatbot.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { PaymentModule } from './modules/payment/payment.module';
     MedicalRecordModule,
     UploadModule,
     PaymentModule,
+    ChatbotModule,
   ],
   controllers: [AppController],
   providers: [

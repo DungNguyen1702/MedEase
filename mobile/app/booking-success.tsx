@@ -26,8 +26,8 @@ const delayWithTimeout = (ms: number) =>
 export default function BookingSuccess() {
   const router = useRouter();
 
-  let interval: NodeJS.Timeout | null = null;
-  let timeout: NodeJS.Timeout | null = null;
+  let interval: ReturnType<typeof setInterval> | null = null;
+  let timeout: ReturnType<typeof setTimeout> | null = null;
 
   const searchParams = useSearchParams();
   const appointmentId = searchParams.get("appointment_id");

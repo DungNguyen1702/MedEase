@@ -1,0 +1,43 @@
+@import "../../../../../constants/colors.css";
+
+.spec-card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: var(--light-main);
+  border-radius: 10px;
+  border: 1px solid var(--primary-dark-border);
+  padding: 60px 0px 30px;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+
+  .spec-card-image {
+    width: 200px;
+    aspect-ratio: 1.04;
+    object-fit: contain;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    z-index: 2;
+    object-fit: cover;
+  }
+
+  .spec-card-name {
+    color: var(--light-main);
+    font-weight: bold;
+    font-size: 16px;
+    z-index: 2;
+  }
+
+  .spec-card-tag {
+    background-color: var(--primary-main);
+    height: 40%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+  }
+}

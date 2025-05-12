@@ -25,7 +25,71 @@ export class QuestionAnswerService {
     gender: 'male',
   };
 
-  async getAllQuestion(accountId: string) {
+  async getAllQuestion() {
+    const foundQuestion = await this.questionModel.aggregate([
+      {
+        $lookup: {
+          from: 'answers',
+          localField: '_id',
+          foreignField: 'question_id',
+          as: 'answers',
+          pipeline: [
+            {
+              $lookup: {
+                from: 'accounts',
+                localField: 'account_id',
+                foreignField: '_id',
+                as: 'account',
+              },
+            },
+            {
+              $addFields: {
+                account: { $arrayElemAt: ['$account', 0] },
+              },
+            },
+            {
+              $project: {
+                'account.password': 0,
+              },
+            },
+          ],
+        },
+      },
+      {
+        $lookup: {
+          from: 'accounts',
+          localField: 'account_id',
+          foreignField: '_id',
+          as: 'account',
+        },
+      },
+      {
+        $addFields: {
+          account: { $arrayElemAt: ['$account', 0] },
+        },
+      },
+      {
+        $project: {
+          'account.password': 0,
+        },
+      },
+    ]);
+    return foundQuestion.map((question: any) => {
+      return {
+        ...question,
+        answers: question.answers.map((answer: any) => {
+          if (answer.account_id === 'robot')
+            return {
+              ...answer,
+              account: this.accountRobot,
+            };
+          return answer;
+        }),
+      };
+    });
+  }
+
+  async getAllQuestionByPatient(accountId: string) {
     const foundQuestion = await this.questionModel.aggregate([
       {
         $lookup: {

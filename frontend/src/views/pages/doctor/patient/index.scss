@@ -1,0 +1,62 @@
+@import "../../../../constants/colors.css";
+
+.list-people-wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 40px 0px;
+  position: relative;
+}
+
+.list-people-navigation {
+  width: 20%;
+  margin: 0px 20px;
+  background-color: var(--primary-light-main);
+  padding: 10px;
+  border-radius: 20px;
+  height: fit-content;
+  position: sticky;
+  top: 90px;
+}
+
+.list-people-content-wrapper {
+  width: 75%;
+  margin: 0px 20px;
+}
+
+.list-people-content-big-holder {
+  background-color: var(--primary-light-main);
+  margin: 10px 0px;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.list-people-content-title {
+  color: var(--primary-main);
+}
+
+.search-bar-wrapper {
+  background-color: var(--primary-light-main);
+  padding: 20px;
+  border-radius: 20px;
+  position : relative;
+  z-index: 100;
+
+  .ant-input-outlined {
+    background-color: var(--light-main) !important;
+  }
+}
+
+.list-people-content-grid-layout {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.list-people-pagination {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  margin-top: 10px;
+}

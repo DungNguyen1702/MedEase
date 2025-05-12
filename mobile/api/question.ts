@@ -3,7 +3,7 @@ import axiosClient from "@/utils/axios-custom";
 export const questionAPI = {
   getAll: async () => {
     try {
-      const response = await axiosClient.application.get("/question-answer");
+      const response = await axiosClient.application.get("/question-answer/patient");
       return response.data;
     } catch (error) {
       throw error;

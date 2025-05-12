@@ -1,0 +1,56 @@
+@import "../../../../../../constants/colors.css";
+
+.question-card {
+  &-container {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  &-patient-avatar {
+    width: 10%;
+    aspect-ratio: 1/1;
+    border-radius: 10px;
+    margin: 10px;
+  }
+
+  &-answer {
+    &-container {
+      background-color: var(--light-main);
+      border: 1px solid var(--primary-dark-border);
+      border-radius: 10px;
+      margin: 10px 0;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      padding: 10px 20px;
+      width: 90%;
+    }
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      &-date {
+        color: var(--light-icon);
+      }
+    }
+  }
+
+  &-send-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  &-send-button {
+    width: 10%;
+    border: 1px solid var(--primary-dark-border);
+  }
+
+  &-send-input {
+    width: 89%;
+  }
+}

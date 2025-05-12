@@ -9,7 +9,7 @@ import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dto/login.dto';
 import { CustomMailerService } from '../mailer/mailer.service';
 import { PasswordUtils } from '../../common/utils/password.utils';
-import { Account, AccountDocument } from '../../schemas';
+import { Account, AccountDocument, Doctor } from '../../schemas';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { RegisterDto } from './dto/register.dto';
@@ -17,7 +17,10 @@ import { RegisterDto } from './dto/register.dto';
 export class AuthService {
   constructor(
     @InjectModel(Account.name) private accountModel: Model<AccountDocument>,
+    @InjectModel(Doctor.name)
+    private doctorModel: Model<Doctor>,
     private accountService: AccountService,
+
     private jwtService: JwtService,
     private readonly customMailerService: CustomMailerService
   ) {}
@@ -41,6 +44,41 @@ export class AuthService {
       throw new BadRequestException('Mật khẩu không chính xác!');
     }
 
+    let position = null;
+    let specialization_name = null;
+    let specialization_id = null;
+    let room = null;
+    let base_time = null;
+
+    // Nếu role là bác sĩ, lấy thêm thông tin position và specialization_name
+    if (accountByEmail.role === 'doctor') {
+      const doctorInfo = await this.doctorModel.aggregate([
+        {
+          $match: { account_id: accountByEmail._id },
+        },
+        {
+          $lookup: {
+            from: 'specializations',
+            localField: 'specialization_id',
+            foreignField: '_id',
+            as: 'specialization',
+          },
+        },
+        {
+          $addFields: {
+            specialization: { $arrayElemAt: ['$specialization', 0] },
+          },
+        },
+      ]);
+
+      if (doctorInfo) {
+        position = doctorInfo[0].position;
+        specialization_name = doctorInfo[0].specialization.name;
+        specialization_id = doctorInfo[0].specialization._id;
+        room = doctorInfo[0].room;
+        base_time = doctorInfo[0].base_time;
+      }
+    }
     //generate jwt token
     const payload = {
       id: accountByEmail._id,
@@ -49,6 +87,11 @@ export class AuthService {
       email: accountByEmail.email,
       role: accountByEmail.role,
       date_of_birth: accountByEmail.date_of_birth,
+      position,
+      specialization_id,
+      specialization_name,
+      room,
+      base_time,
     };
 
     const access_token = await this.jwtService.signAsync(payload, {
@@ -66,6 +109,11 @@ export class AuthService {
       gender: accountByEmail.gender,
       role: accountByEmail.role,
       date_of_birth: accountByEmail.date_of_birth,
+      position,
+      specialization_id,
+      specialization_name,
+      room,
+      base_time,
     };
   }
   async registerAccount(accountData: RegisterDto) {

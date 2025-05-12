@@ -1,0 +1,49 @@
+:root {
+	/* Primary Colors */
+	--primary-main: #6282F4; /* Xanh chính */
+	--primary-dark-text: #3F69FF; /* Xanh đậm chữ */
+	--primary-light: #62B0F4; /* Xanh nhạt phụ */
+	--primary-main-light: #AECAF9;
+	--primary-main-dark: #021529;
+	--primary-light-background: #E7EFFD;
+	--primary-light-main: #9ABDF8;
+	--primary-dark-border: #3F69FF;
+  --primary-light-text : #009AF9;
+
+  /* Success Colors */
+  --success-background: #62F48E; /* Xanh lá nền */
+  --success-border: #50C97C; /* Xanh lá viền */
+  --success-text: #349056; /* Xanh lá chữ */
+  
+  /* Danger Colors */
+  --danger-background: #F46295; /* Đỏ nền */
+  --danger-text: #A50064; /* Đỏ chữ */
+
+  /* Warning Colors */
+  --warning-background: #FFE6A2; /* Vàng nền */
+  --warning-text: #F7BF26; /* Vàng chữ */
+  
+  /* Light Theme Colors */
+  --light-main: #fff;
+  --light-text: #11181C;
+  --light-background: #fff;
+  --light-tint: #0a7ea4;
+  --light-icon: #687076;
+  --light-tab-icon-default: #687076;
+  --light-tab-icon-selected: #0a7ea4;
+
+  
+  /* Dark Theme Colors */
+  --dark-text: #ECEDEE;
+  --dark-background: #151718;
+  --dark-tint: #fff;
+  --dark-icon: #9BA1A6;
+  --dark-tab-icon-default: #9BA1A6;
+  --dark-tab-icon-selected: #fff;
+
+  /* Brand Colors */
+  --brand-momo: #A50064;
+  --brand-zalopay-green: #00CF6A;
+  --brand-zalopay-blue: #0033C9;
+  --brand-cash: #142C14;
+}

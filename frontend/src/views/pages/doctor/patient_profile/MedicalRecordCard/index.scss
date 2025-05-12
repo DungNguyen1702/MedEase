@@ -1,0 +1,44 @@
+@import "../../../../../constants/colors.css";
+
+.medical-record-card-container {
+  background-color: var(--light-main); /* Màu nền trắng */
+  border: 1px solid var(--light-main); /* Viền mỏng màu xám nhạt */
+  border-radius: 8px; /* Bo góc */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  padding: 16px; /* Khoảng cách bên trong */
+  margin: 16px 0; /* Khoảng cách giữa các card */
+  font-family: Arial, sans-serif; /* Font chữ */
+  color: #333; /* Màu chữ */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.medical-record-card-title {
+  font-size: 18px; /* Kích thước chữ lớn hơn */
+  font-weight: bold; /* Chữ đậm */
+  margin-bottom: 12px; /* Khoảng cách dưới */
+  color: var(--primary-dark-text); /* Màu xanh dương */
+}
+
+.medical-record-card-content p {
+  margin: 8px 0; /* Khoảng cách giữa các đoạn văn */
+  line-height: 1.5; /* Dòng cách */
+}
+
+.medical-record-card-content strong {
+  color: var(--primary-main); /* Màu chữ đậm hơn cho tiêu đề */
+}
+
+.medical-record-card-content ul {
+  list-style-type: disc; /* Dấu đầu dòng */
+  padding-left: 20px; /* Khoảng cách bên trái */
+  margin: 8px 0;
+}
+
+.medical-record-card-content li {
+  margin-bottom: 6px; /* Khoảng cách giữa các mục */
+}
+
+.medical-record-card-container:hover {
+  transform: scale(1.02); /* Phóng to 5% */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}

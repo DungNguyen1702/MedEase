@@ -1,0 +1,42 @@
+@import "../../../../../constants/colors.css";
+
+.doctor-card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: var(--light-main);
+  border-radius: 10px;
+  border: 1px solid var(--primary-dark-border);
+  padding: 60px 0px 30px;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+
+  .doctor-card-image {
+    width: 200px;
+    aspect-ratio: 1.04;
+    object-fit: contain;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    z-index: 2;
+  }
+
+  .doctor-card-name {
+    color: var(--primary-dark-text);
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .doctor-card-tag {
+    background-color: var(--primary-main);
+    height: 50%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    border-radius: 0px 0px 100px 100px;
+  }
+}

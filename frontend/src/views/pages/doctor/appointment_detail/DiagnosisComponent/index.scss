@@ -1,0 +1,35 @@
+@import "../../../../../constants/colors.css";
+
+.diagnosis-component-container {
+  background-color: var((--primary-light-main));
+  border-radius: 20px;
+  padding: 20px;
+  margin: 10px 0px;
+}
+
+.diagnosis-component-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--primary-dark-text);
+}
+
+.diagnosis-component-input-result {
+  width: 90%;
+}
+
+.diagnosis-component-button-delete {
+  background-color: var(--danger-background);
+  color: var(--light-main);
+  border: 1px solid var(--danger-text) !important;
+  padding: 10px;
+  margin-left: 20px;
+}
+
+.diagnosis-component-button-delete:hover {
+  color: var(--danger-background) !important;
+  background-color: var(--light-main) !important;
+}
+
+.w-80 {
+  width: 70%;
+}

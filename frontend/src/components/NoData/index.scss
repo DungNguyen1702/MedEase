@@ -1,0 +1,14 @@
+@import "../../constants/colors.css";
+
+.no-data-image {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.no-data-text {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--primary-dark-text);
+  margin-top: 10px;
+}

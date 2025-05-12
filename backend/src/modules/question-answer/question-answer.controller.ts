@@ -12,9 +12,11 @@ export class QuestionAnswerController {
 
   @UseGuards(new RoleGuard([AccountRoleEnum.PATIENT]))
   @UseGuards(AuthGuard)
-  @Get()
-  async getAllQuestion(@CurrentAccount() currentAccount: Account) {
-    return this.questionAnswerService.getAllQuestion(currentAccount._id);
+  @Get('/patient')
+  async getAllQuestionByPatient(@CurrentAccount() currentAccount: Account) {
+    return this.questionAnswerService.getAllQuestionByPatient(
+      currentAccount._id
+    );
   }
 
   @UseGuards(new RoleGuard([AccountRoleEnum.PATIENT]))
@@ -28,5 +30,10 @@ export class QuestionAnswerController {
       currentAccount,
       body.content
     );
+  }
+
+  @Get('')
+  async getAllQuestion() {
+    return this.questionAnswerService.getAllQuestion();
   }
 }

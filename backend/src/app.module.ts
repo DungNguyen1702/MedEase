@@ -19,6 +19,7 @@ import { LoggingInterceptor } from './common/interceptors';
 import { UploadModule } from './modules/upload/upload.module';
 import { PaymentModule } from './modules/payment/payment.module';
 import { ChatbotModule } from './modules/chatbot/chatbot.module';
+import { PatientModule } from './modules/patient/patient.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { ChatbotModule } from './modules/chatbot/chatbot.module';
     UploadModule,
     PaymentModule,
     ChatbotModule,
+    PatientModule,
   ],
   controllers: [AppController],
   providers: [

@@ -1,0 +1,93 @@
+@import "../../../../../../constants/colors.css";
+
+.doctor-room-appointmnet-detail {
+  &-container {
+    background-color: var(--light-main);
+    border: 1px solid var(--primary-dark-border);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 90%;
+    margin : 10px 0;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+  }
+  &-container:hover {
+    transform: scale(1.02); /* Phóng to 5% */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding : 20px 20px;
+  }
+
+  &-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--primary-dark-text);
+  }
+
+  &-status {
+    padding : 10px;
+    color : var(--light-main);
+    font-weight: bold;
+    border-radius: 20px;
+  }
+
+  &-avatar {
+    width: 50%;
+    aspect-ratio: 1/1;
+    border-radius: 10px;
+    margin: 10px;
+    z-index: 3;
+  }
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    width: 100%;
+    padding: 10px 20px;
+    gap: 10px;
+    color : var(--light-main);
+    z-index: 2;
+  }
+
+  &-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding : 20px 20px;
+  }
+
+  &-createdAt {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--light-icon);
+    z-index: 2;
+  }
+
+  &-num {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--light-main);
+    z-index: 2;
+  }
+
+  &-tag {
+    width: 100%;
+    height: 50%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-dark-border);
+    z-index: 1;
+  }
+}

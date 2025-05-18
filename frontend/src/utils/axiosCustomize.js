@@ -51,6 +51,16 @@ const axiosClient = {
       'Accept-Language': 'vi',
     },
   }),
+
+  predictedAxios : axios.create({
+    baseURL: import.meta.env.VITE_PUBLIC_API_URL_AI,
+
+    headers: {
+      'content-type': 'application/json',
+      'Accept-Language': 'vi',
+    },
+    paramsSerializer: (params) => queryString.stringify(params),
+  }),
 };
 
 const handleLogout = (navigate, toast) => {
@@ -62,14 +72,14 @@ const handleLogout = (navigate, toast) => {
   }, 5000);
 };
 
-export const setupInterceptors = (navigate, toast) => {
+export const setupInterceptors = (navigate, toast, logout) => {
   axiosClient.application.interceptors.response.use(
     (response) => response,
     (error) => {
       if (error.response) {
         const { status, data } = error.response;
         if (status === 403 && data.message === 'Token has expired') {
-          handleLogout(navigate, toast);
+          logout();
         }
       }
       return Promise.reject(error);

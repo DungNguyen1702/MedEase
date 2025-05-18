@@ -6,8 +6,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 import {
   Account,
   AccountSchema,
+  Doctor,
+  DoctorSchema,
   Notification,
   NotificationSchema,
+  Specialization,
+  SpecializationSchema,
 } from '../../schemas';
 import { AccountService } from '../account/account.service';
 import { AuthGuard } from '../../common/guards/auth.guard';
@@ -16,7 +20,9 @@ import { AuthGuard } from '../../common/guards/auth.guard';
   imports: [
     MongooseModule.forFeature([
       { name: Notification.name, schema: NotificationSchema },
-      { name: Account.name, schema: AccountSchema }, // Assuming you have an Account schema
+      { name: Account.name, schema: AccountSchema },
+      { name: Specialization.name, schema: SpecializationSchema },
+      { name: Doctor.name, schema: DoctorSchema },
     ]),
   ],
   providers: [NotificationService, AccountService, AuthGuard],

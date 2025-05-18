@@ -13,6 +13,8 @@ const Header = () => {
   const location = useLocation();
   const { account, logout } = useAuth();
 
+  const isAdmin = account && account.role === "admin";
+
   const [activeSection, setActiveSection] = useState("");
 
   const doctorLinks = [
@@ -94,8 +96,12 @@ const Header = () => {
       />
       <header className="header">
         <div className="header-background-color"></div>
-        <img src={IMAGES.darkLogo} alt="Logo" className="logo" />
-        <div className="d-flex justify-content-between align-items-center">
+        {!isAdmin && <img src={IMAGES.darkLogo} alt="Logo" className="logo" />}
+        <div
+          className={`d-flex justify-content-${
+            isAdmin ? "end w-100 " : "between"
+          } align-items-center`}
+        >
           <nav className="nav">
             {account && account.role === "doctor"
               ? doctorLinks.map(({ link, title }) => (
@@ -111,7 +117,8 @@ const Header = () => {
                     {title}
                   </a>
                 ))
-              : guestLinks.map(({ link, title, section }) => (
+              : !isAdmin &&
+                guestLinks.map(({ link, title, section }) => (
                   <a
                     key={link}
                     href={link}
@@ -128,7 +135,7 @@ const Header = () => {
           <div className="divider" />
           <div className="authButtons">
             {account ? (
-              <Dropdown overlay={menu} trigger={["hover"]}>
+              isAdmin ? (
                 <div className="user-info d-flex align-items-center">
                   <Avatar
                     src={account.avatar || IMAGES.defaultAvatar}
@@ -136,7 +143,17 @@ const Header = () => {
                   />
                   <span className="user-name">{account.name}</span>
                 </div>
-              </Dropdown>
+              ) : (
+                <Dropdown overlay={menu} trigger={["hover"]}>
+                  <div className="user-info d-flex align-items-center">
+                    <Avatar
+                      src={account.avatar || IMAGES.defaultAvatar}
+                      alt="Avatar"
+                    />
+                    <span className="user-name">{account.name}</span>
+                  </div>
+                </Dropdown>
+              )
             ) : (
               <>
                 <ButtonComponent

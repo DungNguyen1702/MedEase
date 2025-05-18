@@ -19,6 +19,8 @@ import {
   DoctorSchema,
   ReExamSchedule,
   ReExamScheduleSchema,
+  Specialization,
+  SpecializationSchema,
 } from '../../schemas';
 import { AppointmentService } from '../appointment/appointment.service';
 
@@ -30,6 +32,7 @@ import { AppointmentService } from '../appointment/appointment.service';
       { name: Doctor.name, schema: DoctorSchema },
       { name: Account.name, schema: AccountSchema },
       { name: ReExamSchedule.name, schema: ReExamScheduleSchema },
+      { name: Specialization.name, schema: SpecializationSchema },
     ]),
   ],
   controllers: [ZaloPaymentController, MomoPaymentController],

@@ -4,7 +4,8 @@ import MessageComponent from "../MessageComponent";
 import InputComponent from "../../../../../../components/InputComponent";
 import { Button } from "antd";
 import { SendOutlined } from "@ant-design/icons";
-function QuestionCard({ value }) {
+import { questionAPI } from "../../../../../../api/questionAPI";
+function QuestionCard({ value, handleSendAnswer }) {
   const [answer, setAnswer] = useState("");
 
   return (
@@ -34,7 +35,11 @@ function QuestionCard({ value }) {
           type="text"
           className="question-card-send-input"
         />
-        <Button icon={<SendOutlined />} className="question-card-send-button" />
+        <Button
+          icon={<SendOutlined />}
+          className="question-card-send-button"
+          onClick={() => handleSendAnswer(value._id, answer, setAnswer)}
+        />
       </div>
     </div>
   );

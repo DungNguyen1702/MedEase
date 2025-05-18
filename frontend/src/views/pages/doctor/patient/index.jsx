@@ -3,24 +3,22 @@ import "./index.scss";
 import { useEffect, useRef, useState } from "react";
 import { Anchor, Dropdown, Input } from "antd";
 import useDropDownListPeopleItem from "./Components/Dropdown";
-import FakeData from "../../../../data/FakeData.json";
 import { paginateData } from "../../../../utils/stringUtil";
 import PatientCard from "./Components/PatientCard";
 import PaginationComponent from "../../../../components/Pagination";
+import { patientAPI } from "../../../../api/patientAPI";
 
 function DoctorPatient() {
   const [search, setSearch] = useState("");
 
   // original data
-  const [exminatedPatients, setListExaminatedPatients] = useState(
-    FakeData.patients
-  );
-  const [patients, setPatients] = useState(FakeData.patients);
+  const [exminatedPatients, setListExaminatedPatients] = useState([]);
+  const [patients, setPatients] = useState([]);
 
   // pagination
   const [total, setTotal] = useState({
-    examinatedPatient: exminatedPatients.length,
-    allPatient: patients.length,
+    examinatedPatient: 0,
+    allPatient: 0,
   });
   const [page, setPage] = useState({
     examinatedPatient: 1,
@@ -36,46 +34,6 @@ function DoctorPatient() {
   );
 
   const [listPatientSearch, setListPatientSearch] = useState(patients);
-
-  // useEffect(() => {
-  //     const callAPI = async () => {
-  //         contactAPI
-  //             .getAllOrganization()
-  //             .then((response) => {
-  //                 // set all organization
-  //                 setListAllOrganization(response.data);
-
-  //                 // set popular organization
-  //                 let organizationsWithValidActivities = response.data.filter(
-  //                     (org) => {
-  //                         return org.activities.length > 0;
-  //                     }
-  //                 );
-
-  //                 let popularOrganization =
-  //                     organizationsWithValidActivities.sort((a, b) => {
-  //                         return b.activities.length - a.activities.length;
-  //                     });
-
-  //                 setListPopularOrganization(popularOrganization.slice(0, 6));
-  //             })
-  //             .catch((error) => {
-  //                 console.log(error);
-  //             });
-  //         contactAPI
-  //             .getAllCandidate()
-  //             .then((response) => {
-  //                 seListAllCandidate(response.data);
-  //                 console.log(response.data);
-
-  //                 const filterListCandidate = response.data.filter(candidate=> candidate.activityNumber>0)
-
-  //                 setListEnthusiasticCandidate(filterListCandidate.sort((a, b) => b.activityNumber - a.activityNumber).slice(0,6))
-  //             })
-  //             .catch((error) => console.log(error));
-  //     };
-  //     callAPI();
-  // }, []);
 
   useEffect(() => {
     setPaginatedExaminatedPatients(
@@ -122,39 +80,34 @@ function DoctorPatient() {
     }
   };
 
-  const items = [
-    {
-      label: (
-        <a
-          href="https://www.antgroup.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          1st menu item
-        </a>
-      ),
-      key: "0",
-    },
-    {
-      label: (
-        <a
-          href="https://www.aliyun.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          2nd menu item
-        </a>
-      ),
-      key: "1",
-    },
-    {
-      type: "divider",
-    },
-    {
-      label: "3rd menu item",
-      key: "3",
-    },
-  ];
+  const callAPI = async () => {
+    try {
+      const resAllPatient = await patientAPI.getAllPatients();
+      const resExaminatedPatient = await patientAPI.getExaminatedPatients();
+
+      if (resAllPatient && resAllPatient.data) {
+        setPatients(resAllPatient.data);
+        setTotal((prev) => ({
+          ...prev,
+          allPatient: resAllPatient.data.length,
+        }));
+      }
+
+      if (resExaminatedPatient && resExaminatedPatient.data) {
+        setListExaminatedPatients(resExaminatedPatient.data);
+        setTotal((prev) => ({
+          ...prev,
+          examinatedPatient: resExaminatedPatient.data.length,
+        }));
+      }
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
+
+  useEffect(() => {
+    callAPI();
+  }, []);
 
   return (
     <div class="list-people-wrapper">

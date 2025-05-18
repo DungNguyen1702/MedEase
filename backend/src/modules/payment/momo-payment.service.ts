@@ -176,7 +176,7 @@ export class MomoPaymentService {
 
       const currentAccount = extraData[0].currentAccount;
 
-      await this.appService.createAppointment(currentAccount, appReq);
+      await this.appService.createAppointment(currentAccount._id, appReq);
 
       // console.log(newApp);
     } else {

@@ -6,12 +6,13 @@ import { Button } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import InputComponent from "../../../../../components/InputComponent";
 
-function DiagnosisComponent({ value, onChange, index, onRemove }) {
+function DiagnosisComponent({ value, onChange, index, onRemove, isEditable }) {
   const handleChange = (inputKey, inputValue) => {
     onChange(index, { ...value, [inputKey]: inputValue });
   };
 
   const handleAddPrescription = () => {
+    if (!isEditable) return;
     const newPrescription = {
       medicine: "",
       dosage: "",
@@ -21,9 +22,9 @@ function DiagnosisComponent({ value, onChange, index, onRemove }) {
     handleChange("prescription", [...value.prescription, newPrescription]);
   };
 
-  const handleRemovePrescription = (index) => {
+  const handleRemovePrescription = (indexPres) => {
     const newPrescription = [...value.prescription];
-    newPrescription.splice(index, 1);
+    newPrescription.splice(indexPres, 1);
     handleChange("prescription", newPrescription);
   };
 
@@ -35,6 +36,7 @@ function DiagnosisComponent({ value, onChange, index, onRemove }) {
           <Button
             className="diagnosis-component-button-delete"
             onClick={() => onRemove(index)}
+            disabled={!isEditable}
           >
             <DeleteOutlined />
           </Button>
@@ -48,6 +50,7 @@ function DiagnosisComponent({ value, onChange, index, onRemove }) {
           setValue={(value) => handleChange("diagnosis", value)}
           type="text"
           className="diagnosis-component-input-result"
+          disabled={!isEditable}
         />
       </div>
       <div className="d-flex justify-content-between align-items-center my-2">
@@ -57,6 +60,7 @@ function DiagnosisComponent({ value, onChange, index, onRemove }) {
           content={<p className="button-content-text">Thêm đơn thuốc</p>}
           className="diagnosis-component-button"
           styleButton="dark"
+          disabled={!isEditable}
         />
       </div>
 
@@ -92,6 +96,7 @@ function DiagnosisComponent({ value, onChange, index, onRemove }) {
                 }}
                 type="text"
                 className="diagnosis-component-input"
+                disabled={!isEditable}
               />
             </div>
             <div className="col-2 d-flex justify-content-center align-items-center">
@@ -105,6 +110,7 @@ function DiagnosisComponent({ value, onChange, index, onRemove }) {
                 }}
                 type="text"
                 className="diagnosis-component-input"
+                disabled={!isEditable}
               />
             </div>
             <div className="col-2 d-flex justify-content-center align-items-center">
@@ -118,6 +124,7 @@ function DiagnosisComponent({ value, onChange, index, onRemove }) {
                 }}
                 type="text"
                 className="diagnosis-component-input"
+                disabled={!isEditable}
               />
             </div>
             <div className="col-4 d-flex justify-content-center align-items-center my-2">
@@ -131,11 +138,13 @@ function DiagnosisComponent({ value, onChange, index, onRemove }) {
                 }}
                 type="text"
                 className="diagnosis-component-input"
+                disabled={!isEditable}
               />
               {indexPres !== 0 && (
                 <Button
                   className="diagnosis-component-button-delete"
                   onClick={() => handleRemovePrescription(indexPres)}
+                  disabled={!isEditable}
                 >
                   <DeleteOutlined />
                 </Button>
@@ -155,6 +164,7 @@ function DiagnosisComponent({ value, onChange, index, onRemove }) {
           }}
           type="text"
           className="diagnosis-component-input"
+          disabled={!isEditable}
         />
       </div>
     </div>

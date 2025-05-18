@@ -5,7 +5,7 @@
     "specialization_id": "30000000-0000-0000-0000-000000000001",
     "time": "09:00",
     "examStatus": "examined",
-    "doctor_id": "20000000-0000-0000-0000-000000000001",
+    "doctor_id": "30000000-0000-0000-0000-000000000001",
     "address": "Phòng 101 - Khoa Nội tổng quát",
     "price": 500000,
     "description": "Khám tổng quát đầu năm"
@@ -16,7 +16,7 @@
     "specialization_id": "30000000-0000-0000-0000-000000000002",
     "time": "10:30",
     "examStatus": "in_progress",
-    "doctor_id": "20000000-0000-0000-0000-000000000001",
+    "doctor_id": "30000000-0000-0000-0000-000000000001",
     "address": "Phòng 202 - Khoa Tim mạch",
     "price": 1000000,
     "description": "Khám chuyên sâu tim mạch"

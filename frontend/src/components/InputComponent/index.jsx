@@ -8,6 +8,7 @@ function InputComponent({
   setValue,
   type = "text",
   className,
+  disabled = false, // Thêm prop disabled, mặc định là false (edit được)
 }) {
   return (
     <>
@@ -17,6 +18,7 @@ function InputComponent({
           value={value}
           onChange={(e) => setValue(e.target.value)}
           className={`inputValue ${className}`}
+          disabled={disabled}
         />
       ) : (
         <Input.Password
@@ -24,6 +26,7 @@ function InputComponent({
           value={value}
           onChange={(e) => setValue(e.target.value)}
           className={`inputValue ${className}`}
+          disabled={disabled}
         />
       )}
     </>

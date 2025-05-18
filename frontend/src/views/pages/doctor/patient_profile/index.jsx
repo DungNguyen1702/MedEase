@@ -9,9 +9,14 @@ import AppointmentCard from "./AppointmentCard";
 import PaginationComponent from "../../../../components/Pagination";
 import MedicalRecordCard from "./MedicalRecordCard";
 import "./index.scss";
+import { patientAPI } from "../../../../api/patientAPI";
+import { useParams } from "react-router-dom";
+import NoData from "../../../../components/NoData";
 
 function PatientProfile() {
-  const [appointments, setAppointments] = useState(FakeData.appointments);
+  const { id } = useParams();
+
+  const [appointments, setAppointments] = useState(FakeData.appointmentDetails);
   const [medicalRecords, setMedicalRecords] = useState(FakeData.medical_record);
   const [patient, setPatient] = useState(FakeData.patients[0]);
 
@@ -45,6 +50,27 @@ function PatientProfile() {
       paginateData(medicalRecords, page.medicalRecord, limit.medicalRecord)
     );
   }, [page, limit, appointments, medicalRecords]);
+
+  const callAPI = async () => {
+    try {
+      const res = await patientAPI.getPatientProfile(id);
+      if (res && res.data) {
+        setPatient(res.data.patient);
+        setAppointments(res.data.appointments);
+        setMedicalRecords(res.data.medicalRecords);
+        setTotal({
+          appointment: res.data.total.appointment,
+          medicalRecord: res.data.total.medicalRecord,
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    callAPI();
+  }, []);
 
   return (
     <div className="patient-profile-container">
@@ -92,46 +118,57 @@ function PatientProfile() {
         </div>
       </div>
 
-
       <div className="patient-profile-footer">
         {/* <div className="patient-profile-footer"> */}
         <div className="patient-profile-footer-item-container">
           <p className="patient-profile-footer-item-title">Số lịch hẹn</p>
-          {paginatedAppointments.map((appointment) => (
-            <AppointmentCard value={appointment} key={appointment?._id} />
-          ))}
-          <PaginationComponent
-            page={page.appointment}
-            limit={limit.appointment}
-            total={total.appointment}
-            setPage={(value) => {
-              setPage({ ...page, appointment: value });
-            }}
-            setLimit={(value) => {
-              setLimit({ ...limit, appointment: value });
-            }}
-          />
+          {paginatedAppointments && paginatedAppointments.length !== 0 ? (
+            <>
+              {paginatedAppointments.map((appointment) => (
+                <AppointmentCard value={appointment} key={appointment?._id} />
+              ))}
+              <PaginationComponent
+                page={page.appointment}
+                limit={limit.appointment}
+                total={total.appointment}
+                setPage={(value) => {
+                  setPage({ ...page, appointment: value });
+                }}
+                setLimit={(value) => {
+                  setLimit({ ...limit, appointment: value });
+                }}
+              />
+            </>
+          ) : (
+            <NoData />
+          )}
         </div>
 
         <div className="patient-profile-footer-item-container">
           <p className="patient-profile-footer-item-title">Lịch sử khám bệnh</p>
-          {paginatedMedicalRecords.map((medicalRecordCard) => (
-            <MedicalRecordCard
-              value={medicalRecordCard}
-              key={medicalRecordCard?._id}
-            />
-          ))}
-          <PaginationComponent
-            page={page.medicalRecord}
-            limit={limit.medicalRecord}
-            total={total.medicalRecord}
-            setPage={(value) => {
-              setPage({ ...page, medicalRecord: value });
-            }}
-            setLimit={(value) => {
-              setLimit({ ...limit, medicalRecord: value });
-            }}
-          />
+          {paginatedMedicalRecords && paginatedMedicalRecords.length !== 0 ? (
+            <>
+              {paginatedMedicalRecords.map((medicalRecordCard) => (
+                <MedicalRecordCard
+                  value={medicalRecordCard}
+                  key={medicalRecordCard?._id}
+                />
+              ))}
+              <PaginationComponent
+                page={page.medicalRecord}
+                limit={limit.medicalRecord}
+                total={total.medicalRecord}
+                setPage={(value) => {
+                  setPage({ ...page, medicalRecord: value });
+                }}
+                setLimit={(value) => {
+                  setLimit({ ...limit, medicalRecord: value });
+                }}
+              />
+            </>
+          ) : (
+            <NoData />
+          )}
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
-import "./index.scss";
+import { ExaminationStatusEnum } from "../../../../../../constants/constants";
+import { formatDateToYYYYMMDD } from "../../../../../../utils/stringUtil";
 import { useNavigate } from "react-router-dom";
 
 function AppointmentCard({ value }) {
@@ -6,7 +7,7 @@ function AppointmentCard({ value }) {
 
   const handleClick = () => {
     navigate(`/doctor/appointment-detail/${value?.appointment?._id}`);
-  }
+  };
 
   return (
     <div className="appointment-card-container" onClick={handleClick}>
@@ -22,6 +23,14 @@ function AppointmentCard({ value }) {
         <p className="appointment-card-time">
           <strong>Thời gian : </strong>
           {value?.time}
+        </p>
+        <p className="appointment-card-time">
+          <strong>Ngày khám : </strong>
+          {formatDateToYYYYMMDD(value?.appointment?.appointment_date)}
+        </p>
+        <p className="appointment-card-time">
+          <strong>Trạng thái : </strong>
+          {ExaminationStatusEnum[value?.examStatus]}
         </p>
       </div>
       <img

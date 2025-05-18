@@ -29,6 +29,8 @@ export class AccountController {
     private readonly uploadService: UploadService
   ) {}
 
+  @UseGuards(new RoleGuard([AccountRoleEnum.ADMIN]))
+  @UseGuards(AuthGuard)
   @Post()
   async create(@Body() createAccountDto: CreateAccountDto) {
     return this.accountService.create(createAccountDto);
@@ -58,13 +60,20 @@ export class AccountController {
     @Body() updateAccountDto: UpdateAccountDto,
     @UploadedFile() file: Multer.File
   ) {
-    console.log(file)
+    console.log(file);
     if (file) {
       const uploadResult = await this.uploadService.uploadImage(file);
       updateAccountDto.avatar = uploadResult.url;
     }
 
     return this.accountService.update(CurrentAccount._id, updateAccountDto);
+  }
+
+  @UseGuards(new RoleGuard([AccountRoleEnum.ADMIN]))
+  @UseGuards(AuthGuard)
+  @Put('/update-by-admin')
+  async updateByAdmin(@Body() updateAccountDto: UpdateAccountDto) {
+    return this.accountService.update(updateAccountDto.id, updateAccountDto);
   }
 
   @UseGuards(AuthGuard)

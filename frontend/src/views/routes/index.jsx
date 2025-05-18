@@ -8,13 +8,18 @@ import WebFont from "webfontloader";
 import MainLayout from "../../components/Layout/MainLayout";
 import LoginPage from "../pages/login";
 import RegisterPage from "../pages/register";
-import HomepageDoctor from "../pages/doctor/homepage_doctor";
-import HomepageAdmin from "../pages/admin/homepage_admin";
+import HomepageDoctor from "../pages/doctor/dashboard";
+import HomepageAdmin from "../pages/admin/dashboard";
 import DoctorRoom from "../pages/doctor/room";
 import DoctorPatient from "../pages/doctor/patient";
 import DoctorQuestion from "../pages/doctor/question";
 import DoctorAppointmentDetail from "../pages/doctor/appointment_detail";
 import PatientProfile from "../pages/doctor/patient_profile";
+import AdminLayout from "../../components/Layout/AdminLayout";
+import AdminDoctors from "../pages/admin/doctors";
+import AdminAppointments from "../pages/admin/appointments";
+import AdminQuestions from "../pages/admin/questions";
+import AdminPatients from "../pages/admin/patients";
 
 const AllRoutes = () => {
   useEffect(() => {
@@ -90,7 +95,36 @@ const AllRoutes = () => {
         {/* admin */}
         <Route
           path="/admin/dashboard"
-          element={<MainLayout children={<HomepageAdmin />} />}
+          element={
+            <AdminLayout children={<HomepageAdmin />} currentPage="Trang chủ" />
+          }
+        />
+        <Route
+          path="/admin/doctor"
+          element={
+            <AdminLayout children={<AdminDoctors />} currentPage="Bác sĩ" />
+          }
+        />
+        <Route
+          path="/admin/appointment"
+          element={
+            <AdminLayout
+              children={<AdminAppointments />}
+              currentPage="Cuộc hẹn"
+            />
+          }
+        />
+        <Route
+          path="/admin/question"
+          element={
+            <AdminLayout children={<AdminQuestions />} currentPage="Câu hỏi" />
+          }
+        />
+        <Route
+          path="/admin/patient"
+          element={
+            <AdminLayout children={<AdminPatients />} currentPage="Bệnh nhân" />
+          }
         />
       </Route>
     </Routes>

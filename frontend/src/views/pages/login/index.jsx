@@ -17,12 +17,8 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    console.log(import.meta.env.VITE_PUBLIC_API_URL);
     try {
       const repsponse = await AuthAPI.login(username, password);
-      console.log("Login response:", repsponse.data.access_token);
-      console.log("Login response:", repsponse.status);
 
       const { access_token, message, ...userData } = repsponse.data;
 

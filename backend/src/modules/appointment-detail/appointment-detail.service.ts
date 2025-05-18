@@ -2,16 +2,33 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import {
+  Appointment,
   AppointmentDetail,
   AppointmentDetailDocument,
-  type Account,
+  MedicalRecord,
+  ReExamSchedule,
+  Account,
+  MedicalRecordDocument,
+  ReExamScheduleDocument,
+  AppointmentDocument,
+  Doctor,
+  DoctorDocument,
 } from '../../schemas';
+import { UpdateAppointmentDetailRequest } from './dtos/UpdateAppointmentDetailRequest';
 
 @Injectable()
 export class AppointmentDetailService {
   constructor(
+    @InjectModel(Appointment.name)
+    private readonly appointmentModel: Model<AppointmentDocument>,
     @InjectModel(AppointmentDetail.name)
-    private readonly appointmentDetailModel: Model<AppointmentDetailDocument>
+    private readonly appointmentDetailModel: Model<AppointmentDetailDocument>,
+    @InjectModel(ReExamSchedule.name)
+    private readonly reExamScheduleModel: Model<ReExamScheduleDocument>,
+    @InjectModel(MedicalRecord.name)
+    private readonly medicalRecordModel: Model<MedicalRecordDocument>,
+    @InjectModel(Doctor.name)
+    private readonly doctorModel: Model<DoctorDocument>
   ) {}
 
   async findDetailsByDate(date: string, account: Account) {
@@ -98,5 +115,95 @@ export class AppointmentDetailService {
       .populate('doctor_id')
       .populate('specialization_id')
       .exec();
+  }
+
+  async updateAppointmentDetail(
+    dto: UpdateAppointmentDetailRequest,
+    accountId: string
+  ) {
+    const doctor = await this.doctorModel.findOne({
+      account_id: accountId,
+    });
+    if (!doctor) {
+      throw new Error('Không tìm thấy bác sĩ');
+    }
+
+    console.log('doctor', doctor._id);
+
+    // Cập nhật các trường cơ bản của AppointmentDetail nếu cần
+    await this.appointmentModel.updateOne(
+      { _id: dto.appointment_id },
+      {
+        predicted_disease: dto.predicted_disease,
+      }
+    );
+
+    // Build mapping diagnosis -> medicalRecordId
+    const diagnosisToId: Record<string, string> = {};
+
+    // Xử lý MedicalRecords
+    const medicalRecordIds: string[] = [];
+    for (const record of dto.medicalrecords) {
+      if (record._id) {
+        // Update
+        await this.medicalRecordModel.updateOne(
+          { _id: record._id },
+          {
+            diagnosis: record.diagnosis,
+            prescription: record.prescription,
+            note: record.note,
+          }
+        );
+        medicalRecordIds.push(record._id);
+        diagnosisToId[record.diagnosis] = record._id;
+      } else {
+        // Create
+        const created = await this.medicalRecordModel.create({
+          appointment_id: dto.appointment_id,
+          patient_id: dto.patient_id,
+          doctor_id: doctor._id,
+          symptoms: dto.symptoms,
+          diagnosis: record.diagnosis,
+          prescription: record.prescription,
+          note: record.note,
+        });
+        medicalRecordIds.push(created._id);
+        diagnosisToId[record.diagnosis] = created._id;
+      }
+    }
+
+    // Xử lý ReExamSchedules
+    const reExamIds: string[] = [];
+    for (const reExam of dto.reexamschedules) {
+      // Tìm medical_record_id theo diagnosis
+      const medical_record_id = diagnosisToId[reExam.diagnosis];
+
+      if (reExam._id) {
+        // Update
+        await this.reExamScheduleModel.updateOne(
+          { _id: reExam._id },
+          {
+            medical_record_id,
+            re_exam_date: reExam.re_exam_date,
+            note: reExam.note,
+          }
+        );
+        reExamIds.push(reExam._id);
+      } else {
+        // Create
+        const created = await this.reExamScheduleModel.create({
+          parent_appointment_id: dto.appointment_id,
+          doctor_id: doctor._id,
+          medical_record_id,
+          re_exam_date: reExam.re_exam_date,
+          note: reExam.note,
+          price: 0,
+          isPaid: false,
+        });
+        reExamIds.push(created._id);
+      }
+    }
+
+    return { message: 'Cập nhật thành công' };
   }
 }

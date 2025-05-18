@@ -1,0 +1,237 @@
+@import "../../../../constants/colors.css";
+
+.questions-page {
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    
+    .header-actions {
+      display: flex;
+      gap: 16px;
+      
+      .search-input {
+        width: 300px;
+      }
+    }
+  }
+  
+  .questions-tabs {
+    margin-bottom: 24px;
+    
+    .ant-tabs-nav {
+      margin-bottom: 16px;
+    }
+  }
+  
+  .questions-list {
+    .question-card {
+      margin-bottom: 16px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      
+      .question-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        
+        .question-info {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          
+          .avatar {
+            background-color: var(--primary-main);
+          }
+          
+          .patient-name {
+            font-weight: 500;
+          }
+          
+          .question-date {
+            font-size: 12px;
+            color: #666;
+          }
+        }
+      }
+      
+      .question-content {
+        margin-bottom: 16px;
+        
+        p {
+          margin-bottom: 0;
+          font-size: 16px;
+        }
+      }
+      
+      .answers-section {
+        background-color: #f9f9f9;
+        padding: 16px;
+        border-radius: 8px;
+        margin-bottom: 16px;
+        
+        .answers-title {
+          font-size: 14px;
+          font-weight: 600;
+          margin-bottom: 12px;
+          color: #666;
+        }
+        
+        .answer-item {
+          margin-bottom: 12px;
+          
+          &:last-child {
+            margin-bottom: 0;
+          }
+          
+          .answer-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+            
+            .doctor-avatar {
+              background-color: var(--primary-light);
+            }
+            
+            .chatbot-avatar {
+              background-color: var(--primary-light-main);
+            }
+            
+            .responder-name {
+              font-weight: 500;
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              
+              .role-tag {
+                font-size: 10px;
+                padding: 0 4px;
+                height: 18px;
+                line-height: 18px;
+              }
+            }
+            
+            .answer-date {
+              font-size: 12px;
+              color: #666;
+            }
+          }
+          
+          .answer-content {
+            p {
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+      
+      .question-actions {
+        display: flex;
+        justify-content: flex-end;
+        
+        .reply-button, .add-reply-button {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+      }
+    }
+  }
+  
+  .reply-modal-content {
+    .original-question {
+      background-color: #f9f9f9;
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      
+      .question-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        
+        .patient-info {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          
+          .patient-name {
+            font-weight: 500;
+          }
+        }
+        
+        .question-date {
+          font-size: 12px;
+          color: #666;
+        }
+      }
+      
+      .question-text {
+        margin-bottom: 0;
+        font-size: 16px;
+      }
+    }
+    
+    .previous-answers {
+      margin-bottom: 24px;
+      
+      h4 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        color: #666;
+      }
+      
+      .previous-answer {
+        background-color: #f9f9f9;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+        
+        .answer-meta {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 8px;
+          
+          .responder-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            
+            .responder-name {
+              font-weight: 500;
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              
+              .role-tag {
+                font-size: 10px;
+                padding: 0 4px;
+                height: 18px;
+                line-height: 18px;
+              }
+            }
+          }
+          
+          .answer-date {
+            font-size: 12px;
+            color: #666;
+          }
+        }
+        
+        .answer-text {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}

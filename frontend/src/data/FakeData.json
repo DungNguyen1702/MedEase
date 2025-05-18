@@ -5399,53 +5399,40 @@
   ],
   "appointments": [
     {
-      "_id": "40000000-0000-0000-0000-000000000001",
-      "patient_id": "10000000-0000-0000-0000-000000000001",
-      "title": "Khám tổng quát định kỳ",
-      "status": "done",
-      "appointment_date": "2025-03-01T00:00:00.000Z",
-      "symptoms": "Đau đầu, mệt mỏi",
-      "predicted_disease": [
-        {
-          "name": "Thiếu máu",
-          "percent": 80,
-          "_id": "68204be1082bbb79c8d26885"
-        }
-      ],
-      "number": 1,
-      "paymentMethod": "cash",
-      "reasonCancel": null,
-      "isPaid": true,
-      "price": 500000,
-      "type": "health_checkup",
-      "createdBy": "Dung Nguyễn",
-      "createdAt": "2025-02-25T00:00:00.000Z",
+      "_id": "60000000-0000-0000-0000-000000000001",
+      "content": "Tôi cần nhịn ăn bao lâu trước khi nội soi dạ dày?",
+      "account_id": "10000000-0000-0000-0000-000000000001",
+      "createdAt": "2025-01-01T08:00:00.000Z",
+      "updatedAt": "2025-01-01T08:00:00.000Z",
       "__v": 0,
-      "updatedAt": "2025-05-11T07:04:01.367Z",
-      "appointment_detail": [
+      "answers": [
         {
-          "_id": "40000000-0000-0000-0000-000000000004",
-          "appointment_id": "40000000-0000-0000-0000-000000000001",
-          "specialization_id": "30000000-0000-0000-0000-000000000001",
-          "examStatus": "examined",
-          "time": "09:00",
-          "doctor_id": "20000000-0000-0000-0000-000000000001",
-          "address": "Phòng 101 - Khoa Nội tổng quát",
-          "price": "500000",
-          "description": "Khám tổng quát đầu năm",
+          "_id": "60000000-0000-0000-0000-000000000101",
+          "question_id": "60000000-0000-0000-0000-000000000001",
+          "answer": "Trước khi nội soi dạ dày, bạn cần nhịn ăn ít nhất 6–8 tiếng để đảm bảo an toàn và kết quả chính xác.",
+          "account_id": "20000000-0000-0000-0000-000000000001",
+          "createdAt": "2025-01-01T09:00:00.000Z",
+          "updatedAt": "2025-01-01T09:00:00.000Z",
           "__v": 0,
-          "createdAt": "2025-05-11T07:04:01.547Z",
-          "updatedAt": "2025-05-11T07:04:01.547Z",
-          "doctor": []
+          "account": {
+            "_id": "20000000-0000-0000-0000-000000000001",
+            "email": "doctor1@medease.com",
+            "name": "BS. Võ Văn Hải",
+            "tel": "0911222333",
+            "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM",
+            "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+            "gender": "male",
+            "date_of_birth": "1979-12-31T17:00:00.000Z",
+            "role": "doctor",
+            "__v": 0,
+            "createdAt": "2025-05-14T16:10:21.273Z",
+            "updatedAt": "2025-05-14T16:10:21.273Z"
+          }
         }
       ],
-      "minTime": "09:00",
-      "maxTime": "09:00",
-      "time": "09:00 - 09:00",
-      "patient": {
+      "account": {
         "_id": "10000000-0000-0000-0000-000000000001",
         "email": "patient1@medease.com",
-        "password": "$2b$10$6Z.cVHbj/KCFEEJQcnzPh.xxyCYq63OwiOk5l3O.w2Mpn/wDUAAwC",
         "name": "Nguyễn Văn Khang",
         "tel": "0912345678",
         "address": "456 Đường Lê Lợi, Quận 3, TP.HCM",
@@ -5454,59 +5441,40 @@
         "date_of_birth": "1990-05-15T00:00:00.000Z",
         "role": "patient",
         "__v": 0,
-        "createdAt": "2025-05-11T07:04:00.506Z",
-        "updatedAt": "2025-05-11T07:04:00.506Z",
-        "appointmentNumber": 2
+        "createdAt": "2025-05-14T16:10:21.078Z",
+        "updatedAt": "2025-05-14T16:10:21.078Z"
       }
     },
     {
-      "_id": "40000000-0000-0000-0000-000000000002",
-      "patient_id": "10000000-0000-0000-0000-000000000001",
-      "title": "Khám chuyên sâu về tim mạch",
-      "status": "wait",
-      "appointment_date": "2025-04-10T00:00:00.000Z",
-      "symptoms": "Hụt hơi, đau ngực",
-      "predicted_disease": [
-        {
-          "name": "Thiếu máu cơ tim",
-          "percent": 65,
-          "_id": "68204be1082bbb79c8d26886"
-        }
-      ],
-      "number": 2,
-      "paymentMethod": "momo",
-      "reasonCancel": null,
-      "isPaid": false,
-      "price": 1000000,
-      "type": "specialist_consultation",
-      "createdBy": "Dung Nguyễn",
-      "createdAt": "2025-04-01T00:00:00.000Z",
+      "_id": "60000000-0000-0000-0000-000000000002",
+      "content": "Giờ làm việc của bệnh viện là từ mấy giờ đến mấy giờ?",
+      "account_id": "10000000-0000-0000-0000-000000000001",
+      "createdAt": "2025-01-01T08:01:00.000Z",
+      "updatedAt": "2025-01-01T08:01:00.000Z",
       "__v": 0,
-      "updatedAt": "2025-05-11T07:04:01.367Z",
-      "appointment_detail": [
+      "answers": [
         {
-          "_id": "40000000-0000-0000-0000-000000000005",
-          "appointment_id": "40000000-0000-0000-0000-000000000002",
-          "specialization_id": "30000000-0000-0000-0000-000000000002",
-          "examStatus": "in_progress",
-          "time": "10:30",
-          "doctor_id": "20000000-0000-0000-0000-000000000001",
-          "address": "Phòng 202 - Khoa Tim mạch",
-          "price": "1000000",
-          "description": "Khám chuyên sâu tim mạch",
+          "_id": "60000000-0000-0000-0000-000000000102",
+          "question_id": "60000000-0000-0000-0000-000000000002",
+          "answer": "Bệnh viện làm việc từ 7h00 đến 17h00 từ thứ 2 đến thứ 6, và từ 7h00 đến 11h30 vào thứ 7.",
+          "account_id": "robot",
+          "createdAt": "2025-01-01T09:01:00.000Z",
+          "updatedAt": "2025-01-01T09:01:00.000Z",
           "__v": 0,
-          "createdAt": "2025-05-11T07:04:01.547Z",
-          "updatedAt": "2025-05-11T07:04:01.547Z",
-          "doctor": []
+          "account": {
+            "_id": "20000000-0000-0000-0000-000000000001",
+            "email": "robot@medease.com",
+            "password": "12345678",
+            "name": "ChatBox",
+            "role": "chatbot",
+            "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1745127486/MedEase/Avatar/chat-box-avatar_anp2ee.png",
+            "gender": "male"
+          }
         }
       ],
-      "minTime": "10:30",
-      "maxTime": "10:30",
-      "time": "10:30 - 10:30",
-      "patient": {
+      "account": {
         "_id": "10000000-0000-0000-0000-000000000001",
         "email": "patient1@medease.com",
-        "password": "$2b$10$6Z.cVHbj/KCFEEJQcnzPh.xxyCYq63OwiOk5l3O.w2Mpn/wDUAAwC",
         "name": "Nguyễn Văn Khang",
         "tel": "0912345678",
         "address": "456 Đường Lê Lợi, Quận 3, TP.HCM",
@@ -5515,43 +5483,40 @@
         "date_of_birth": "1990-05-15T00:00:00.000Z",
         "role": "patient",
         "__v": 0,
-        "createdAt": "2025-05-11T07:04:00.506Z",
-        "updatedAt": "2025-05-11T07:04:00.506Z",
-        "appointmentNumber": 2
+        "createdAt": "2025-05-14T16:10:21.078Z",
+        "updatedAt": "2025-05-14T16:10:21.078Z"
       }
     },
     {
-      "_id": "40000000-0000-0000-0000-000000000003",
-      "patient_id": "10000000-0000-0000-0000-000000000001",
-      "title": "Tái khám sau điều trị",
-      "status": "cancel",
-      "appointment_date": "2025-03-20T00:00:00.000Z",
-      "symptoms": "Theo dõi sau điều trị",
-      "predicted_disease": [
+      "_id": "60000000-0000-0000-0000-000000000003",
+      "content": "Tôi có thể đặt lịch khám trực tuyến không?",
+      "account_id": "10000000-0000-0000-0000-000000000001",
+      "createdAt": "2025-01-01T08:02:00.000Z",
+      "updatedAt": "2025-01-01T08:02:00.000Z",
+      "__v": 0,
+      "answers": [
         {
-          "name": "Phục hồi",
-          "percent": 95,
-          "_id": "68204be1082bbb79c8d26887"
+          "_id": "60000000-0000-0000-0000-000000000103",
+          "question_id": "60000000-0000-0000-0000-000000000003",
+          "answer": "Bạn hoàn toàn có thể đặt lịch khám trực tuyến qua website hoặc ứng dụng của bệnh viện.",
+          "account_id": "robot",
+          "createdAt": "2025-01-01T09:02:00.000Z",
+          "updatedAt": "2025-01-01T09:02:00.000Z",
+          "__v": 0,
+          "account": {
+            "_id": "20000000-0000-0000-0000-000000000001",
+            "email": "robot@medease.com",
+            "password": "12345678",
+            "name": "ChatBox",
+            "role": "chatbot",
+            "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1745127486/MedEase/Avatar/chat-box-avatar_anp2ee.png",
+            "gender": "male"
+          }
         }
       ],
-      "number": 3,
-      "paymentMethod": "zalopay",
-      "reasonCancel": "Bận công việc đột xuất",
-      "isPaid": false,
-      "price": 250000,
-      "type": "re_examination",
-      "createdBy": "Dung Nguyễn",
-      "createdAt": "2025-03-15T00:00:00.000Z",
-      "__v": 0,
-      "updatedAt": "2025-05-11T07:04:01.367Z",
-      "appointment_detail": [],
-      "minTime": null,
-      "maxTime": null,
-      "time": "20:00 - 20:00",
-      "patient": {
+      "account": {
         "_id": "10000000-0000-0000-0000-000000000001",
         "email": "patient1@medease.com",
-        "password": "$2b$10$6Z.cVHbj/KCFEEJQcnzPh.xxyCYq63OwiOk5l3O.w2Mpn/wDUAAwC",
         "name": "Nguyễn Văn Khang",
         "tel": "0912345678",
         "address": "456 Đường Lê Lợi, Quận 3, TP.HCM",
@@ -5560,9 +5525,55 @@
         "date_of_birth": "1990-05-15T00:00:00.000Z",
         "role": "patient",
         "__v": 0,
-        "createdAt": "2025-05-11T07:04:00.506Z",
-        "updatedAt": "2025-05-11T07:04:00.506Z",
-        "appointmentNumber": 2
+        "createdAt": "2025-05-14T16:10:21.078Z",
+        "updatedAt": "2025-05-14T16:10:21.078Z"
+      }
+    },
+    {
+      "_id": "60000000-0000-0000-0000-000000000004",
+      "content": "Sau khi tiêm vaccine, tôi bị sốt nhẹ thì có sao không?",
+      "account_id": "10000000-0000-0000-0000-000000000001",
+      "createdAt": "2025-01-01T08:03:00.000Z",
+      "updatedAt": "2025-01-01T08:03:00.000Z",
+      "__v": 0,
+      "answers": [
+        {
+          "_id": "60000000-0000-0000-0000-000000000104",
+          "question_id": "60000000-0000-0000-0000-000000000004",
+          "answer": "Sốt nhẹ sau tiêm là phản ứng bình thường. Bạn nên nghỉ ngơi, uống nhiều nước và theo dõi nếu sốt kéo dài quá 48h.",
+          "account_id": "20000000-0000-0000-0000-000000000001",
+          "createdAt": "2025-01-01T09:03:00.000Z",
+          "updatedAt": "2025-01-01T09:03:00.000Z",
+          "__v": 0,
+          "account": {
+            "_id": "20000000-0000-0000-0000-000000000001",
+            "email": "doctor1@medease.com",
+            "name": "BS. Võ Văn Hải",
+            "tel": "0911222333",
+            "address": "111 Đường Điện Biên Phủ, Bình Thạnh, TP.HCM",
+            "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519515/MedEase/Avatar/doctor-avatar_fnybrd.png",
+            "gender": "male",
+            "date_of_birth": "1979-12-31T17:00:00.000Z",
+            "role": "doctor",
+            "__v": 0,
+            "createdAt": "2025-05-14T16:10:21.273Z",
+            "updatedAt": "2025-05-14T16:10:21.273Z"
+          }
+        }
+      ],
+      "account": {
+        "_id": "10000000-0000-0000-0000-000000000001",
+        "email": "patient1@medease.com",
+        "name": "Nguyễn Văn Khang",
+        "tel": "0912345678",
+        "address": "456 Đường Lê Lợi, Quận 3, TP.HCM",
+        "avatar": "https://res.cloudinary.com/deei5izfg/image/upload/v1743519582/MedEase/Avatar/avatar-patient_epvgvs.jpg",
+        "gender": "male",
+        "date_of_birth": "1990-05-15T00:00:00.000Z",
+        "role": "patient",
+        "__v": 0,
+        "createdAt": "2025-05-14T16:10:21.078Z",
+        "updatedAt": "2025-05-14T16:10:21.078Z"
       }
     }
   ]

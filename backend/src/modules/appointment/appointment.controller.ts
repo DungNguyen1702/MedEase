@@ -2,9 +2,11 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
+  Put,
   Query,
   UseGuards,
 } from '@nestjs/common';
@@ -15,6 +17,7 @@ import { RoleGuard } from '../../common/guards/role.guard';
 import { CurrentAccount } from '../../common/decorators/current-account.decorator';
 import { Account } from '../../schemas';
 import type { AppointmentRequest } from './dtos/AppointmentRequest';
+import type { AppointmentEditRequest } from './dtos/AppointmentEditReq';
 
 @Controller('appointment')
 export class AppointmentController {
@@ -24,7 +27,7 @@ export class AppointmentController {
   @UseGuards(AuthGuard)
   @Get('/history')
   async getAppointmentById(@CurrentAccount() currentAccount: Account) {
-    return this.appointmentService.getAppointmentById(currentAccount);
+    return this.appointmentService.getAppointmentById(currentAccount._id);
   }
 
   @UseGuards(new RoleGuard([AccountRoleEnum.PATIENT]))
@@ -53,7 +56,7 @@ export class AppointmentController {
   ) {
     try {
       return await this.appointmentService.createAppointment(
-        currentAccount,
+        currentAccount._id,
         body
       );
     } catch (error) {
@@ -63,6 +66,40 @@ export class AppointmentController {
     }
   }
 
+  @UseGuards(new RoleGuard([AccountRoleEnum.ADMIN]))
+  @UseGuards(AuthGuard)
+  @Post('/admin-appointment/:patientId')
+  async createAppointmentByAdmin(
+    @Param('patientId') patientId: string,
+    @Body() body: AppointmentRequest
+  ) {
+    try {
+      return await this.appointmentService.createAppointment(patientId, body);
+    } catch (error) {
+      throw new BadRequestException(
+        error.message || 'Đã xảy ra lỗi khi tạo lịch hẹn'
+      );
+    }
+  }
+
+  @UseGuards(new RoleGuard([AccountRoleEnum.ADMIN]))
+  @UseGuards(AuthGuard)
+  @Put('/admin-appointment/:appointmentId')
+  async updateAppointmentByAdmin(
+    @Param('appointmentId') appointmentId: string,
+    @Body() body: AppointmentEditRequest
+  ) {
+    try {
+      return await this.appointmentService.updateAppointment(
+        appointmentId,
+        body
+      );
+    } catch (error) {
+      throw new BadRequestException(
+        error.message || 'Đã xảy ra lỗi khi tạo lịch hẹn'
+      );
+    }
+  }
   @UseGuards(new RoleGuard([AccountRoleEnum.PATIENT]))
   @UseGuards(AuthGuard)
   @Get('/appoinemtment-detail-payment')
@@ -76,5 +113,33 @@ export class AppointmentController {
       paymentCode,
       paymentType
     );
+  }
+
+  @UseGuards(new RoleGuard([AccountRoleEnum.ADMIN]))
+  @UseGuards(AuthGuard)
+  @Get('/admin-appointment')
+  async getAllAppointment() {
+    return this.appointmentService.getAllAppointment();
+  }
+
+  @UseGuards(new RoleGuard([AccountRoleEnum.ADMIN]))
+  @UseGuards(AuthGuard)
+  @Delete('/admin-appointment/:id')
+  async deleteAppointmentByAdmin(@Param('id') id: string) {
+    try {
+      return await this.appointmentService.deleteAppointment(id);
+    } catch (error) {
+      throw new BadRequestException(
+        error.message || 'Đã xảy ra lỗi khi xóa lịch hẹn'
+      );
+    }
+  }
+
+  @UseGuards(new RoleGuard([AccountRoleEnum.DOCTOR]))
+  @UseGuards(AuthGuard)
+  @Get('/appointment-detail/:id')
+  async getAppointmentDetailById(@Param('id') id: string) {
+    console.log('id', id);
+    return this.appointmentService.getAppointmentDetailById(id);
   }
 }

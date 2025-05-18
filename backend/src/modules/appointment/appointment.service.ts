@@ -7,14 +7,12 @@ import {
   AppointmentDetailDocument,
   DoctorDocument,
   ReExamScheduleDocument,
+  type AccountDocument,
 } from '../../schemas';
 import * as moment from 'moment';
 import { AppointmentRequest } from './dtos/AppointmentRequest';
-import {
-  AppointmentStatus,
-  AppointmentTypeEnum,
-  ExaminationStatusEnum,
-} from '../../common/enums';
+import { AppointmentTypeEnum, ExaminationStatusEnum } from '../../common/enums';
+import type { AppointmentEditRequest } from './dtos/AppointmentEditReq';
 
 @Injectable()
 export class AppointmentService {
@@ -26,14 +24,16 @@ export class AppointmentService {
     @InjectModel('Doctor')
     private readonly doctorModel: Model<DoctorDocument>,
     @InjectModel('ReExamSchedule')
-    private readonly reExamScheduleModel: Model<ReExamScheduleDocument>
+    private readonly reExamScheduleModel: Model<ReExamScheduleDocument>,
+    @InjectModel('Account')
+    private readonly accountModel: Model<AccountDocument>
   ) {}
 
-  async getAppointmentById(currentAccount: Account) {
+  async getAppointmentById(currentAccountId: string) {
     return this.appointmentModel.aggregate([
       {
         $match: {
-          patient_id: currentAccount._id,
+          patient_id: currentAccountId,
         },
       },
       {
@@ -49,6 +49,65 @@ export class AppointmentService {
                 localField: 'doctor_id',
                 foreignField: '_id',
                 as: 'doctor',
+              },
+            },
+            {
+              $addFields: {
+                doctor: { $arrayElemAt: ['$doctor', 0] },
+              },
+            },
+          ],
+        },
+      },
+      {
+        $addFields: {
+          minTime: { $min: '$appointment_detail.time' }, // Lấy thời gian nhỏ nhất
+          maxTime: { $max: '$appointment_detail.time' }, // Lấy thời gian lớn nhất
+          time: {
+            $concat: [
+              { $toString: { $min: '$appointment_detail.time' } }, // Thời gian nhỏ nhất
+              ' - ',
+              { $toString: { $max: '$appointment_detail.time' } }, // Thời gian lớn nhất
+            ],
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: 'doctors',
+          localField: 'doctor_id',
+          foreignField: '_id',
+          as: 'doctor',
+        },
+      },
+      {
+        $addFields: {
+          doctor: { $arrayElemAt: ['$doctor', 0] },
+        },
+      },
+    ]);
+  }
+
+  async getAllAppointment() {
+    return this.appointmentModel.aggregate([
+      {
+        $lookup: {
+          from: 'appointmentdetails',
+          localField: '_id',
+          foreignField: 'appointment_id',
+          as: 'appointment_detail',
+          pipeline: [
+            {
+              $lookup: {
+                from: 'doctors',
+                localField: 'doctor_id',
+                foreignField: '_id',
+                as: 'doctor',
+              },
+            },
+            {
+              $addFields: {
+                doctor: { $arrayElemAt: ['$doctor', 0] },
               },
             },
           ],
@@ -370,7 +429,7 @@ export class AppointmentService {
     ]);
   }
 
-  async createAppointment(currentAccount: Account, body: AppointmentRequest) {
+  async createAppointment(accountId: string, body: AppointmentRequest) {
     const {
       title,
       appointment_date,
@@ -385,7 +444,13 @@ export class AppointmentService {
       totalPrice,
       isPaid,
       re_exam_id,
+      status,
     } = body;
+
+    const account = await this.accountModel.findById(accountId).exec();
+    if (!account) {
+      throw new Error('Không tìm thấy tài khoản bệnh nhân này!');
+    }
 
     const currentTime = moment(
       `${appointment_date} ${time}`,
@@ -395,7 +460,14 @@ export class AppointmentService {
     const appointmentDetailsToSave = [];
 
     for (const detail of appointment_detail) {
-      const { specialization_id, doctor_id, price } = detail;
+      const {
+        specialization_id,
+        doctor_id,
+        price,
+        examStatus,
+        description,
+        time,
+      } = detail;
 
       const { assignedDoctor, assignedTime } = await this.checkAndAssignDoctor(
         doctor_id,
@@ -407,11 +479,11 @@ export class AppointmentService {
       appointmentDetailsToSave.push({
         specialization_id,
         doctor_id: assignedDoctor._id,
-        time: assignedTime.format('HH:mm'),
+        time: time || assignedTime.format('HH:mm'), // ưu tiên time từ client, nếu không có thì lấy assignedTime
         address: assignedDoctor.room,
         price,
-        examStatus: ExaminationStatusEnum.NOT_EXAMINED,
-        description: '',
+        examStatus: examStatus ?? ExaminationStatusEnum.NOT_EXAMINED, // BỔ SUNG DÒNG NÀY
+        description: description ?? '', // BỔ SUNG DÒNG NÀY
       });
 
       // Cập nhật currentTime sau khi xếp lịch cho bác sĩ
@@ -422,9 +494,8 @@ export class AppointmentService {
 
     // Sau khi tất cả các chi tiết lịch hẹn được xếp thành công, tạo appointment
     const appointment = new this.appointmentModel({
-      patient_id: currentAccount._id,
+      patient_id: accountId,
       title,
-      status: AppointmentStatus.WAIT,
       appointment_date: new Date(appointment_date),
       symptoms,
       predicted_disease,
@@ -435,6 +506,7 @@ export class AppointmentService {
       price: totalPrice,
       type,
       createdBy,
+      status,
     });
 
     await appointment.save();
@@ -466,7 +538,212 @@ export class AppointmentService {
       );
     }
 
-    return appointment;
+    // Truy vấn lại appointment vừa tạo với aggregate giống getAllAppointment
+    const result = await this.appointmentModel.aggregate([
+      {
+        $match: { _id: appointment._id },
+      },
+      {
+        $lookup: {
+          from: 'appointmentdetails',
+          localField: '_id',
+          foreignField: 'appointment_id',
+          as: 'appointment_detail',
+          pipeline: [
+            {
+              $lookup: {
+                from: 'doctors',
+                localField: 'doctor_id',
+                foreignField: '_id',
+                as: 'doctor',
+              },
+            },
+            {
+              $addFields: {
+                doctor: { $arrayElemAt: ['$doctor', 0] },
+              },
+            },
+          ],
+        },
+      },
+      {
+        $addFields: {
+          minTime: { $min: '$appointment_detail.time' },
+          maxTime: { $max: '$appointment_detail.time' },
+          time: {
+            $concat: [
+              { $toString: { $min: '$appointment_detail.time' } },
+              ' - ',
+              { $toString: { $max: '$appointment_detail.time' } },
+            ],
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: 'doctors',
+          localField: 'doctor_id',
+          foreignField: '_id',
+          as: 'doctor',
+        },
+      },
+      {
+        $addFields: {
+          doctor: { $arrayElemAt: ['$doctor', 0] },
+        },
+      },
+    ]);
+
+    return result[0];
+  }
+
+  async updateAppointment(appointmentId: string, body: AppointmentEditRequest) {
+    const {
+      title,
+      appointment_date,
+      type,
+      symptoms,
+      predicted_disease,
+      appointment_detail,
+      paymentMethod,
+      paymentCode,
+      createdBy,
+      totalPrice,
+      isPaid,
+      status,
+      reasonCancel,
+      patientId,
+    } = body;
+
+    // Tìm appointment cần update
+    const appointment = await this.appointmentModel.findById(appointmentId);
+    if (!appointment) {
+      throw new Error('Không tìm thấy lịch hẹn này!');
+    }
+
+    if (patientId) {
+      const account = await this.accountModel.findById(patientId).exec();
+      if (!account) {
+        throw new Error('Không tìm thấy tài khoản bệnh nhân này!');
+      }
+    }
+
+    // Cập nhật thông tin appointment
+    appointment.title = title ?? appointment.title;
+    appointment.appointment_date = appointment_date
+      ? new Date(appointment_date)
+      : appointment.appointment_date;
+    appointment.symptoms = symptoms ?? appointment.symptoms;
+    appointment.predicted_disease =
+      predicted_disease ?? appointment.predicted_disease;
+    appointment.paymentCode = paymentCode ?? appointment.paymentCode;
+    appointment.paymentMethod = paymentMethod ?? appointment.paymentMethod;
+    appointment.reasonCancel =
+      reasonCancel !== undefined ? reasonCancel : appointment.reasonCancel;
+    appointment.isPaid =
+      typeof isPaid === 'boolean' ? isPaid : appointment.isPaid;
+    appointment.price = totalPrice ?? appointment.price;
+    appointment.type = type ?? appointment.type;
+    appointment.createdBy = createdBy ?? appointment.createdBy;
+    appointment.status = status ?? appointment.status;
+    appointment.patient_id = patientId ?? appointment.patient_id;
+
+    await appointment.save();
+
+    // Xóa các appointment_detail cũ
+    await this.appointmentDetailModel.deleteMany({
+      appointment_id: appointmentId,
+    });
+
+    const appointmentDetailsToSave = [];
+
+    for (const detail of appointment_detail) {
+      const {
+        specialization_id,
+        doctor_id,
+        price,
+        examStatus,
+        description,
+        time,
+        room,
+      } = detail;
+
+      appointmentDetailsToSave.push({
+        specialization_id,
+        doctor_id: doctor_id,
+        time: time,
+        address: room,
+        price,
+        examStatus: examStatus ?? ExaminationStatusEnum.NOT_EXAMINED, // BỔ SUNG DÒNG NÀY
+        description: description ?? '', // BỔ SUNG DÒNG NÀY
+      });
+    }
+
+    for (const detail of appointmentDetailsToSave) {
+      const appointmentDetail = new this.appointmentDetailModel({
+        ...detail,
+        appointment_id: appointment._id,
+      });
+      await appointmentDetail.save();
+    }
+
+    // Truy vấn lại appointment vừa update với aggregate giống getAllAppointment
+    const result = await this.appointmentModel.aggregate([
+      {
+        $match: { _id: appointment._id },
+      },
+      {
+        $lookup: {
+          from: 'appointmentdetails',
+          localField: '_id',
+          foreignField: 'appointment_id',
+          as: 'appointment_detail',
+          pipeline: [
+            {
+              $lookup: {
+                from: 'doctors',
+                localField: 'doctor_id',
+                foreignField: '_id',
+                as: 'doctor',
+              },
+            },
+            {
+              $addFields: {
+                doctor: { $arrayElemAt: ['$doctor', 0] },
+              },
+            },
+          ],
+        },
+      },
+      {
+        $addFields: {
+          minTime: { $min: '$appointment_detail.time' },
+          maxTime: { $max: '$appointment_detail.time' },
+          time: {
+            $concat: [
+              { $toString: { $min: '$appointment_detail.time' } },
+              ' - ',
+              { $toString: { $max: '$appointment_detail.time' } },
+            ],
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: 'doctors',
+          localField: 'doctor_id',
+          foreignField: '_id',
+          as: 'doctor',
+        },
+      },
+      {
+        $addFields: {
+          doctor: { $arrayElemAt: ['$doctor', 0] },
+        },
+      },
+    ]);
+
+    return result[0];
   }
 
   private async isDoctorBusy(
@@ -648,5 +925,106 @@ export class AppointmentService {
     }
 
     return { assignedDoctor, assignedTime };
+  }
+
+  async deleteAppointment(appointmentId: string) {
+    const appointment = await this.appointmentModel.findById(appointmentId);
+    if (!appointment) {
+      throw new Error('Không tìm thấy lịch hẹn này!');
+    }
+    await this.appointmentModel.deleteOne({ _id: appointmentId });
+    await this.appointmentDetailModel.deleteMany({
+      appointment_id: appointmentId,
+    });
+    await this.reExamScheduleModel.deleteMany({
+      parent_appointment_id: appointmentId,
+    });
+    return {
+      message: 'Xóa lịch hẹn thành công',
+    };
+  }
+
+  async getAppointmentDetailById(appointmentId: string) {
+    const appointmentDetail = await this.appointmentDetailModel.aggregate([
+      {
+        $match: {
+          _id: appointmentId,
+        },
+      },
+      {
+        $lookup: {
+          from: 'appointments',
+          localField: 'appointment_id',
+          foreignField: '_id',
+          as: 'appointment',
+          pipeline: [
+            {
+              $lookup: {
+                from: 'accounts',
+                localField: 'patient_id',
+                foreignField: '_id',
+                as: 'patient',
+              },
+            },
+            {
+              $addFields: {
+                patient: { $arrayElemAt: ['$patient', 0] },
+              },
+            },
+            {
+              $lookup: {
+                from: 'medicalrecords',
+                localField: '_id',
+                foreignField: 'appointment_id',
+                as: 'medicalrecords',
+              },
+            },
+            {
+              $lookup: {
+                from: 'reexamschedules',
+                localField: '_id',
+                foreignField: 'parent_appointment_id',
+                as: 'reexamschedules',
+              },
+            },
+          ],
+        },
+      },
+      {
+        $addFields: {
+          appointment: { $arrayElemAt: ['$appointment', 0] },
+        },
+      },
+      {
+        $lookup: {
+          from: 'doctors',
+          localField: 'doctor_id',
+          foreignField: '_id',
+          as: 'doctor',
+        },
+      },
+      {
+        $addFields: {
+          doctor: { $arrayElemAt: ['$doctor', 0] },
+        },
+      },
+      {
+        $lookup: {
+          from: 'specializations',
+          localField: 'specialization_id',
+          foreignField: '_id',
+          as: 'specialization',
+        },
+      },
+      {
+        $addFields: {
+          specialization: { $arrayElemAt: ['$specialization', 0] },
+        },
+      },
+    ]);
+    if (appointmentDetail.length === 0) {
+      throw new Error('Không tìm thấy lịch hẹn này!');
+    }
+    return appointmentDetail[0];
   }
 }

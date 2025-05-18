@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { PatientService } from './patient.service';
 import { RoleGuard } from '../../common/guards/role.guard';
 import { AccountRoleEnum } from '../../common/enums';
@@ -20,5 +20,12 @@ export class PatientController {
   @Get('/examined_patients')
   getExaminedPatients(@CurrentAccount() currentAccount: Account) {
     return this.patientService.getExaminedPatients(currentAccount);
+  }
+
+  @UseGuards(new RoleGuard([AccountRoleEnum.DOCTOR]))
+  @UseGuards(AuthGuard)
+  @Get('/patient-profile/:patientId')
+  getPatientProfile(@Param('patientId') patientId: string) {
+    return this.patientService.getPatientProfile(patientId);
   }
 }

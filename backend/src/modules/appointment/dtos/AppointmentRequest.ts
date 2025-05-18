@@ -10,6 +10,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 import {
+  AppointmentStatus,
   AppointmentTypeEnum,
   OrderPaymentMethodEnum,
 } from '../../../common/enums';
@@ -86,4 +87,8 @@ export class AppointmentRequest {
   @IsString()
   @IsOptional()
   re_exam_id: string;
+
+  @IsEnum(AppointmentStatus)
+  @IsOptional()
+  status: AppointmentStatus = AppointmentStatus.WAIT;
 }

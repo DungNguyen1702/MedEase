@@ -7,8 +7,12 @@ import {
   AccountSchema,
   Answer,
   AnswerSchema,
+  Doctor,
+  DoctorSchema,
   Question,
   QuestionSchema,
+  Specialization,
+  SpecializationSchema,
 } from '../../schemas';
 import { AccountService } from '../account/account.service';
 import { AuthGuard } from '../../common/guards/auth.guard';
@@ -20,6 +24,8 @@ import { ChatbotService } from '../chatbot/chatbot.service';
       { name: Question.name, schema: QuestionSchema },
       { name: Answer.name, schema: AnswerSchema },
       { name: Account.name, schema: AccountSchema },
+      { name: Specialization.name, schema: SpecializationSchema },
+      { name: Doctor.name, schema: DoctorSchema },
     ]),
   ],
   controllers: [QuestionAnswerController],

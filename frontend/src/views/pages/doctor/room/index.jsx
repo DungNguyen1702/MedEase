@@ -14,6 +14,8 @@ import FakeData from "../../../../data/FakeData.json";
 import AppointmentDetail from "./components/AppointmentDetail";
 import { paginateData } from "../../../../utils/stringUtil";
 import NoData from "../../../../components/NoData";
+import { doctorAPI } from "../../../../api/doctorAPI";
+import { toast } from "react-toastify";
 
 const filterAppointmentDetails = (data, search, status) => {
   return data.filter((item) => {
@@ -29,15 +31,15 @@ const filterAppointmentDetails = (data, search, status) => {
       (status === "all" || item.examStatus === status) &&
       (patientName.toLowerCase().includes(search.toLowerCase()) ||
         AppTitle.toLowerCase().includes(search.toLowerCase()))
-    ); 
+    );
   });
 };
 
 function DoctorRoom() {
   const { account } = useAuth();
   const [appointmentNum, setAppointmentNum] = useState({
-    total: 20,
-    notFinished: 5,
+    total: 0,
+    notFinished: 0,
   });
   const [currentNum, setCurrentNum] = useState(0);
   const [date, setDate] = useState(dayjs()); // Khởi tạo với đối tượng Dayjs
@@ -58,8 +60,20 @@ function DoctorRoom() {
   const [paginatedAppointmentDetails, setPaginatedAppointmentDetails] =
     useState(paginateData(filteredAppointmentDetails, page, limit));
 
-  const onClickNextNum = () => {
-    console.log("next num");
+  const onClickNextNum = async () => {
+    try {
+      const response = await doctorAPI.nextNum(date.format("YYYY-MM-DD"));
+      console.log("response", response);
+      toast.success(response.data.message);
+    } catch (error) {
+      console.log("error", error);
+      toast.error(
+        error?.response?.data?.message ||
+          "Có lỗi xảy ra, vui lòng thử lại sau."
+      );
+    } finally {
+      callAPI();
+    }
   };
 
   const onPanelChange = (value, mode) => {
@@ -86,6 +100,35 @@ function DoctorRoom() {
       filterAppointmentDetails(appointmentDetails, search, appointmentStatus)
     );
   }, [search, appointmentStatus, appointmentDetails]);
+
+  const callAPI = async () => {
+    try {
+      const response = await doctorAPI.getDoctorRoomData(
+        date.format("YYYY-MM-DD")
+      );
+      console.log("response", response);
+      const { data } = response;
+      if (data) {
+        setAppointmentNum(data?.appointmentNum);
+        setCurrentNum(data?.currentNum);
+        setAppointmentDetails(data?.appointmentDetails);
+        setFilteredAppointmentDetails(
+          filterAppointmentDetails(
+            data?.appointmentDetails,
+            search,
+            appointmentStatus
+          )
+        );
+        setTotal(data?.appointmentDetails.length);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    callAPI();
+  }, [date]);
 
   return (
     <div className="doctor-room-container">
@@ -126,7 +169,9 @@ function DoctorRoom() {
               <div className="doctor-room-header-table-vertical-divide"></div>
               <div className=" doctor-room-header-table-right-container d-flex flex-column justify-content-center align-items-center">
                 <p className="doctor-room-header-table-title">Số hiện tại</p>
-                <p className="doctor-room-header-table-num">{currentNum}</p>
+                <p className="doctor-room-header-table-num text-center">
+                  {currentNum == "0" ? "Hiện tại không có số" : currentNum}
+                </p>
                 <ButtonComponent
                   onClick={onClickNextNum}
                   content={

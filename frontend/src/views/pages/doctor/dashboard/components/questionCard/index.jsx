@@ -4,12 +4,25 @@ import { formatDateToYYYYMMDD } from "../../../../../../utils/stringUtil";
 import InputComponent from "../../../../../../components/InputComponent";
 import { Button } from "antd";
 import { ICONS } from "../../../../../../constants/icons";
+import { questionAPI } from "../../../../../../api/questionAPI";
+import { toast } from "react-toastify";
 
 function QuestionCard({ value }) {
-  // console.log("value", value);
   const [answer, setAnswer] = React.useState("");
 
-  const onClickSend = () => {};
+  const onClickSend = () => {
+    if (answer.length === 0) return;
+    questionAPI
+      .createAnswer(value._id, answer)
+      .then((res) => {
+        console.log(res.data);
+        setAnswer("");
+        toast.success("Gửi câu trả lời thành công");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className="question-card-container">

@@ -36,4 +36,18 @@ export class QuestionAnswerController {
   async getAllQuestion() {
     return this.questionAnswerService.getAllQuestion();
   }
+  @UseGuards(new RoleGuard([AccountRoleEnum.DOCTOR, AccountRoleEnum.ADMIN]))
+  @UseGuards(AuthGuard)
+  @Post('/create-answer')
+  async createAnswer(
+    @CurrentAccount() currentAccount: Account,
+    @Body() body: { questionId: string; content: string }
+  ) {
+    return this.questionAnswerService.createAnswer(
+      currentAccount._id,
+      body.questionId,
+      body.content
+    );
+  }
+  
 }

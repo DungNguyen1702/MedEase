@@ -20,6 +20,7 @@ import { UploadModule } from './modules/upload/upload.module';
 import { PaymentModule } from './modules/payment/payment.module';
 import { ChatbotModule } from './modules/chatbot/chatbot.module';
 import { PatientModule } from './modules/patient/patient.module';
+import { StatisticModule } from './modules/statistic/statistic.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { PatientModule } from './modules/patient/patient.module';
     PaymentModule,
     ChatbotModule,
     PatientModule,
+    StatisticModule,
   ],
   controllers: [AppController],
   providers: [

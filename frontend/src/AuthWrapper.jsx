@@ -2,9 +2,12 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { setupInterceptors } from './utils/axiosCustomize';
 import { toast } from 'react-toastify';
+import { useAuth } from './context/AuthContext';
 
 const AuthWrapper = ({ children }) => {
   const navigate = useNavigate();
+
+  const {logout} = useAuth();
 
   useEffect(() => {
     if (!localStorage.getItem('access_token')) {
@@ -14,7 +17,7 @@ const AuthWrapper = ({ children }) => {
       localStorage.removeItem('user_info');
     }
 
-    setupInterceptors(navigate, toast);
+    setupInterceptors(navigate, toast, logout );
   }, [navigate]);
 
   return <>{children}</>;

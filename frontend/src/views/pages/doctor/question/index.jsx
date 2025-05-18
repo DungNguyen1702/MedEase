@@ -2,18 +2,19 @@ import { useEffect, useState } from "react";
 import InputComponent from "../../../../components/InputComponent";
 import { DatePicker } from "antd";
 import dayjs from "dayjs";
-import FakeData from "../../../../data/FakeData.json";
 import { paginateData } from "../../../../utils/stringUtil";
 import QuestionCard from "./components/QuestionCard";
 import PaginationComponent from "../../../../components/Pagination";
 import NoData from "../../../../components/NoData";
 import "./index.scss";
+import { questionAPI } from "../../../../api/questionAPI";
+import { toast } from "react-toastify";
 
 function DoctorQuestion() {
   const [search, setSearch] = useState("");
   const [date, setDate] = useState(null); // Sử dụng dayjs thay vì new Date()
 
-  const [questions, setQuestions] = useState(FakeData.questions);
+  const [questions, setQuestions] = useState([]);
   const [filteredQuestions, setFilteredQuestions] = useState(questions);
 
   // pagination
@@ -57,6 +58,53 @@ function DoctorQuestion() {
     setPaginatedQuestions(paginateData(filteredQuestions, page, limit));
   }, [page, limit, filteredQuestions]);
 
+  const callAPI = async () => {
+    try {
+      const res = await questionAPI.getAllQuestions();
+      if (res && res.data) {
+        setQuestions(res.data);
+        setFilteredQuestions(res.data);
+        setTotal(res.data.length);
+        setPaginatedQuestions(paginateData(res.data, page, limit));
+      }
+    } catch (error) {
+      console.log("Error fetching questions:", error);
+    }
+  };
+
+  const handleSendAnswer = async (questionId, content, setAnswer) => {
+    try {
+      if (content.length === 0) return;
+      const res = await questionAPI.createAnswer(questionId, content);
+      if (res && res.data) {
+        console.log("res", res.data);
+        setAnswer("");
+        setQuestions((prevQuestions) =>
+          prevQuestions.map((q) =>
+            q._id === questionId
+              ? { ...q, answers: [...(q.answers || []), res.data] }
+              : q
+          )
+        );
+        setFilteredQuestions((prevQuestions) =>
+          prevQuestions.map((q) =>
+            q._id === questionId
+              ? { ...q, answers: [...(q.answers || []), res.data] }
+              : q
+          )
+        );
+        toast.success("Trả lời câu hỏi thành công");
+      }
+    } catch (error) {
+      console.log("Error sending answer:", error);
+      toast.error("Trả lời câu hỏi thất bại");
+    }
+  };
+
+  useEffect(() => {
+    callAPI();
+  }, []);
+
   return (
     <div className="doctor-question-container">
       <div className="doctor-question-header">
@@ -70,7 +118,7 @@ function DoctorQuestion() {
       </div>
       <div className="doctor-question-search-container row">
         <div className="d-flex align-items-center justify-content-between col-8">
-          <p className="font-italic " style={{width: "12%"}}>
+          <p className="font-italic " style={{ width: "12%" }}>
             <strong>Tìm kiếm : </strong>
           </p>
           <InputComponent
@@ -82,7 +130,7 @@ function DoctorQuestion() {
           />
         </div>
         <div className="d-flex align-items-center justify-content-between col-4">
-          <p className="font-italic" style={{width: "25%"}}>
+          <p className="font-italic" style={{ width: "25%" }}>
             <strong>Ngày tạo : </strong>
           </p>
           <DatePicker
@@ -103,7 +151,10 @@ function DoctorQuestion() {
                 className="w-100 d-flex justify-content-center align-items-center"
                 key={question._id}
               >
-                <QuestionCard value={question} />
+                <QuestionCard
+                  value={question}
+                  handleSendAnswer={handleSendAnswer}
+                />
               </div>
             ))}
 

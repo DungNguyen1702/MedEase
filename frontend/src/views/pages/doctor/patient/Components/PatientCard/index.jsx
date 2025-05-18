@@ -24,7 +24,7 @@ function PatientCard({ value }) {
           <strong>Email : </strong> {value?.email} tuổi
         </p>
         <p className="patient-card-detail">
-          <strong>Số lần khám : </strong> {value?.appointmentNumber} lần
+          <strong>Số lần khám : </strong> {value?.appointmentNum} lần
         </p>
       </div>
     </div>

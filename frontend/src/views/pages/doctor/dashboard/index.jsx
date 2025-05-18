@@ -10,9 +10,10 @@ import { Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 import LoadingOverlay from "../../../../components/LoadingOverlay";
 import { Table, Pagination } from "antd";
-import FakeData from "../../../../data/FakeData.json";
 import AppointmentCard from "./components/appointmentCard";
 import QuestionCard from "./components/questionCard";
+import { statisticAPI } from "../../../../api/statisticAPI";
+import NoData from "../../../../components/NoData";
 
 Chart.register(...registerables);
 
@@ -24,16 +25,15 @@ const paginateData = (data, page, limit) => {
 
 function HomepageDoctor() {
   const { account } = useAuth();
-  const [todayPatientNum, setTodayPatientNum] = useState(0);
-  const [totalPatientNum, setTotalPatientNum] = useState(0);
+  const [todayAppointmentNum, setTodayAppointmentNum] = useState(0);
+  const [totalAppointmentNum, setTotalAppointmentNum] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [appointmentList, setAppointmentList] = useState(
-    FakeData.appointmentDetails
-  );
-  const [questionList, setQuestionList] = useState(FakeData.questions);
+  const [appointmentList, setAppointmentList] = useState([]);
+  const [questionList, setQuestionList] = useState([]);
+
   const [total, setTotal] = useState({
-    appointment: appointmentList.length,
-    question: questionList.length,
+    appointment: 0,
+    question: 0,
   });
   const [page, setPage] = useState({
     appointment: 1,
@@ -54,50 +54,7 @@ function HomepageDoctor() {
   const slidesData = [IMAGES.Slide1, IMAGES.Slide2, IMAGES.Slide3];
 
   // Chart Week
-  const weekData = [
-    {
-      date: "2025-05-01",
-      dayOfWeek: "Thứ Hai",
-      patientNum: 50,
-      examinedPatientNum: 30,
-    },
-    {
-      date: "2025-05-02",
-      dayOfWeek: "Thứ Ba",
-      patientNum: 70,
-      examinedPatientNum: 30,
-    },
-    {
-      date: "2025-05-03",
-      dayOfWeek: "Thứ Tư",
-      patientNum: 60,
-      examinedPatientNum: 30,
-    },
-    {
-      date: "2025-05-04",
-      dayOfWeek: "Thứ Năm",
-      patientNum: 80,
-      examinedPatientNum: 30,
-    },
-    {
-      date: "2025-05-05",
-      dayOfWeek: "Thứ Sáu",
-      patientNum: 90,
-      examinedPatientNum: 30,
-    },
-    {
-      date: "2025-05-06",
-      dayOfWeek: "Thứ Bảy",
-      patientNum: 10,
-      examinedPatientNum: 30,
-    },
-    {
-      date: "2025-05-07",
-      dayOfWeek: "Chủ Nhật",
-      patientNum: 120,
-      examinedPatientNum: 30,
-    },
-  ];
+  const [weekData, setWeekData] = useState([]);
 
   const chartWeekConfig = {
     datasets: [
@@ -167,6 +124,32 @@ function HomepageDoctor() {
     },
   ];
 
+  const callAPI = async () => {
+    setLoading(true);
+    try {
+      // Gọi API, truyền account._id (accountId) lên backend
+      const res = await statisticAPI.getStatisticByDoctor();
+      console.log("response : ", res);
+      if (res && res.data) {
+        setTodayAppointmentNum(res.data.todayAppointmentNum);
+        setTotalAppointmentNum(res.data.totalAppointmentNum);
+        setAppointmentList(res.data.appointmentList || []);
+        setQuestionList(res.data.questionList || []);
+        console.log("appointmentList: ", res.data.total);
+        setTotal(res.data.total || { appointment: 0, question: 0 });
+        setWeekData(res.data.weekData || []);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    callAPI();
+  }, []);
+
   useEffect(() => {
     setPaginatedAppointments(
       paginateData(appointmentList, page.appointment, limit.appointment)
@@ -221,16 +204,16 @@ function HomepageDoctor() {
                 Số lịch hẹn hôm nay
               </p>
               <p className="homepage-doctor-header-table-value">
-                {todayPatientNum}
+                {todayAppointmentNum}
               </p>
             </div>
             <div className="homepage-doctor-header-table-vertical-divide"></div>
             <div className="d-flex flex-column align-items-center">
               <p className="homepage-doctor-header-table-title">
-                Tổng số lịch hẹn
+                Tổng số lịch hẹn đã khám
               </p>
               <p className="homepage-doctor-header-table-value">
-                {totalPatientNum}
+                {totalAppointmentNum}
               </p>
             </div>
           </div>
@@ -274,52 +257,64 @@ function HomepageDoctor() {
           <p className="homepage-doctor-footer-item-title">
             Lịch hẹn trong ngày
           </p>
-          {paginatedAppointments.map((appointment) => (
-            <AppointmentCard value={appointment} key={appointment?._id} />
-          ))}
-          <div className="w-100 d-flex justify-content-center align-items-center">
-            <Pagination
-              current={page.appointment}
-              pageSize={limit.appointment}
-              total={total.appointment}
-              onChange={(pageA, pageSize) => {
-                setPage({
-                  ...page,
-                  appointment: pageA,
-                });
-                setLimit({
-                  ...limit,
-                  appointment: pageSize,
-                });
-              }}
-              style={{ marginTop: 16, textAlign: "right" }}
-            />
-          </div>
+          {paginatedAppointments && paginatedAppointments.length > 0 ? (
+            <>
+              {paginatedAppointments.map((appointment) => (
+                <AppointmentCard value={appointment} key={appointment?._id} />
+              ))}
+              <div className="w-100 d-flex justify-content-center align-items-center">
+                <Pagination
+                  current={page.appointment}
+                  pageSize={limit.appointment}
+                  total={total.appointment}
+                  onChange={(pageA, pageSize) => {
+                    setPage({
+                      ...page,
+                      appointment: pageA,
+                    });
+                    setLimit({
+                      ...limit,
+                      appointment: pageSize,
+                    });
+                  }}
+                  style={{ marginTop: 16, textAlign: "right" }}
+                />
+              </div>
+            </>
+          ) : (
+            <NoData />
+          )}
         </div>
 
         <div className="homepage-doctor-footer-item-container">
           <p className="homepage-doctor-footer-item-title">Bảng câu hỏi</p>
-          {paginatedQuestions.map((question) => (
-            <QuestionCard value={question} key={question?._id} />
-          ))}
-          <div className="w-100 d-flex justify-content-center align-items-center">
-            <Pagination
-              current={page.question}
-              pageSize={limit.question}
-              total={total.question}
-              onChange={(pageA, pageSize) => {
-                setPage({
-                  ...page,
-                  question: pageA,
-                });
-                setLimit({
-                  ...limit,
-                  question: pageSize,
-                });
-              }}
-              style={{ marginTop: 16, textAlign: "right" }}
-            />
-          </div>
+          {paginatedQuestions && paginatedQuestions.length > 0 ? (
+            <>
+              {paginatedQuestions.map((question) => (
+                <QuestionCard value={question} key={question?._id} />
+              ))}
+              <div className="w-100 d-flex justify-content-center align-items-center">
+                <Pagination
+                  current={page.question}
+                  pageSize={limit.question}
+                  total={total.question}
+                  onChange={(pageA, pageSize) => {
+                    setPage({
+                      ...page,
+                      question: pageA,
+                    });
+                    setLimit({
+                      ...limit,
+                      question: pageSize,
+                    });
+                  }}
+                  style={{ marginTop: 16, textAlign: "right" }}
+                />
+              </div>
+            </>
+          ) : (
+            <NoData />
+          )}
         </div>
       </div>
     </div>

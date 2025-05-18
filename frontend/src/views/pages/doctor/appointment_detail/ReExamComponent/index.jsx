@@ -2,14 +2,22 @@ import { Button, DatePicker, Select } from "antd";
 import React from "react";
 import InputComponent from "../../../../../components/InputComponent";
 import { DeleteOutlined } from "@ant-design/icons";
+import dayjs from "dayjs";
 
-function ReExamComponent({ diagnosis, value, onChange, index, onRemove }) {
+function ReExamComponent({
+  diagnosis,
+  value,
+  onChange,
+  index,
+  onRemove,
+  isEditable,
+}) {
   const handleChange = (inputKey, inputValue) => {
     onChange(index, { ...value, [inputKey]: inputValue });
   };
 
   const onChangeDate = (date, dateString) => {
-    console.log(date, dateString);
+    handleChange("re_exam_date", dateString); // Lưu lại dạng YYYY-MM-DD hoặc DD/MM/YYYY tùy backend
   };
 
   return (
@@ -20,6 +28,7 @@ function ReExamComponent({ diagnosis, value, onChange, index, onRemove }) {
           <Button
             className="diagnosis-component-button-delete"
             onClick={() => onRemove(index)}
+            disabled={!isEditable}
           >
             <DeleteOutlined />
           </Button>
@@ -32,24 +41,23 @@ function ReExamComponent({ diagnosis, value, onChange, index, onRemove }) {
           <DatePicker
             className="diagnosis-component-input-result"
             onChange={onChangeDate}
-            format={"DD/MM/YYYY"}
-            value={value.date}
+            format={"YYYY-MM-DD"}
+            value={value.re_exam_date ? dayjs(value.re_exam_date) : null}
+            allowClear={false}
+            disabled={!isEditable}
           />
         </div>
         <div className="col-6 d-flex justify-content-between align-items-center">
           <p className="diagnosis-component-title">Chuẩn đoán tương ứng : </p>
           <Select
-            defaultValue={diagnosis[0].diagnosis}
-            onChange={(value) => {
-              handleChange("diagnosis", value);
-            }}
-            options={diagnosis.map((item) => {
-              return {
-                label: item.diagnosis,
-                value: item.diagnosis,
-              };
-            })}
+            value={value.diagnosis}
+            onChange={(val) => handleChange("diagnosis", val)}
+            options={diagnosis.map((item) => ({
+              label: item.diagnosis,
+              value: item.diagnosis,
+            }))}
             className="diagnosis-component-input-result w-80"
+            disabled={!isEditable}
           />
         </div>
       </div>
@@ -64,6 +72,7 @@ function ReExamComponent({ diagnosis, value, onChange, index, onRemove }) {
           }}
           type="text"
           className="diagnosis-component-input"
+          disabled={!isEditable}
         />
       </div>
     </div>

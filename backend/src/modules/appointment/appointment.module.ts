@@ -13,6 +13,8 @@ import {
   DoctorSchema,
   ReExamSchedule,
   ReExamScheduleSchema,
+  Specialization,
+  SpecializationSchema,
 } from '../../schemas';
 import { AuthGuard } from '../../common/guards/auth.guard';
 import { AccountService } from '../account/account.service';
@@ -23,6 +25,7 @@ import { AccountService } from '../account/account.service';
       { name: Appointment.name, schema: AppointmentSchema },
       { name: AppointmentDetail.name, schema: AppointmentDetailSchema },
       { name: Doctor.name, schema: DoctorSchema },
+      { name: Specialization.name, schema: SpecializationSchema },
       { name: Account.name, schema: AccountSchema },
       { name: ReExamSchedule.name, schema: ReExamScheduleSchema },
     ]),

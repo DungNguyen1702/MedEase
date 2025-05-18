@@ -123,7 +123,7 @@ export class ZaloPaymentService {
         account._id = dataJson.app_user;
 
         const newOrder = await this.appService.createAppointment(
-          account,
+          account._id,
           orderReq
         );
 

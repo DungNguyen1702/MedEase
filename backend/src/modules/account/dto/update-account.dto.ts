@@ -4,6 +4,10 @@ import { AccountGenderEnum } from '../../../common/enums';
 export class UpdateAccountDto {
   @IsString()
   @IsNotEmpty()
+  id: string;
+  
+  @IsString()
+  @IsNotEmpty()
   name: string;
 
   @IsString()
@@ -21,5 +25,27 @@ export class UpdateAccountDto {
   @IsOptional()
   date_of_birth?: Date;
 
+  @IsString()
+  @IsOptional()
   avatar?: string;
+
+  @IsString()
+  @IsOptional()
+  specializationId?: string;
+
+  @IsString()
+  @IsOptional()
+  position?: string;
+
+  @IsString()
+  @IsOptional()
+  base_time?: string;
+
+  @IsString()
+  @IsOptional()
+  role?: string;
+
+  @IsString()
+  @IsOptional()
+  room?: string;
 }

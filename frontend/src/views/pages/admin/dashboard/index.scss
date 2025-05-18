@@ -1,0 +1,85 @@
+@import "../../../../constants/colors.css";
+
+.dashboard {
+  .stats-row {
+    margin-bottom: 24px;
+
+    .stat-card {
+      height: 100%;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+      .ant-statistic-title {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
+
+      .ant-statistic-content {
+        color: var(--primary-dark-text);
+        font-size: 28px;
+
+        .ant-statistic-content-prefix {
+          margin-right: 8px;
+        }
+      }
+
+      .stat-footer {
+        margin-top: 16px;
+        font-size: 13px;
+
+        .stat-increase {
+          color: var(--success-text);
+        }
+
+        .stat-pending {
+          color: var(--warning-text);
+        }
+      }
+    }
+  }
+
+  .charts-row {
+    margin-bottom: 24px;
+
+    .chart-card {
+      height: 100%;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+      .ant-card-head-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--primary-dark-text);
+      }
+    }
+  }
+
+  .recent-card {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+    .ant-card-head-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--primary-dark-text);
+    }
+
+    .recent-table {
+      width: 100%;
+      border-collapse: collapse;
+
+      th,
+      td {
+        padding: 12px 8px;
+        text-align: left;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      th {
+        font-weight: 600;
+        color: #666;
+      }
+    }
+  }
+}

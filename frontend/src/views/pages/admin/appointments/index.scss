@@ -1,0 +1,151 @@
+@import "../../../../constants/colors.css";
+
+.appointments-page {
+  padding: 20px;
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+
+      .search-input {
+        width: 250px;
+      }
+
+      .add-button {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+
+  .appointments-table {
+    margin-bottom: 20px;
+  }
+
+  .form-section {
+    margin-bottom: 24px;
+    padding: 16px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      margin-bottom: 16px;
+      font-size: 16px;
+      color: #1890ff;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 8px;
+
+      .form-col {
+        flex: 1;
+      }
+    }
+
+    .full-width {
+      width: 100%;
+    }
+  }
+
+  .form-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 0;
+
+    .form-col {
+      flex: 1;
+    }
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  .appointment-details {
+    .ant-descriptions {
+      margin-bottom: 24px;
+    }
+
+    .section {
+      margin-top: 20px;
+      margin-bottom: 24px;
+
+      h3 {
+        margin-bottom: 10px;
+        font-size: 16px;
+        color: #1890ff;
+      }
+
+      .disease-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          display: flex;
+          align-items: center;
+          margin-bottom: 10px;
+          flex-wrap: wrap;
+
+          .disease-name {
+            flex: 1;
+            font-weight: 500;
+          }
+
+          .disease-percent {
+            margin: 0 10px;
+            font-weight: 500;
+            color: #1890ff;
+          }
+
+          .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            margin-top: 5px;
+
+            .progress {
+              height: 100%;
+              background-color: #1890ff;
+              border-radius: 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .specialization-card {
+    margin-bottom: 16px;
+
+    .fee-calculation {
+      margin-top: 12px;
+      padding: 12px;
+      background-color: #f0f7ff;
+      border-radius: 4px;
+
+      .fee-details {
+        margin-top: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+    }
+  }
+}

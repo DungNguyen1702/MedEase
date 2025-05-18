@@ -1,0 +1,54 @@
+@import "../../../../constants/colors.css";
+
+.patients-page {
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    
+    .header-actions {
+      display: flex;
+      gap: 16px;
+      
+      .search-input {
+        width: 300px;
+      }
+    }
+  }
+  
+  .patients-table {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    
+    .ant-table-thead > tr > th {
+      background-color: #f7f7f7;
+      color: #666;
+      font-weight: 600;
+    }
+    
+    .ant-table-tbody > tr:hover > td {
+      background-color: var(--primary-light-background);
+    }
+  }
+  
+  .avatar-upload {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+    
+    .avatar-uploader {
+      .ant-upload {
+        width: 128px;
+        height: 128px;
+        border-radius: 50%;
+        background-color: #fafafa;
+        
+        &:hover {
+          border-color: var(--primary-main);
+        }
+      }
+    }
+  }
+}

@@ -2,7 +2,12 @@ import { ChatbotService } from './../chatbot/chatbot.service';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { QuestionDocument, Account, AnswerDocument } from '../../schemas';
+import {
+  QuestionDocument,
+  Account,
+  AnswerDocument,
+  AccountDocument,
+} from '../../schemas';
 
 @Injectable()
 export class QuestionAnswerService {
@@ -11,6 +16,8 @@ export class QuestionAnswerService {
     private readonly questionModel: Model<QuestionDocument>,
     @InjectModel('Answer')
     private readonly answerModel: Model<AnswerDocument>,
+    @InjectModel('Account')
+    private readonly accountModel: Model<AccountDocument>,
     private readonly chatbotService: ChatbotService
   ) {}
 
@@ -72,6 +79,9 @@ export class QuestionAnswerService {
         $project: {
           'account.password': 0,
         },
+      },
+      {
+        $sort: { createdAt: -1 },
       },
     ]);
     return foundQuestion.map((question: any) => {
@@ -193,6 +203,13 @@ export class QuestionAnswerService {
       question_id: questionId,
       answer: content,
     });
-    return newAnswer;
+    const account = await this.accountModel
+      .findById(account_id)
+      .select('-password')
+      .lean();
+    return {
+      ...newAnswer.toObject(),
+      account,
+    };
   }
 }

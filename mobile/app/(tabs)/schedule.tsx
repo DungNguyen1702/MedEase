@@ -71,7 +71,7 @@ export default function ScheduleScreen() {
   const [date, setDate] = useState(
     reExamDate ? new Date(reExamDate) : new Date("2025-05-30")
   );
-  const [symptoms, setSymptoms] = useState("Đau họng, đau bụng");
+  const [symptoms, setSymptoms] = useState("Người bệnh thường ho khan kéo dài, đặc biệt là vào ban đêm hoặc sáng sớm. Có những cơn khó thở, cảm giác nặng ngực, thở rít khi thở ra. Đôi khi xuất hiện sau khi tiếp xúc với dị nguyên như bụi, lông thú hoặc thay đổi thời tiết.");
   const [PredictedDiseases, setPredictedDiseases] = useState([]);
 
   const [specializations, setSpecializations] = useState<
@@ -371,12 +371,54 @@ export default function ScheduleScreen() {
       Alert.alert("Thông báo", "Vui lòng nhập triệu chứng");
       return;
     }
-    // console.log("Symptoms", symptoms);
 
     try {
       const response = await predictDiseaseAPI.getPredictDisease(symptoms);
-      // console.log("Response predict disease", response);
-      setPredictedDiseases(response.predicted_disease.slice(0, 5));
+
+      setPredictedDiseases(response.results.slice(0, 5));
+
+      // Nếu có kết quả dự đoán
+      if (response.results.length > 0) {
+        // Lấy chuyên khoa từ kết quả đầu tiên
+        const firstDisease = response.results[0];
+        console.log("First predicted disease:", firstDisease);
+
+        const recommendedSpecializations =
+          firstDisease.specialization.split(", "); // ["Khoa Thần kinh", "Khoa Tai mũi họng"]
+        console.log("Recommended specializations:", recommendedSpecializations);
+
+        // Tìm các chuyên khoa phù hợp trong danh sách specializations
+        const matchedSpecs = specializations.filter((spec) =>
+          recommendedSpecializations.some((recSpec: any) =>
+            spec.name.includes(recSpec)
+          )
+        );
+
+        console.log("Matched specializations:", matchedSpecs);
+
+        if (matchedSpecs.length > 0) {
+          // Tạo mảng selectedSpecs mới với bác sĩ đầu tiên của mỗi chuyên khoa
+          const newSelectedSpecs = matchedSpecs.map((spec) => ({
+            spec: {
+              _id: spec._id,
+              name: spec.name,
+              base_price: spec.base_price,
+            },
+            doctor: {
+              _id: spec.doctors[0]._id,
+              name: spec.doctors[0].account.name,
+              position: spec.doctors[0].position,
+            },
+          }));
+
+          console.log("New selected specs:", newSelectedSpecs);
+
+          // Cập nhật state
+          setSelectedSpecs(newSelectedSpecs);
+        } else {
+          console.log("Không tìm thấy chuyên khoa phù hợp");
+        }
+      }
     } catch (error: any) {
       console.log("Error fetching data:", error);
       Alert.alert(

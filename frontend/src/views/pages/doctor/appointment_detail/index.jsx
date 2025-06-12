@@ -1,5 +1,4 @@
 import "./index.scss";
-import FakeData from "../../../../data/FakeData.json";
 import { useEffect, useState } from "react";
 import { Avatar, Button } from "antd";
 import { formatDateToYYYYMMDD } from "../../../../utils/stringUtil";
@@ -55,7 +54,9 @@ const DoctorAppointmentDetail = () => {
     const response = await predictDiseaseAPI.getPredictDisease(
       appointmentDetail?.appointment?.symptoms
     );
-    setPredictedDiseases(response?.data?.predicted_disease?.slice(0, 5));
+    console.log("response", response);
+
+    setPredictedDiseases(response?.data?.results?.slice(0, 5));
   };
 
   const onRemoveDiagnosis = (index) => {

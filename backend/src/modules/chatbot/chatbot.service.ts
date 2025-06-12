@@ -1,10 +1,133 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import axios from 'axios';
+import {
+  cosineSimilarity,
+  loadLocalEmbeddingModel,
+} from '../../common/utils/chatbot.utils';
+import { google } from 'googleapis';
 
 @Injectable()
 export class ChatbotService {
-  private readonly geminiApiUrl =
-    'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCU7FqtnTIkIT8wsoXTmLz51iPbdIjjgik';
+  private readonly geminiApiUrl = process.env.GEMINI_API_URL;
+
+  private faqList: { question: string; answer: string; vector: number[] }[] =
+    [];
+
+  constructor() {
+    this.loadFAQ();
+  }
+
+  // async loadFAQ() {
+  //   const file = path.join(__dirname, '..', '..', 'faq.xlsx');
+  //   const wb = XLSX.readFile(file);
+  //   const sheet = wb.Sheets[wb.SheetNames[0]];
+  //   const rows = XLSX.utils.sheet_to_json(sheet) as any[];
+
+  //   const model = await loadLocalEmbeddingModel();
+
+  //   this.faqList = await Promise.all(
+  //     rows.map(async row => {
+  //       const vector = await model.embed(row['Câu hỏi']);
+  //       return { question: row['Câu hỏi'], answer: row['Trả lời'], vector };
+  //     })
+  //   );
+  // }
+
+  async loadFAQ() {
+    // Lấy credentials từ biến môi trường
+    const credentials = JSON.parse(
+      Buffer.from(process.env.GOOGLE_CREDENTIALS_BASE64!, 'base64').toString(
+        'utf-8'
+      )
+    );
+
+    const auth = new google.auth.GoogleAuth({
+      credentials,
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    });
+
+    const sheets = google.sheets({ version: 'v4', auth });
+    const spreadsheetId = process.env.SPREADSHEET_ID!;
+    const range = 'Sheet1!A2:C'; // Giả sử cột A: STT, B: Câu hỏi, C: Trả lời
+
+    const res = await sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range,
+    });
+
+    const rows = res.data.values || [];
+    const model = await loadLocalEmbeddingModel();
+
+    this.faqList = await Promise.all(
+      rows.map(async row => {
+        const question = row[1];
+        const answer = row[2];
+        const vector = await model.embed(question);
+        return { question, answer, vector };
+      })
+    );
+  }
+
+  async callGeminiAPI(prompt: string): Promise<string> {
+    // console.log('Calling Gemini API with prompt:', prompt);
+
+    const requestBody = {
+      contents: [{ parts: [{ text: prompt }] }],
+    };
+
+    const response = await axios.post(this.geminiApiUrl, requestBody, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (response.status < 200 || response.status >= 300) {
+      throw new Error(`Gemini API error: ${response.statusText}`);
+    }
+
+    const data = response.data;
+
+    console.log('Response from Gemini API Data:', data);
+
+    return (
+      data.candidates[0].content.parts[0]?.text ||
+      'Câu hỏi này vui lòng đợi phía bác sĩ hoặc bệnh viện trả lời.'
+    );
+  }
+
+  async answer(userQuestion: string) {
+    const model = await loadLocalEmbeddingModel();
+    const userVec = await model.embed(userQuestion);
+
+    let bestMatch = null;
+    let bestScore = -1;
+
+    for (const item of this.faqList) {
+      const score = cosineSimilarity(userVec, item.vector);
+      if (score > bestScore) {
+        bestScore = score;
+        bestMatch = item;
+      }
+    }
+
+    if (!bestMatch || bestScore < 0.6) {
+      const prompt = `Bạn là trợ lý ảo trong hệ thống khám chữa bệnh MedEase. Người dùng hỏi: "${userQuestion}". Hãy trả lời một cách tự nhiên, ngắn gọn và thân thiện. Nếu không đủ dữ liệu để trả lời, hãy nói: "Câu hỏi này vui lòng đợi phía bác sĩ hoặc bệnh viện trả lời."`;
+      const geminiAnswer = await this.callGeminiAPI(prompt);
+      return {
+        geminiAnswer,
+        similarity: bestScore.toFixed(3),
+      };
+    }
+
+    const prompt = `Bạn là trợ lý ảo trong hệ thống khám chữa bệnh MedEase. Người dùng hỏi: "${userQuestion}". Dựa trên câu hỏi gần nhất: "${bestMatch.question}" với câu trả lời: "${bestMatch.answer}", hãy viết lại câu trả lời này cho tự nhiên và dễ hiểu. Nếu không có đủ dữ liệu, trả lời: "Câu hỏi này vui lòng đợi phía bác sĩ hoặc bệnh viện trả lời."`;
+
+    const geminiAnswer = await this.callGeminiAPI(prompt);
+
+    return {
+      matchedQuestion: bestMatch.question,
+      originalAnswer: bestMatch.answer,
+      geminiAnswer,
+      similarity: bestScore.toFixed(3),
+    };
+  }
 
   async translateToEnglish(text: string): Promise<{ translated: string }> {
     try {
@@ -28,7 +151,7 @@ export class ChatbotService {
         },
       });
 
-      console.log('Response from Gemini API:', response.data);
+      // console.log('Response from Gemini API:', response.data);
 
       // Kiểm tra phản hồi từ API
       if (

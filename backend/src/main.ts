@@ -11,17 +11,19 @@ async function bootstrap() {
   app.useGlobalInterceptors(new LoggingInterceptor());
   app.useGlobalPipes(
     new ValidationPipe({
-      exceptionFactory: (errors) => {
+      exceptionFactory: errors => {
         return new BadRequestException(
           errors.map(err => ({
             field: err.property,
-            message: Object.values(err.constraints).join(', '),
+            message: err.constraints
+              ? Object.values(err.constraints).join(', ')
+              : 'Invalid value',
           }))
         );
       },
-    }),
+    })
   );
   app.enableCors();
-  await app.listen(process.env.PORT || 8000);
+  await app.listen(process.env.POPRT || 8000);
 }
 bootstrap();

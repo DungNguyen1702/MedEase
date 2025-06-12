@@ -8,6 +8,12 @@ import {
   AnswerDocument,
   AccountDocument,
 } from '../../schemas';
+import {
+  NotificationTypeEnum,
+  NotificationTypeImageEnum,
+} from '../../common/enums';
+import {} from '../../schemas/notification.schema';
+import { NotificationService } from '../notification/notification.service';
 
 @Injectable()
 export class QuestionAnswerService {
@@ -18,6 +24,7 @@ export class QuestionAnswerService {
     private readonly answerModel: Model<AnswerDocument>,
     @InjectModel('Account')
     private readonly accountModel: Model<AccountDocument>,
+    private readonly notificationService: NotificationService,
     private readonly chatbotService: ChatbotService
   ) {}
 
@@ -172,7 +179,7 @@ export class QuestionAnswerService {
       content,
     });
 
-    const answerContent = await this.chatbotService.getMessage(content);
+    const answerContent = await this.chatbotService.answer(content);
 
     if (!answerContent) {
       throw new Error('Failed to get answer from chatbot.');
@@ -180,7 +187,7 @@ export class QuestionAnswerService {
     const answer = await this.answerModel.create({
       account_id: 'robot',
       question_id: newQuestion._id,
-      answer: answerContent.message,
+      answer: answerContent.geminiAnswer,
     });
 
     console.log('Answer created:', answer);
@@ -207,6 +214,22 @@ export class QuestionAnswerService {
       .findById(account_id)
       .select('-password')
       .lean();
+
+    // Lấy thông tin câu hỏi để biết ai là người hỏi
+    const question = await this.questionModel.findById(questionId);
+    if (question && question.account_id && question.account_id !== account_id) {
+      // Tạo notification cho người hỏi
+      await this.notificationService.createNotification({
+        title: 'Câu hỏi của bạn đã được trả lời',
+        status: false,
+        image: NotificationTypeImageEnum.question_answered,
+        account_id: question.account_id,
+        content: 'Câu hỏi của bạn vừa nhận được câu trả lời mới.',
+        type: NotificationTypeEnum.QUESTION_ANSWERED,
+        idTO: questionId,
+      });
+    }
+
     return {
       ...newAnswer.toObject(),
       account,

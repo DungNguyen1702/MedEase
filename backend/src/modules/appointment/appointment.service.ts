@@ -7,12 +7,17 @@ import {
   AppointmentDetailDocument,
   DoctorDocument,
   ReExamScheduleDocument,
-  type AccountDocument,
+  AccountDocument,
 } from '../../schemas';
 import * as moment from 'moment';
 import { AppointmentRequest } from './dtos/AppointmentRequest';
 import { AppointmentTypeEnum, ExaminationStatusEnum } from '../../common/enums';
-import type { AppointmentEditRequest } from './dtos/AppointmentEditReq';
+import { AppointmentEditRequest } from './dtos/AppointmentEditReq';
+import {
+  NotificationTypeEnum,
+  NotificationTypeImageEnum,
+} from '../../common/enums';
+import { NotificationService } from '../notification/notification.service';
 
 @Injectable()
 export class AppointmentService {
@@ -26,7 +31,8 @@ export class AppointmentService {
     @InjectModel('ReExamSchedule')
     private readonly reExamScheduleModel: Model<ReExamScheduleDocument>,
     @InjectModel('Account')
-    private readonly accountModel: Model<AccountDocument>
+    private readonly accountModel: Model<AccountDocument>,
+    private readonly notificationService: NotificationService
   ) {}
 
   async getAppointmentById(currentAccountId: string) {
@@ -538,6 +544,17 @@ export class AppointmentService {
       );
     }
 
+    // Tạo notification cho bệnh nhân
+    await this.notificationService.createNotification({
+      title: 'Đặt lịch khám thành công',
+      status: false,
+      image: NotificationTypeImageEnum.appointment_created,
+      account_id: accountId,
+      content: `Bạn đã đặt lịch khám thành công cho ngày ${appointment_date}.`,
+      type: NotificationTypeEnum.APPOINTMENT,
+      idTO: appointment._id,
+    });
+
     // Truy vấn lại appointment vừa tạo với aggregate giống getAllAppointment
     const result = await this.appointmentModel.aggregate([
       {
@@ -742,6 +759,17 @@ export class AppointmentService {
         },
       },
     ]);
+
+    // Tạo notification cho bệnh nhân
+    await this.notificationService.createNotification({
+      title: 'Đặt lịch khám thành công',
+      status: false,
+      image: NotificationTypeImageEnum.appointment_created,
+      account_id: patientId,
+      content: `Bạn đã đặt lịch khám thành công cho ngày ${appointment_date}.`,
+      type: NotificationTypeEnum.APPOINTMENT,
+      idTO: appointment._id,
+    });
 
     return result[0];
   }

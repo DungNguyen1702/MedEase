@@ -3,8 +3,8 @@ import {
   Controller,
   Get,
   Post,
+  Put,
   Query,
-  Redirect,
   UseInterceptors,
 } from '@nestjs/common';
 import { LoginDto } from './dto/login.dto';
@@ -45,10 +45,12 @@ export class AuthController {
   }
 
   @Post('/reset-password')
-  async resetPassword(@Body('email') email: string) {
-    const result = await this.authService.sendPasswordReset(email);
+  async resetPassword(
+    @Body('email') email: string,
+    @Body('resetLink') resetURL: string
+  ) {
+    const result = await this.authService.sendPasswordReset(email, resetURL);
 
-    // Gửi email reset mật khẩu sau khi yêu cầu
     await this.customMailerService.sendVerificationPasswordResetEmail(
       result.email,
       result.resetLink
@@ -60,31 +62,19 @@ export class AuthController {
     };
   }
 
-  @Get('/verify')
-  @Redirect()
-  async verifyEmail(@Query('token') token: string) {
+  @Post('/verify')
+  async verifyEmail(@Body() body: any) {
     try {
-      await this.authService.verifyEmail(token);
-      return {
-        url: `${process.env.DEPLOY_SERVICE_LINK}/auth/login?message=${encodeURIComponent(
-          'Tài khoản đã được kích hoạt'
-        )}`,
-      };
+      return await this.authService.verifyEmail(body.token);
     } catch {
       return new Error('Invalid or expired token');
     }
   }
 
   @Get('/get-reset-password')
-  @Redirect()
   async getResetPassword(@Query('token') token: string) {
     const result = await this.authService.resetPassword(token);
     await this.customMailerService.sendPasswordReset(result.emailreset);
-    return {
-      url: `${process.env.DEPLOY_SERVICE_LINK}/auth/login?message=${encodeURIComponent(
-        'Yêu cầu tạo mới mật khẩu đã được gửi. Vui lòng kiểm tra email!'
-      )}`,
-    };
   }
 
   @Get('/test-send-mail')
@@ -94,5 +84,19 @@ export class AuthController {
       message: 'Test email sent successfully',
       result,
     };
+  }
+
+  @Put('/change-password')
+  async changePassword(
+    @Body('newPassword') newPassword: string,
+    @Body('confirmPassword') confirmPassword: string,
+    @Body('token') token: string,
+  ) {
+
+    return this.authService.changePassword(
+      token,
+      newPassword,
+      confirmPassword
+    );
   }
 }

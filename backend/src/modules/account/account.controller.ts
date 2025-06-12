@@ -60,7 +60,7 @@ export class AccountController {
     @Body() updateAccountDto: UpdateAccountDto,
     @UploadedFile() file: Multer.File
   ) {
-    console.log(file);
+    // console.log(file);
     if (file) {
       const uploadResult = await this.uploadService.uploadImage(file);
       updateAccountDto.avatar = uploadResult.url;

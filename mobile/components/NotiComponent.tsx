@@ -9,9 +9,11 @@ import {
 import React from "react";
 import { Colors } from "@/constants/Colors";
 import { notifiAPI } from "@/api/notification";
+import { formatDateToYYYYMMDDHHmm } from "@/utils/string.utils";
 
 export default function NotiComponent(props: any) {
   const { noti, onUpdateNotis } = props;
+  console.log("noti", noti);
 
   const handlePress = async () => {
     try {
@@ -41,7 +43,7 @@ export default function NotiComponent(props: any) {
         <Text style={styles.title}>{noti.title}</Text>
         <Text style={styles.content}>{noti.content}</Text>
       </View>
-      <Text style={styles.createdAt}>{noti.createdAt}</Text>
+      <Text style={styles.createdAt}>{formatDateToYYYYMMDDHHmm(noti.createdAt)}</Text>
     </TouchableOpacity>
   );
 }

@@ -1,7 +1,6 @@
 import "./index.scss";
 import SwiperContainer from "../../../components/swiper-container";
 import DoctorCard from "./components/DoctorCard";
-import FakeData from "../../../data/FakeData.json";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
   A11y,
@@ -15,10 +14,32 @@ import "swiper/swiper-bundle.css";
 import SpecCard from "./components/SpecCard";
 import { IMAGES } from "../../../constants/images";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useEffect, useState } from "react";
+import { specAPI } from "../../../api/specAPI";
+import { doctorAPI } from "../../../api/doctorAPI";
 
 const HomePage = () => {
-  const doctors = FakeData.doctors;
-  const specs = FakeData.specializations;
+  const [doctors, setDoctors] = useState([]);
+  const [specs, setSpecs] = useState([]);
+
+  const callAPI = async () => {
+    try {
+      const resDoctors = await doctorAPI.getAllDoctors();
+      if (resDoctors && resDoctors.data) {
+        setDoctors(resDoctors.data);
+      }
+      const resSpecs = await specAPI.getAllSpec();
+      if (resSpecs && resSpecs.data) {
+        setSpecs(resSpecs.data);
+      }
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
+
+  useEffect(() => {
+    callAPI();
+  }, []);
 
   return (
     <div className="homePage">

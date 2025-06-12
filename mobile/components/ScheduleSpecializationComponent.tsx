@@ -22,6 +22,16 @@ export default function ScheduleSpecializationComponent(props: any) {
 
   const [doctor, setDoctor] = useState(doctors[0]);
 
+  useEffect(()=>{
+    const selectedSpecialization = specializations.find(
+      (spec: any) => spec._id === specialization?._id
+    );
+    setSpecialization(spec.spec);
+    
+    setDoctors(selectedSpecialization?.doctors || []);
+    setDoctor(selectedSpecialization?.doctors[0] || null);
+  },[spec])
+
   useEffect(() => {
     const selectedSpecialization = specializations.find(
       (spec: any) => spec._id === specialization?._id

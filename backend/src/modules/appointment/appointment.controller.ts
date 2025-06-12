@@ -16,8 +16,8 @@ import { AccountRoleEnum } from '../../common/enums';
 import { RoleGuard } from '../../common/guards/role.guard';
 import { CurrentAccount } from '../../common/decorators/current-account.decorator';
 import { Account } from '../../schemas';
-import type { AppointmentRequest } from './dtos/AppointmentRequest';
-import type { AppointmentEditRequest } from './dtos/AppointmentEditReq';
+import { AppointmentRequest } from './dtos/AppointmentRequest';
+import { AppointmentEditRequest } from './dtos/AppointmentEditReq';
 
 @Controller('appointment')
 export class AppointmentController {
@@ -55,6 +55,8 @@ export class AppointmentController {
     @Body() body: AppointmentRequest
   ) {
     try {
+      console.log('body', body);
+
       return await this.appointmentService.createAppointment(
         currentAccount._id,
         body
@@ -139,7 +141,7 @@ export class AppointmentController {
   @UseGuards(AuthGuard)
   @Get('/appointment-detail/:id')
   async getAppointmentDetailById(@Param('id') id: string) {
-    console.log('id', id);
+    // console.log('id', id);
     return this.appointmentService.getAppointmentDetailById(id);
   }
 }

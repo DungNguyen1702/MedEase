@@ -45,6 +45,7 @@ export const AuthAPI = {
           password: password,
           confirmPassword: confirmPassword,
           name: name,
+          verifyLink: `${process.env.EXPO_PUBLIC_WEB_URL}/auth/verify-register-email`,
         }
       );
       return response.data;
@@ -61,6 +62,7 @@ export const AuthAPI = {
         "/auth/reset-password",
         {
           email: email,
+          resetLink: `${process.env.EXPO_PUBLIC_WEB_URL}/auth/reset-password-form`,
         }
       );
       return response.data;

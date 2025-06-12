@@ -16,6 +16,7 @@ import { MedicalRecordModule } from './modules/medical-record/medical-record.mod
 import { CloudinaryConfig } from './common/config/cloudinary.config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './common/interceptors';
+
 import { UploadModule } from './modules/upload/upload.module';
 import { PaymentModule } from './modules/payment/payment.module';
 import { ChatbotModule } from './modules/chatbot/chatbot.module';

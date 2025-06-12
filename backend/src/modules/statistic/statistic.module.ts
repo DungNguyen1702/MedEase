@@ -7,6 +7,7 @@ import {
   AppointmentDetailSchema,
   AppointmentSchema,
   DoctorSchema,
+  NotificationSchema,
   QuestionSchema,
   SpecializationSchema,
 } from '../../schemas';
@@ -15,6 +16,8 @@ import { AuthGuard } from '../../common/guards/auth.guard';
 import { AccountService } from '../account/account.service';
 import { QuestionAnswerService } from '../question-answer/question-answer.service';
 import { ChatbotService } from '../chatbot/chatbot.service';
+import { NotificationService } from '../notification/notification.service';
+import { NotificationsGateway } from '../notification/notification.gateway';
 
 @Module({
   imports: [
@@ -26,6 +29,7 @@ import { ChatbotService } from '../chatbot/chatbot.service';
       { name: 'Specialization', schema: SpecializationSchema },
       { name: 'Question', schema: QuestionSchema },
       { name: 'Answer', schema: AnswerSchema },
+      { name: 'Notification', schema: NotificationSchema },
     ]),
   ],
   controllers: [StatisticController],
@@ -35,6 +39,8 @@ import { ChatbotService } from '../chatbot/chatbot.service';
     AccountService,
     QuestionAnswerService,
     ChatbotService,
+    NotificationService,
+    NotificationsGateway,
   ],
 })
 export class StatisticModule {}

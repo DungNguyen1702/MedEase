@@ -4,16 +4,23 @@ import axios from 'axios';
 import * as CryptoJS from 'crypto-js';
 import * as moment from 'moment';
 import * as qs from 'qs';
-import { OrderPaymentMethodEnum } from '../../common/enums';
+import {
+  NotificationTypeEnum,
+  NotificationTypeImageEnum,
+  OrderPaymentMethodEnum,
+} from '../../common/enums';
 import { AppointmentService } from '../appointment/appointment.service';
 import { AppointmentRequest } from '../appointment/dtos/AppointmentRequest';
 import { Account } from '../../schemas';
+
+import { NotificationService } from '../notification/notification.service';
 
 @Injectable()
 export class ZaloPaymentService {
   constructor(
     private configService: ConfigService,
-    private readonly appService: AppointmentService
+    private readonly appService: AppointmentService,
+    private readonly notificationService: NotificationService
   ) {}
 
   async createPayment(body: AppointmentRequest, account: Account) {
@@ -128,6 +135,16 @@ export class ZaloPaymentService {
         );
 
         console.log('new Order : ', newOrder);
+
+        await this.notificationService.createNotification({
+          title: 'Đặt lịch khám thành công',
+          status: false,
+          image: NotificationTypeImageEnum.payment_success,
+          account_id: account._id,
+          content: `Bạn đã đặt lịch khám thành công. Mã giao dịch: ${dataJson['app_trans_id']} ( ZaloPay )`,
+          type: NotificationTypeEnum.PAYMENT,
+          idTO: newOrder?._id,
+        });
 
         result.return_code = 1;
         result.return_message = 'success';

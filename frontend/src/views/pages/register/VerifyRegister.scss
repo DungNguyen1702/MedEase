@@ -1,0 +1,364 @@
+// Variables
+$primary-main: #6282f4;
+$primary-dark-text: #3f69ff;
+$primary-light: #62b0f4;
+$primary-main-light: #aecaf9;
+$primary-main-dark: #021529;
+$primary-light-background: #e7effd;
+$primary-light-main: #9abdf8;
+$primary-dark-border: #3f69ff;
+$primary-light-text: #009af9;
+
+// Success Colors
+$success-background: #62f48e;
+$success-border: #50c97c;
+$success-text: #349056;
+
+// Danger Colors
+$danger-background: #f46295;
+$danger-text: #a50064;
+
+// Warning Colors
+$warning-background: #ffe6a2;
+$warning-text: #f7bf26;
+
+// Light Theme Colors
+$light-main: #fff;
+$light-text: #11181c;
+$light-background: #fff;
+$light-tint: #0a7ea4;
+$light-icon: #687076;
+$light-tab-icon-default: #687076;
+$light-tab-icon-selected: #0a7ea4;
+
+// Dark Theme Colors
+$dark-text: #ecedee;
+$dark-background: #151718;
+$dark-tint: #fff;
+$dark-icon: #9ba1a6;
+$dark-tab-icon-default: #9ba1a6;
+$dark-tab-icon-selected: #fff;
+
+// Brand Colors
+$brand-momo: #a50064;
+$brand-zalopay-green: #00cf6a;
+$brand-zalopay-blue: #0033c9;
+$brand-cash: #142c14;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin button-base {
+  border-radius: 12px;
+  padding: 16px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  transition: all 0.2s ease;
+  width: 100%;
+  justify-content: center;
+}
+
+@mixin responsive-mobile {
+  @media (max-width: 480px) {
+    @content;
+  }
+}
+
+// Main Styles
+.verify-container {
+  min-height: 100vh;
+  @include flex-center;
+  background: linear-gradient(135deg, $primary-light-background 0%, $light-main 100%);
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.verify-card {
+  background: $light-main;
+  border-radius: 16px;
+  padding: 48px 32px;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(98, 130, 244, 0.1);
+  border: 1px solid $primary-light-main;
+
+  @include responsive-mobile {
+    padding: 32px 24px;
+  }
+}
+
+.icon-container {
+  margin-bottom: 24px;
+}
+
+.success-icon {
+  color: $success-text;
+  background: $success-background;
+  border-radius: 50%;
+  padding: 16px;
+}
+
+.primary-icon {
+  color: $primary-main;
+  background: $primary-light-background;
+  border-radius: 50%;
+  padding: 16px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: $light-text;
+  margin-bottom: 24px;
+  line-height: 1.2;
+
+  @include responsive-mobile {
+    font-size: 24px;
+  }
+}
+
+.message-container {
+  margin-bottom: 32px;
+}
+
+.main-message {
+  font-size: 16px;
+  color: $light-text;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.sub-message {
+  font-size: 14px;
+  color: $light-icon;
+  line-height: 1.5;
+}
+
+.action-container {
+  margin-bottom: 32px;
+}
+
+.download-btn,
+.primary-btn {
+  @include button-base;
+  background: $primary-main;
+  color: white;
+  border: none;
+
+  &:hover {
+    background: $primary-dark-text;
+    transform: translateY(-1px);
+  }
+
+  &.disabled {
+    background: $primary-main-light;
+    cursor: not-allowed;
+    opacity: 0.7;
+
+    &:hover {
+      background: $primary-main-light;
+      transform: none;
+    }
+  }
+}
+
+.secondary-btn {
+  @include button-base;
+  background: transparent;
+  color: $primary-main;
+  border: 2px solid $primary-main;
+  padding: 14px 32px;
+
+  &:hover {
+    background: $primary-light-background;
+  }
+}
+
+.app-links {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  @include responsive-mobile {
+    flex-direction: column;
+  }
+}
+
+.app-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: $primary-light-background;
+  border-radius: 8px;
+  color: $primary-main;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: $primary-main-light;
+  }
+
+  @include responsive-mobile {
+    justify-content: center;
+  }
+}
+
+.footer-text {
+  border-top: 1px solid $primary-light-main;
+  padding-top: 24px;
+
+  p {
+    font-size: 14px;
+    color: $light-icon;
+    line-height: 1.5;
+    margin: 0;
+  }
+}
+
+// Password Form Styles
+.password-form {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: $light-text;
+  }
+}
+
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid $primary-light-main;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  padding-right: 48px;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-main;
+    box-shadow: 0 0 0 2px $primary-main-light;
+  }
+}
+
+.toggle-password {
+  position: absolute;
+  right: 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: $light-icon;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+
+  &:hover {
+    color: $primary-main;
+  }
+}
+
+.password-validation {
+  background: $primary-light-background;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 24px;
+  text-align: left;
+
+  h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: $light-text;
+  }
+}
+
+.validation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.validation-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+
+  &.valid {
+    color: $success-text;
+  }
+
+  &.invalid {
+    color: $danger-text;
+  }
+}
+
+.validation-icon {
+  flex-shrink: 0;
+}
+
+// Navigation
+.page-navigation {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  display: flex;
+  gap: 10px;
+  
+  @include responsive-mobile {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+.nav-button {
+  padding: 8px 16px;
+  background: $primary-light-background;
+  color: $primary-main;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: lighten($primary-light-background, 2%);
+    transform: translateY(-1px);
+  }
+  
+  &.active {
+    background: $primary-main;
+    color: white;
+  }
+}

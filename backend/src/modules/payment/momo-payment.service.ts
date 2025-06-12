@@ -9,12 +9,19 @@ import * as crypto from 'crypto';
 import { Account } from '../../schemas';
 import * as CryptoJS from 'crypto-js';
 import * as moment from 'moment';
+import {} from '../../schemas/notification.schema';
+import {
+  NotificationTypeEnum,
+  NotificationTypeImageEnum,
+} from '../../common/enums';
+import { NotificationService } from '../notification/notification.service';
 
 @Injectable()
 export class MomoPaymentService {
   constructor(
     private configService: ConfigService,
-    private readonly appService: AppointmentService
+    private readonly appService: AppointmentService,
+    private readonly notificationService: NotificationService
   ) {}
   async createPayment(
     body: AppointmentRequest,
@@ -156,29 +163,29 @@ export class MomoPaymentService {
     const response = req.body;
     console.log(req.body);
 
-    console.log('--------------------PAYMENT CALLBACK----------------');
-    console.log(response); // In ra phản hồi từ MoMo
-
-    // Kiểm tra trạng thái thanh toán
-    // if (response && response.resultCode === 0) {
-
     if (response) {
-      // Thanh toán thành công
-      // console.log('Payment Successful:', response);
-      // Bạn có thể lưu thông tin thanh toán vào cơ sở dữ liệu hoặc xử lý tiếp theo tại đây
-
       const extraData = response.extraData
         ? JSON.parse(Buffer.from(response.extraData, 'base64').toString())
         : null;
-      // console.log('Extra Data:', extraData);
 
       const appReq: AppointmentRequest = extraData[0];
-
       const currentAccount = extraData[0].currentAccount;
 
-      await this.appService.createAppointment(currentAccount._id, appReq);
+      const newApp = await this.appService.createAppointment(
+        currentAccount._id,
+        appReq
+      );
 
-      // console.log(newApp);
+      // Tạo notification sau khi tạo appointment thành công
+      await this.notificationService.createNotification({
+        title: 'Đặt lịch khám thành công',
+        status: false,
+        image: NotificationTypeImageEnum.payment_success,
+        account_id: currentAccount._id,
+        content: `Bạn đã đặt lịch khám thành công. Mã giao dịch: ${response.orderId} ( Momo )`,
+        type: NotificationTypeEnum.PAYMENT,
+        idTO: newApp?._id,
+      });
     } else {
       console.log('Payment Failed:', response);
     }

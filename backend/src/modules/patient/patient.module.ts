@@ -13,6 +13,8 @@ import {
   DoctorSchema,
   MedicalRecord,
   MedicalRecordSchema,
+  Notification,
+  NotificationSchema,
   ReExamSchedule,
   ReExamScheduleSchema,
   Specialization,
@@ -22,6 +24,8 @@ import { AuthGuard } from '../../common/guards/auth.guard';
 import { AccountService } from '../account/account.service';
 import { MedicalRecordService } from '../medical-record/medical-record.service';
 import { AppointmentService } from '../appointment/appointment.service';
+import { NotificationService } from '../notification/notification.service';
+import { NotificationsGateway } from '../notification/notification.gateway';
 
 @Module({
   imports: [
@@ -33,6 +37,7 @@ import { AppointmentService } from '../appointment/appointment.service';
       { name: ReExamSchedule.name, schema: ReExamScheduleSchema },
       { name: Appointment.name, schema: AppointmentSchema },
       { name: AppointmentDetail.name, schema: AppointmentDetailSchema },
+      { name: Notification.name, schema: NotificationSchema },
     ]),
   ],
   providers: [
@@ -41,6 +46,8 @@ import { AppointmentService } from '../appointment/appointment.service';
     AccountService,
     MedicalRecordService,
     AppointmentService,
+    NotificationService,
+    NotificationsGateway,
   ],
   controllers: [PatientController],
 })

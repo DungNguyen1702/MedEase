@@ -1,14 +1,9 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ChatbotService } from './chatbot.service';
 
 @Controller('chatbot')
 export class ChatbotController {
   constructor(private readonly chatbotService: ChatbotService) {}
-
-  // Define your controller methods here
-  // For example, you can create a method to handle incoming messages
-  // and interact with the chatbot service.
-  // Example: @Get('message') async handleMessage(@Body() message: string) { ... }
 
   @Get('/question/:message')
   getHello(@Param('message') message: string) {
@@ -18,5 +13,10 @@ export class ChatbotController {
   @Get('/translate/:message')
   getTranslate(@Param('message') message: string) {
     return this.chatbotService.translateToEnglish(message);
+  }
+
+  @Get('/ask')
+  async ask(@Query('q') question: string) {
+    return this.chatbotService.answer(question);
   }
 }

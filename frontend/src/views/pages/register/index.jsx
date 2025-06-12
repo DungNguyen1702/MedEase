@@ -6,6 +6,8 @@ import "./index.scss";
 import { ICONS } from "../../../constants/icons";
 import ButtonComponent from "../../../components/ButtonComponent";
 import InputComponent from "../../../components/InputComponent";
+import { toast } from "react-toastify";
+import { AuthAPI } from "../../../api/authAPI";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -15,22 +17,59 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await login(username, password);
-      navigate("/");
+      if (!username || !name || !password || !confirmPassword) {
+        toast.error("Vui lòng điền đầy đủ thông tin.");
+        return false;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(username)) {
+        toast.error("Email không hợp lệ.");
+        return false;
+      }
+
+      if (password.length < 6) {
+        toast.error("Mật khẩu phải có ít nhất 6 ký tự.");
+        return false;
+      }
+
+      if (password !== confirmPassword) {
+        toast.error("Mật khẩu xác nhận không khớp.");
+        return false;
+      }
+
+      const response = await AuthAPI.register(
+        username,
+        name,
+        password,
+        confirmPassword
+      );
+      const { access_token, message, ...userData } = response.data;
+      if (response.status === 201) {
+        await login(userData, access_token);
+        if (response.data.role === "doctor") {
+          navigate("/doctor/dashboard");
+        } else if (response.data.role === "admin") {
+          navigate("/admin/dashboard");
+        } else {
+          navigate("/patient/dashboard");
+        }
+      }
+
+      toast.success("Vui lòng kiểm tra email để xác nhận đăng ký");
     } catch (error) {
-      console.error("Login failed:", error);
+      console.error("Đăng ký thất bại:", error);
+      toast.error(
+        error?.response?.data?.message[0].message || "Đăng ký thất bại"
+      );
     }
   };
 
-  const handleForgotPassword = () => {
-    navigate("/auth/forgot-password");
-  };
-
-  const handleRegister = () => {
-    navigate("/auth/register");
+  const handleLogin = () => {
+    navigate("/auth/login");
   };
 
   const handleGoogleLogin = () => {
@@ -105,14 +144,14 @@ const RegisterPage = () => {
                     Đăng kí
                   </p>
                 }
-                onClick={handleLogin}
+                onClick={handleRegister}
                 styleButton="dark"
               />
             </div>
 
             <div className="register-register-text">
               <span>Đã có tài khoản ? </span>
-              <span className="register-link" onClick={handleRegister}>
+              <span className="register-link" onClick={handleLogin}>
                 Đăng nhập
               </span>
             </div>

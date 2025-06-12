@@ -15,6 +15,11 @@ import {
   DoctorDocument,
 } from '../../schemas';
 import { UpdateAppointmentDetailRequest } from './dtos/UpdateAppointmentDetailRequest';
+import {
+  NotificationTypeEnum,
+  NotificationTypeImageEnum,
+} from '../../common/enums';
+import { NotificationService } from '../notification/notification.service';
 
 @Injectable()
 export class AppointmentDetailService {
@@ -28,7 +33,8 @@ export class AppointmentDetailService {
     @InjectModel(MedicalRecord.name)
     private readonly medicalRecordModel: Model<MedicalRecordDocument>,
     @InjectModel(Doctor.name)
-    private readonly doctorModel: Model<DoctorDocument>
+    private readonly doctorModel: Model<DoctorDocument>,
+    private readonly notificationService: NotificationService
   ) {}
 
   async findDetailsByDate(date: string, account: Account) {
@@ -128,8 +134,6 @@ export class AppointmentDetailService {
       throw new Error('Không tìm thấy bác sĩ');
     }
 
-    console.log('doctor', doctor._id);
-
     // Cập nhật các trường cơ bản của AppointmentDetail nếu cần
     await this.appointmentModel.updateOne(
       { _id: dto.appointment_id },
@@ -201,6 +205,17 @@ export class AppointmentDetailService {
           isPaid: false,
         });
         reExamIds.push(created._id);
+
+        // Tạo notification nhắc tái khám cho bệnh nhân
+        await this.notificationService.createNotification({
+          title: 'Nhắc lịch tái khám',
+          status: false,
+          image: NotificationTypeImageEnum.re_exam_reminder,
+          account_id: dto.patient_id,
+          content: `Bạn có lịch tái khám vào ngày ${reExam.re_exam_date}.`,
+          type: NotificationTypeEnum.RE_EXAM,
+          idTO: created._id,
+        });
       }
     }
 

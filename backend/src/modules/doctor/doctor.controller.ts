@@ -30,8 +30,6 @@ export class DoctorController {
     return this.doctorService.getExaminedPatients(date, currentAccount);
   }
 
-  @UseGuards(new RoleGuard([AccountRoleEnum.ADMIN]))
-  @UseGuards(AuthGuard)
   @Get('/get-all-doctor')
   async getAllDoctor() {
     return this.doctorService.getAllDoctors();

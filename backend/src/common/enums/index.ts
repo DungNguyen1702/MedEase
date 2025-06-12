@@ -62,7 +62,7 @@ export enum OrderPaymentMethodEnum {
 }
 
 export enum ExaminationStatusEnum {
-  EXAMINED = "examined",
-  NOT_EXAMINED = "not_examined",
-  IN_PROGRESS = "in_progress",
+  EXAMINED = 'examined',
+  NOT_EXAMINED = 'not_examined',
+  IN_PROGRESS = 'in_progress',
 }

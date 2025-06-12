@@ -1,0 +1,20 @@
+version: '3'
+services:
+  backend:
+    container_name: medease-backend
+    build: ./backend
+    ports:
+      - "8001:8000"
+    networks:
+      - medease-net
+
+  frontend:
+    container_name: frontend-test
+    build: ./frontend
+    ports:
+      - "3000:80"
+    networks:
+      - medease-net
+
+networks:
+  medease-net:

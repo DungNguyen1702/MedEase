@@ -36,4 +36,8 @@ export class RegisterDto {
 
   @IsNotEmpty()
   confirmPassword: string;
+
+  @IsNotEmpty()
+  @IsString()
+  verifyLink : string;
 }

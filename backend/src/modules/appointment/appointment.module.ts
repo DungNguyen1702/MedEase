@@ -11,6 +11,8 @@ import {
   AppointmentSchema,
   Doctor,
   DoctorSchema,
+  Notification,
+  NotificationSchema,
   ReExamSchedule,
   ReExamScheduleSchema,
   Specialization,
@@ -18,6 +20,8 @@ import {
 } from '../../schemas';
 import { AuthGuard } from '../../common/guards/auth.guard';
 import { AccountService } from '../account/account.service';
+import { NotificationService } from '../notification/notification.service';
+import { NotificationsGateway } from '../notification/notification.gateway';
 
 @Module({
   imports: [
@@ -28,9 +32,10 @@ import { AccountService } from '../account/account.service';
       { name: Specialization.name, schema: SpecializationSchema },
       { name: Account.name, schema: AccountSchema },
       { name: ReExamSchedule.name, schema: ReExamScheduleSchema },
+      { name: Notification.name, schema: NotificationSchema },
     ]),
   ],
   controllers: [AppointmentController],
-  providers: [AppointmentService, AuthGuard, AccountService],
+  providers: [AppointmentService, AuthGuard, AccountService, NotificationService, NotificationsGateway],
 })
 export class AppointmentModule {}

@@ -17,12 +17,16 @@ import {
   AppointmentSchema,
   Doctor,
   DoctorSchema,
+  Notification,
+  NotificationSchema,
   ReExamSchedule,
   ReExamScheduleSchema,
   Specialization,
   SpecializationSchema,
 } from '../../schemas';
 import { AppointmentService } from '../appointment/appointment.service';
+import { NotificationService } from '../notification/notification.service';
+import { NotificationsGateway } from '../notification/notification.gateway';
 
 @Module({
   imports: [
@@ -33,6 +37,7 @@ import { AppointmentService } from '../appointment/appointment.service';
       { name: Account.name, schema: AccountSchema },
       { name: ReExamSchedule.name, schema: ReExamScheduleSchema },
       { name: Specialization.name, schema: SpecializationSchema },
+      { name: Notification.name, schema: NotificationSchema },
     ]),
   ],
   controllers: [ZaloPaymentController, MomoPaymentController],
@@ -43,6 +48,8 @@ import { AppointmentService } from '../appointment/appointment.service';
     AppService,
     MomoPaymentService,
     AppointmentService,
+    NotificationService,
+    NotificationsGateway,
   ],
   exports: [MomoPaymentService, ZaloPaymentService],
 })

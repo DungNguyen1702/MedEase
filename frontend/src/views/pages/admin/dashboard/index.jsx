@@ -8,8 +8,10 @@ import { Line, Pie } from "@ant-design/plots";
 import "./index.scss";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
-import FakeData from "../../../../data/FakeData.json";
-import { AppointmentStatus, AppointmentType } from "../../../../constants/constants";
+import {
+  AppointmentStatus,
+  AppointmentType,
+} from "../../../../constants/constants";
 import { toast } from "react-toastify";
 import { statisticAPI } from "../../../../api/statisticAPI";
 
@@ -17,22 +19,20 @@ const HomepageAdmin = () => {
   const currentMonth = dayjs().month() + 1;
 
   // Sample data for charts
-  const [lineData, setLineData] = useState(
-    [
-      { month: "Tháng 1", patients: 35 },
-      { month: "Tháng 2", patients: 42 },
-      { month: "Tháng 3", patients: 56 },
-      { month: "Tháng 4", patients: 49 },
-      { month: "Tháng 5", patients: 63 },
-      { month: "Tháng 6", patients: 58 },
-      { month: "Tháng 7", patients: 58 },
-      { month: "Tháng 8", patients: 58 },
-      { month: "Tháng 9", patients: 58 },
-      { month: "Tháng 10", patients: 58 },
-      { month: "Tháng 11", patients: 58 },
-      { month: "Tháng 12", patients: 58 },
-    ]
-  );
+  const [lineData, setLineData] = useState([
+    { month: "Tháng 1", patients: 35 },
+    { month: "Tháng 2", patients: 42 },
+    { month: "Tháng 3", patients: 56 },
+    { month: "Tháng 4", patients: 49 },
+    { month: "Tháng 5", patients: 63 },
+    { month: "Tháng 6", patients: 58 },
+    { month: "Tháng 7", patients: 58 },
+    { month: "Tháng 8", patients: 58 },
+    { month: "Tháng 9", patients: 58 },
+    { month: "Tháng 10", patients: 58 },
+    { month: "Tháng 11", patients: 58 },
+    { month: "Tháng 12", patients: 58 },
+  ]);
 
   const [patientNum, setPatientNum] = useState({
     num: 0,
@@ -47,9 +47,7 @@ const HomepageAdmin = () => {
     pending: 0,
   });
 
-  const [recentAppointment, setRecentAppointment] = useState(
-    FakeData.appointmentDetails
-  );
+  const [recentAppointment, setRecentAppointment] = useState([]);
 
   const [pieData, setPieData] = useState([
     { type: "Khám tổng quát", value: 27 },
@@ -91,10 +89,12 @@ const HomepageAdmin = () => {
         setAppointmentNum(data?.appointmentNum);
         setRecentAppointment(data?.recentAppointments.slice(0, 5));
         setLineData(data?.lineData.slice(0, currentMonth));
-        setPieData(data?.pieData?.map((item)=>({
-          type : AppointmentType[item.type],
-          value : item.value
-        })));
+        setPieData(
+          data?.pieData?.map((item) => ({
+            type: AppointmentType[item.type],
+            value: item.value,
+          }))
+        );
       }
     } catch (error) {
       console.log(error);

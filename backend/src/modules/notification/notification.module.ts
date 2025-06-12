@@ -15,6 +15,7 @@ import {
 } from '../../schemas';
 import { AccountService } from '../account/account.service';
 import { AuthGuard } from '../../common/guards/auth.guard';
+import { NotificationsGateway } from './notification.gateway';
 
 @Module({
   imports: [
@@ -25,7 +26,12 @@ import { AuthGuard } from '../../common/guards/auth.guard';
       { name: Doctor.name, schema: DoctorSchema },
     ]),
   ],
-  providers: [NotificationService, AccountService, AuthGuard],
+  providers: [
+    NotificationService,
+    AccountService,
+    AuthGuard,
+    NotificationsGateway,
+  ],
   controllers: [NotificationController],
 })
 export class NotificationModule {}

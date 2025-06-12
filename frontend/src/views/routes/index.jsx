@@ -20,6 +20,9 @@ import AdminDoctors from "../pages/admin/doctors";
 import AdminAppointments from "../pages/admin/appointments";
 import AdminQuestions from "../pages/admin/questions";
 import AdminPatients from "../pages/admin/patients";
+import VerifyRegister from "../pages/register/VerifyRegister.jsx";
+import VerifyResetPassword from "../pages/register/VerifyResetPassword.jsx";
+import ResetPasswordForm from "../pages/register/ResetPasswordForm.jsx";
 
 const AllRoutes = () => {
   useEffect(() => {
@@ -61,6 +64,24 @@ const AllRoutes = () => {
         <Route
           path="/auth/register"
           element={<MainLayout children={<RegisterPage />} isFooter={false} />}
+        />
+        <Route
+          path="/auth/verify-register-email"
+          element={
+            <MainLayout children={<VerifyRegister />} isFooter={false} />
+          }
+        />
+        <Route
+          path="/auth/reset-password/:email"
+          element={
+            <MainLayout children={<VerifyResetPassword />} isFooter={false} />
+          }
+        />
+        <Route
+          path="/auth/reset-password-form"
+          element={
+            <MainLayout children={<ResetPasswordForm />} isFooter={false} />
+          }
         />
       </Route>
 

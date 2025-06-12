@@ -12,7 +12,7 @@ import {
   DoctorDocument,
   SpecializationDocument,
 } from '../../schemas';
-import { AccountRoleEnum, type DoctorPositionEnum } from '../../common/enums';
+import { AccountRoleEnum, DoctorPositionEnum } from '../../common/enums';
 import { DEFAULT_AVA_DOC, DEFAULT_AVA_PATIENT } from '../../common/constants';
 
 @Injectable()

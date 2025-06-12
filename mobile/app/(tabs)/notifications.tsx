@@ -12,8 +12,13 @@ import { Colors } from "@/constants/Colors";
 import NotiComponent from "@/components/NotiComponent";
 import { getKeyFromValue } from "@/utils/string.utils";
 import { notifiAPI } from "@/api/notification";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import socket from "@/utils/socket";
 
 export default function NotificationPage() {
+  const account = useSelector((state: RootState) => state.auth.account);
+
   const [notifications, setNotifications] = useState<
     { _id: string; type: string; [key: string]: any }[]
   >([]);
@@ -30,17 +35,57 @@ export default function NotificationPage() {
   const callAPI = async () => {
     try {
       const response = await notifiAPI.getNoti();
-      console.log("response", response.length);
       setNotifications(response);
-      setFilterNotis(response);
+
+      // Lọc theo trạng thái đã chọn
+      if (selectedNotification === NotificationTypeEnum.all) {
+        setFilterNotis(response);
+      } else {
+        const typeKey = getKeyFromValue(
+          NotificationTypeEnum,
+          selectedNotification
+        );
+        const filtered = response.filter((noti: any) => noti.type === typeKey);
+        setFilterNotis(filtered);
+      }
     } catch (error: any) {
-      console.log(error.message);
+      console.log("Lỗi khi gọi API:", error.message);
     }
   };
 
+  const consoleLog = (message: string) => {
+    console.log(`🔔 [NotificationPage] ${message} `);
+  };
+
+  // useEffect chỉ nên chạy một lần hoặc khi selectedNotification thay đổi
   useEffect(() => {
     callAPI();
-  }, []);
+
+    socket.emit("joinRoom", account._id);
+
+    socket.on("notification", (newNoti) => {
+
+      setNotifications((prev) => {
+        return [newNoti.data, ...prev];
+      });
+
+      const typeKey = getKeyFromValue(
+        NotificationTypeEnum,
+        selectedNotification
+      );
+      if (
+        selectedNotification === NotificationTypeEnum.all ||
+        newNoti.data.type === typeKey
+      ) {
+        setFilterNotis((prev) => [newNoti.data, ...prev]);
+      }
+    });
+
+    return () => {
+      socket.emit("leaveRoom", account._id);
+      socket.off("notification");
+    };
+  }, [selectedNotification]);
 
   const onSelectNotiType = (type: string) => {
     console.log(type);

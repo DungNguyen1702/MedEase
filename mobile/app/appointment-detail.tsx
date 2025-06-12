@@ -94,7 +94,7 @@ export default function AppointmentDetail() {
               Ngày khám :{" "}
             </Text>
             <Text style={[styles.itemValue, { color: Colors.light.main }]}>
-              {appointment.appointment_date}
+              {formatDateToYYYYMMDD(appointment.appointment_date)}
             </Text>
           </Text>
           <Text>

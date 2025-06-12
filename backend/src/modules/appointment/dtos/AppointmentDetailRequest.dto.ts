@@ -1,4 +1,4 @@
-import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 import { ExaminationStatusEnum } from '../../../common/enums';
 
 export class AppointmentDetailRequest {
@@ -15,19 +15,19 @@ export class AppointmentDetailRequest {
   price: number;
 
   @IsEnum(ExaminationStatusEnum)
-  @IsNotEmpty()
+  @IsOptional()
   examStatus: ExaminationStatusEnum;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   description: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   time: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   room: string;
 }
 

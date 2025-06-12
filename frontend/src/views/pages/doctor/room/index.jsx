@@ -10,7 +10,6 @@ import ButtonComponent from "../../../../components/ButtonComponent";
 import dayjs from "dayjs";
 import { Calendar, Pagination } from "antd";
 import InputComponent from "../../../../components/InputComponent";
-import FakeData from "../../../../data/FakeData.json";
 import AppointmentDetail from "./components/AppointmentDetail";
 import { paginateData } from "../../../../utils/stringUtil";
 import NoData from "../../../../components/NoData";
@@ -48,9 +47,7 @@ function DoctorRoom() {
 
   const appointmentStatusList = Object.keys(ExaminationStatusEnum);
 
-  const [appointmentDetails, setAppointmentDetails] = useState(
-    FakeData.appointmentDetails
-  );
+  const [appointmentDetails, setAppointmentDetails] = useState([]);
   const [filteredAppointmentDetails, setFilteredAppointmentDetails] =
     useState(appointmentDetails);
 
@@ -68,8 +65,7 @@ function DoctorRoom() {
     } catch (error) {
       console.log("error", error);
       toast.error(
-        error?.response?.data?.message ||
-          "Có lỗi xảy ra, vui lòng thử lại sau."
+        error?.response?.data?.message || "Có lỗi xảy ra, vui lòng thử lại sau."
       );
     } finally {
       callAPI();

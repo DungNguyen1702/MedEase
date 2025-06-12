@@ -26,6 +26,7 @@ export class QuestionAnswerController {
     @CurrentAccount() currentAccount: Account,
     @Body() body: { content: string }
   ) {
+    console.log('currentAccount', currentAccount);
     return this.questionAnswerService.createQuestion(
       currentAccount,
       body.content
@@ -49,5 +50,4 @@ export class QuestionAnswerController {
       body.content
     );
   }
-  
 }

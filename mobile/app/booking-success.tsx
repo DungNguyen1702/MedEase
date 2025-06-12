@@ -12,10 +12,8 @@ import {
 import React, { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
 import { Colors } from "@/constants/Colors";
-import FakeData from "@/data/fake_data.json";
 import AppointmentDetailComponent from "@/components/AppointmentDetailComponent";
 import { useSearchParams } from "expo-router/build/hooks";
-import { AppointmentDetailAPI } from "@/api/appointment-detail";
 import { AppointmentAPI } from "@/api/appointment";
 import { convertTimeToMilliseconds } from "@/utils/time.utils";
 import { PaymentWaitTime } from "@/constants/Constants";

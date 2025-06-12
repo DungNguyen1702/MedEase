@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import FakeData from "../../../../data/FakeData.json";
 import { Avatar } from "antd";
 import {
   formatDateToYYYYMMDD,
@@ -16,9 +15,9 @@ import NoData from "../../../../components/NoData";
 function PatientProfile() {
   const { id } = useParams();
 
-  const [appointments, setAppointments] = useState(FakeData.appointmentDetails);
-  const [medicalRecords, setMedicalRecords] = useState(FakeData.medical_record);
-  const [patient, setPatient] = useState(FakeData.patients[0]);
+  const [appointments, setAppointments] = useState([]);
+  const [medicalRecords, setMedicalRecords] = useState([]);
+  const [patient, setPatient] = useState({});
 
   // pagination
   const [total, setTotal] = useState({

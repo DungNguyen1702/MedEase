@@ -18,6 +18,7 @@ export class AuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
+
     if (!token) {
       throw new UnauthorizedException();
     }
@@ -25,6 +26,7 @@ export class AuthGuard implements CanActivate {
       const payload = await this.jwtService.verifyAsync(token, {
         secret: process.env.JWT_SECRET,
       });
+
       const account = await this.accountService.findByEmail(payload.email);
       if (!account) {
         throw new BadRequestException(
@@ -32,6 +34,7 @@ export class AuthGuard implements CanActivate {
         );
       }
       request.currentaccount = account;
+
     } catch (error) {
       if (error instanceof TokenExpiredError) {
         throw new ForbiddenException('Token has expired');

@@ -15,9 +15,10 @@ export const doctorAPI = {
     try {
       const today = new Date();
       const formattedDate = today.toISOString().split("T")[0];
+      console.log("Formatted Date:", formattedDate);
 
       const response = await axiosClient.applicationNoAuth.get(
-        `/doctor/doctor-room/${id}?date=2025-04-10`
+        `/doctor/doctor-room/${id}?date=${formattedDate}`
       );
       return response.data;
     } catch (error) {

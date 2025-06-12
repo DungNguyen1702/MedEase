@@ -13,6 +13,7 @@ import { Account, AccountDocument, Doctor } from '../../schemas';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { RegisterDto } from './dto/register.dto';
+import { DEFAULT_AVA_PATIENT } from '../../common/constants';
 @Injectable()
 export class AuthService {
   constructor(
@@ -114,6 +115,7 @@ export class AuthService {
       specialization_name,
       room,
       base_time,
+      _id : accountByEmail._id,
     };
   }
   async registerAccount(accountData: RegisterDto) {
@@ -131,7 +133,6 @@ export class AuthService {
     // const newAccount = await this.accountService.create(accountData);
     const newAccount = {
       ...accountData,
-      isActive: true,
     };
 
     const verificationToken = await this.jwtService.signAsync(
@@ -140,46 +141,60 @@ export class AuthService {
     );
 
     const verificationLink =
-      process.env.DEPLOY_SERVICE_LINK +
-      `/auth/verify?token=${verificationToken}`;
+      accountData.verifyLink + `?token=${verificationToken}`;
 
     // Gửi email xác minh qua MailerService
     // await this.customMailerService.sendVerificationEmail(newAccount.email, verificationLink);
 
     return { email: accountData.email, verificationLink };
   }
+
   async verifyEmail(token: string) {
     const payload = await this.jwtService.verifyAsync(token, {
       secret: process.env.JWT_SECRET,
     });
-    // console.log(payload);
-    const user: Account = await this.accountService.create(payload.newAccount);
-    // console.log(user);
-    if (!user) {
-      return new UnauthorizedException('User not found');
+
+    const existed = await this.accountModel
+      .findOne({ email: payload.newAccount.email })
+      .exec();
+    if (existed) {
+      throw new BadRequestException('Email đã tồn tại!');
     }
 
-    // await this.accountService.create(payload.newAccount);
-    // // Cập nhật trạng thái xác minh của người dùng
-    // user.isVerified = true; // Hoặc trường tương ứng trong mô hình của bạn
-    // await this.userService.update(user.id, user); // Cập nhật thông tin người dùng
+    const createdAccount = new this.accountModel({
+      ...payload.newAccount,
+      avatar: DEFAULT_AVA_PATIENT,
+    });
 
-    return user;
+    console.log('createdAccount', createdAccount);
+
+    try {
+      const user: Account = await createdAccount.save();
+      console.log('user', user);
+
+      if (!user) {
+        return new UnauthorizedException('User not found');
+      }
+
+      return user;
+    } catch (error) {
+      console.error('Error saving user:', error);
+      throw new BadRequestException('Failed to create account');
+    }
   }
-  async sendPasswordReset(email: string) {
+
+  async sendPasswordReset(email: string, resetURL: string) {
     const account = await this.accountService.findByEmail(email);
     if (!account) {
       throw new BadRequestException('Email not found!');
     }
 
     const resetToken = await this.jwtService.signAsync(
-      { email: account.email },
+      { email: account.email, _id: account._id },
       { secret: process.env.JWT_SECRET, expiresIn: process.env.JWT_EXPIRES_IN }
     );
 
-    const resetLink =
-      process.env.DEPLOY_SERVICE_LINK +
-      `/auth/get-reset-password?token=${resetToken}`;
+    const resetLink = resetURL + `?token=${resetToken}`;
 
     // Gửi email reset mật khẩu qua MailerService
     await this.customMailerService.sendVerificationPasswordResetEmail(
@@ -214,6 +229,44 @@ export class AuthService {
     return {
       message: 'Password has been reset successfully.',
       emailreset: account.email,
+    };
+  }
+
+  async changePassword(
+    token: string,
+    newPassword: string,
+    confirmPassword: string
+  ) {
+    const payload = await this.jwtService.verifyAsync(token, {
+      secret: process.env.JWT_SECRET,
+    });
+
+    console.log('payload', payload);
+
+    const accountFound = await this.accountModel.findById(payload._id);
+    if (!accountFound) {
+      throw new BadRequestException('Tài khoản không tồn tại!');
+    }
+    if (await bcrypt.compare(newPassword, accountFound.password)) {
+      throw new BadRequestException(
+        'Mật khẩu mới không được giống mật khẩu cũ!'
+      );
+    }
+    if (newPassword !== confirmPassword) {
+      throw new BadRequestException(
+        'Mật khẩu xác nhận không trùng với mật khẩu mới!'
+      );
+    }
+    accountFound.password = PasswordUtils.hashPassword(newPassword);
+
+    await this.accountService.update(payload._id, accountFound);
+    return {
+      msg: 'Đổi mật khẩu thành công',
+      email: accountFound.email,
+      name: accountFound.name,
+      address: accountFound.address,
+      tel: accountFound.tel,
+      avatar: accountFound.avatar,
     };
   }
 }

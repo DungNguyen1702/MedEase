@@ -24,6 +24,7 @@ export class NotificationController {
     @CurrentAccount() currentAccount: Account,
     @Param('id') id: string
   ) {
+    console.log('readNotification', currentAccount);
     return this.notiService.readNotification(currentAccount._id, id);
   }
 }

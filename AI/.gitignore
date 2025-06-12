@@ -1,3 +1,11 @@
 /dataset
 /model
 /venv
+translated_output.csv
+/train
+/test
+/scrape
+/filter
+/chatbot
+/generate
+/__pycache__

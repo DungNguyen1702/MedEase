@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React from "react";
 import { Colors } from "@/constants/Colors";
-import { TruncateText } from "@/utils/string.utils";
+import { formatDateToYYYYMMDD, TruncateText } from "@/utils/string.utils";
 import { useRouter } from "expo-router";
 
 const { height: screenHeight } = Dimensions.get("window");
@@ -67,7 +67,7 @@ export default function ScheduleComponent(props: any) {
         <View style={styles.bodyItemContainer}>
           <Text style={styles.bodyItemTitle}>Ngày khám : </Text>
           <Text style={styles.bodyItemData}>
-            {data.appointment.appointment_date}
+            {formatDateToYYYYMMDD(data.appointment.appointment_date)}
           </Text>
         </View>
         <View style={styles.bodyItemContainer}>

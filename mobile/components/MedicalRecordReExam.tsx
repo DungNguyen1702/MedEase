@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderColor: Colors.primary.main,
     borderWidth: 1,
+    width: "100%",
   },
   tagContainer: {
     padding: 10,

@@ -4,8 +4,8 @@ import { AuthGuard } from '../../common/guards/auth.guard';
 import { RoleGuard } from '../../common/guards/role.guard';
 import { AccountRoleEnum } from '../../common/enums';
 import { CurrentAccount } from '../../common/decorators/current-account.decorator';
-import type { Account } from '../../schemas';
-import type { UpdateAppointmentDetailRequest } from './dtos/UpdateAppointmentDetailRequest';
+import { Account } from '../../schemas';
+import { UpdateAppointmentDetailRequest } from './dtos/UpdateAppointmentDetailRequest';
 
 @Controller('appointment-detail')
 export class AppointmentDetailController {

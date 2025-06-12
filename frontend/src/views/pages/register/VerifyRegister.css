@@ -1,0 +1,316 @@
+@import "../../../constants/colors.css";
+
+.verify-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary-light-background) 0%, var(--light-main) 100%);
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.verify-card {
+  background: var(--light-main);
+  border-radius: 16px;
+  padding: 48px 32px;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(98, 130, 244, 0.1);
+  border: 1px solid var(--primary-light-main);
+}
+
+.icon-container {
+  margin-bottom: 24px;
+}
+
+.success-icon {
+  color: var(--success-text);
+  background: var(--success-background);
+  border-radius: 50%;
+  padding: 16px;
+}
+
+.primary-icon {
+  color: var(--primary-main);
+  background: var(--primary-light-background);
+  border-radius: 50%;
+  padding: 16px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--light-text);
+  margin-bottom: 24px;
+  line-height: 1.2;
+}
+
+.message-container {
+  margin-bottom: 32px;
+}
+
+.main-message {
+  font-size: 16px;
+  color: var(--light-text);
+  line-height: 1.6;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.sub-message {
+  font-size: 14px;
+  color: var(--light-icon);
+  line-height: 1.5;
+}
+
+.action-container {
+  margin-bottom: 32px;
+}
+
+.download-btn,
+.primary-btn {
+  background: var(--primary-main);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  transition: all 0.2s ease;
+  width: 100%;
+  justify-content: center;
+}
+
+.download-btn:hover,
+.primary-btn:hover {
+  background: var(--primary-dark-text);
+  transform: translateY(-1px);
+}
+
+.primary-btn.disabled {
+  background: var(--primary-main-light);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.primary-btn.disabled:hover {
+  background: var(--primary-main-light);
+  transform: none;
+}
+
+.secondary-btn {
+  background: transparent;
+  color: var(--primary-main);
+  border: 2px solid var(--primary-main);
+  border-radius: 12px;
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  width: 100%;
+  justify-content: center;
+}
+
+.secondary-btn:hover {
+  background: var(--primary-light-background);
+}
+
+.app-links {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.app-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: var(--primary-light-background);
+  border-radius: 8px;
+  color: var(--primary-main);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.app-link:hover {
+  background: var(--primary-main-light);
+}
+
+.footer-text {
+  border-top: 1px solid var(--primary-light-main);
+  padding-top: 24px;
+}
+
+.footer-text p {
+  font-size: 14px;
+  color: var(--light-icon);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Password Form Styles */
+.password-form {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--light-text);
+}
+
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--primary-light-main);
+  border-radius: 12px;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  padding-right: 48px;
+}
+
+.password-input:focus {
+  outline: none;
+  border-color: var(--primary-main);
+  box-shadow: 0 0 0 2px var(--primary-main-light);
+}
+
+.toggle-password {
+  position: absolute;
+  right: 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--light-icon);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.toggle-password:hover {
+  color: var(--primary-main);
+}
+
+.password-validation {
+  background: var(--primary-light-background);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.password-validation h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--light-text);
+}
+
+.validation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.validation-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.validation-item.valid {
+  color: var(--success-text);
+}
+
+.validation-item.invalid {
+  color: var(--danger-text);
+}
+
+.validation-icon {
+  flex-shrink: 0;
+}
+
+/* Navigation */
+.page-navigation {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  display: flex;
+  gap: 10px;
+}
+
+.nav-button {
+  padding: 8px 16px;
+  background: var(--primary-light-background);
+  color: var(--primary-main);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.nav-button:hover {
+  background: var(--primary-main-light);
+  transform: translateY(-1px);
+}
+
+.nav-button.active {
+  background: var(--primary-main);
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .verify-card {
+    padding: 32px 24px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .app-links {
+    flex-direction: column;
+  }
+
+  .app-link {
+    justify-content: center;
+  }
+
+  .page-navigation {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

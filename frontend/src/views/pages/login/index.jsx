@@ -23,12 +23,16 @@ const LoginPage = () => {
       const { access_token, message, ...userData } = repsponse.data;
 
       if (repsponse.status === 201) {
-        await login(userData, access_token);
-
         if (repsponse.data.role === "doctor") {
+          await login(userData, access_token);
           navigate("/doctor/dashboard");
         } else if (repsponse.data.role === "admin") {
+          await login(userData, access_token);
           navigate("/admin/dashboard");
+        } else {
+          toast.error(
+            "Tài khoản bệnh nhân không được phép truy cập vào hệ thống"
+          );
         }
       }
     } catch (error) {
@@ -40,7 +44,18 @@ const LoginPage = () => {
   };
 
   const handleForgotPassword = () => {
-    navigate("/auth/forgot-password");
+    if (!username) {
+      toast.error("Vui lòng nhập email để đặt lại mật khẩu.");
+      return false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(username)) {
+      toast.error("Email không hợp lệ.");
+      return false;
+    }
+
+    navigate("/auth/reset-password/" + username);
   };
 
   const handleRegister = () => {

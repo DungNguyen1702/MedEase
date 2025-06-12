@@ -4,6 +4,16 @@
   &-container {
     background-color: #fff;
     overflow: hidden;
+
+    .appointment-card-patient-avatar {
+      width: 150px;
+      object-fit: cover;
+      border-radius: 20px;
+      aspect-ratio: 1 / 1;
+      margin : 20px 10px;
+      margin-right: 20px;
+      background-color: red;
+    }
   }
 
   &-header {

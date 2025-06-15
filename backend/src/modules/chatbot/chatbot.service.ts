@@ -17,22 +17,6 @@ export class ChatbotService {
     this.loadFAQ();
   }
 
-  // async loadFAQ() {
-  //   const file = path.join(__dirname, '..', '..', 'faq.xlsx');
-  //   const wb = XLSX.readFile(file);
-  //   const sheet = wb.Sheets[wb.SheetNames[0]];
-  //   const rows = XLSX.utils.sheet_to_json(sheet) as any[];
-
-  //   const model = await loadLocalEmbeddingModel();
-
-  //   this.faqList = await Promise.all(
-  //     rows.map(async row => {
-  //       const vector = await model.embed(row['Câu hỏi']);
-  //       return { question: row['Câu hỏi'], answer: row['Trả lời'], vector };
-  //     })
-  //   );
-  // }
-
   async loadFAQ() {
     // Lấy credentials từ biến môi trường
     const credentials = JSON.parse(
@@ -93,7 +77,94 @@ export class ChatbotService {
     );
   }
 
-  async answer(userQuestion: string) {
+  async appendQuestionToSheet(
+    questionId: string,
+    question: string,
+    embedding: number[]
+  ) {
+    const credentials = JSON.parse(
+      Buffer.from(process.env.GOOGLE_CREDENTIALS_BASE64!, 'base64').toString(
+        'utf-8'
+      )
+    );
+    const auth = new google.auth.GoogleAuth({
+      credentials,
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    });
+    const sheets = google.sheets({ version: 'v4', auth });
+    const spreadsheetId = process.env.SPREADSHEET_ID!;
+    const range = 'Sheet1!A2:D'; // Cột A: questionId, B: Câu hỏi, C: Trả lời, D: Embedding
+
+    const row = [
+      questionId,
+      question,
+      '', // Chưa có trả lời
+      JSON.stringify(embedding),
+    ];
+
+    await sheets.spreadsheets.values.append({
+      spreadsheetId,
+      range,
+      valueInputOption: 'USER_ENTERED',
+      requestBody: {
+        values: [row],
+      },
+    });
+  }
+
+  async updateAnswerInSheet(questionId: string, newAnswer: string) {
+    const credentials = JSON.parse(
+      Buffer.from(process.env.GOOGLE_CREDENTIALS_BASE64!, 'base64').toString(
+        'utf-8'
+      )
+    );
+
+    const auth = new google.auth.GoogleAuth({
+      credentials,
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    });
+
+    const sheets = google.sheets({ version: 'v4', auth });
+    const spreadsheetId = process.env.SPREADSHEET_ID!;
+
+    // B1: Tìm dòng chứa questionId
+    const idRes = await sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range: 'Sheet1!A2:A', // Chỉ cột questionId
+    });
+
+    const rows = idRes.data.values || [];
+    const rowIndex = rows.findIndex(row => row[0] === questionId);
+    if (rowIndex === -1) return;
+
+    const rowNumber = rowIndex + 2; // Do bắt đầu từ dòng 2
+    const answerCell = `Sheet1!C${rowNumber}`; // Cột C là "Trả lời"
+
+    // B2: Đọc nội dung cũ trong ô C
+    const existingRes = await sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range: answerCell,
+    });
+
+    const oldAnswer = existingRes.data.values?.[0]?.[0] || '';
+
+    // B3: Ghi thêm
+    const updatedAnswer = oldAnswer
+      ? `${oldAnswer}\n---\n${newAnswer}` // hoặc `${oldAnswer}\n${newAnswer}` nếu không cần phân cách
+      : newAnswer;
+
+    // B4: Ghi đè lại toàn bộ chuỗi mới
+    await sheets.spreadsheets.values.update({
+      spreadsheetId,
+      range: answerCell,
+      valueInputOption: 'USER_ENTERED',
+      requestBody: {
+        values: [[updatedAnswer]],
+      },
+    });
+  }
+
+  async answer(userQuestion: string, questionId: string) {
     const model = await loadLocalEmbeddingModel();
     const userVec = await model.embed(userQuestion);
 
@@ -111,6 +182,7 @@ export class ChatbotService {
     if (!bestMatch || bestScore < 0.6) {
       const prompt = `Bạn là trợ lý ảo trong hệ thống khám chữa bệnh MedEase. Người dùng hỏi: "${userQuestion}". Hãy trả lời một cách tự nhiên, ngắn gọn và thân thiện. Nếu không đủ dữ liệu để trả lời, hãy nói: "Câu hỏi này vui lòng đợi phía bác sĩ hoặc bệnh viện trả lời."`;
       const geminiAnswer = await this.callGeminiAPI(prompt);
+      await this.appendQuestionToSheet(questionId, userQuestion, userVec);
       return {
         geminiAnswer,
         similarity: bestScore.toFixed(3),

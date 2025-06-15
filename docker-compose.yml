@@ -1,4 +1,4 @@
-version: '3'
+# version: '3'
 services:
   backend:
     container_name: medease-backend
@@ -13,6 +13,14 @@ services:
     build: ./frontend
     ports:
       - "3000:80"
+    networks:
+      - medease-net
+
+  flask-api:
+    container_name: flask-api
+    build: ./AI
+    ports:
+      - "5000:5000"
     networks:
       - medease-net
 

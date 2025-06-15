@@ -17,6 +17,6 @@ export class ChatbotController {
 
   @Get('/ask')
   async ask(@Query('q') question: string) {
-    return this.chatbotService.answer(question);
+    return this.chatbotService.answer(question, "");
   }
 }

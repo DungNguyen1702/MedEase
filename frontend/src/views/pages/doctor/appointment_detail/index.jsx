@@ -358,7 +358,7 @@ const DoctorAppointmentDetail = () => {
                     <div className="divider" />
                     <div className="table-second-row">{disease.name}</div>
                     <div className="divider" />
-                    <div className="table-third-row">{disease.percent}%</div>
+                    <div className="table-third-row">{Number(disease.percent).toFixed(2)}%</div>
                   </div>
                   <div className="divider-horizontal" />
                 </>

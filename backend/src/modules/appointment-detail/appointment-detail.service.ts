@@ -13,6 +13,8 @@ import {
   AppointmentDocument,
   Doctor,
   DoctorDocument,
+  Specialization,
+  SpecializationDocument,
 } from '../../schemas';
 import { UpdateAppointmentDetailRequest } from './dtos/UpdateAppointmentDetailRequest';
 import {
@@ -20,7 +22,8 @@ import {
   NotificationTypeImageEnum,
 } from '../../common/enums';
 import { NotificationService } from '../notification/notification.service';
-
+import { google } from 'googleapis';
+import { specializationMapping } from '../../common/constants';
 @Injectable()
 export class AppointmentDetailService {
   constructor(
@@ -34,6 +37,8 @@ export class AppointmentDetailService {
     private readonly medicalRecordModel: Model<MedicalRecordDocument>,
     @InjectModel(Doctor.name)
     private readonly doctorModel: Model<DoctorDocument>,
+    @InjectModel(Specialization.name)
+    private readonly specModel: Model<SpecializationDocument>,
     private readonly notificationService: NotificationService
   ) {}
 
@@ -123,6 +128,41 @@ export class AppointmentDetailService {
       .exec();
   }
 
+  private async appendMedicalRecordToSheet(record: {
+    symptoms: string;
+    diagnosis: string;
+    specialization: string;
+  }) {
+    const credentials = JSON.parse(
+      Buffer.from(process.env.GOOGLE_CREDENTIALS_BASE64!, 'base64').toString(
+        'utf-8'
+      )
+    );
+
+    const auth = new google.auth.GoogleAuth({
+      credentials,
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    });
+
+    const sheets = google.sheets({ version: 'v4', auth });
+    const spreadsheetId = process.env.AI_SPREADSHEET_ID!;
+    const range = 'Sheet1!A2:E'; // Cột A: recordId, B: symptoms, C: diagnosis, D: prescription, E: specialization (en)
+
+    const specializationEn =
+      specializationMapping[record.specialization] || record.specialization;
+
+    const row = [record.symptoms, record.diagnosis, specializationEn];
+
+    await sheets.spreadsheets.values.append({
+      spreadsheetId,
+      range,
+      valueInputOption: 'USER_ENTERED',
+      requestBody: {
+        values: [row],
+      },
+    });
+  }
+
   async updateAppointmentDetail(
     dto: UpdateAppointmentDetailRequest,
     accountId: string
@@ -133,7 +173,7 @@ export class AppointmentDetailService {
     if (!doctor) {
       throw new Error('Không tìm thấy bác sĩ');
     }
-
+    const spec = await this.specModel.findById(doctor.specialization_id);
     // Cập nhật các trường cơ bản của AppointmentDetail nếu cần
     await this.appointmentModel.updateOne(
       { _id: dto.appointment_id },
@@ -173,6 +213,12 @@ export class AppointmentDetailService {
         });
         medicalRecordIds.push(created._id);
         diagnosisToId[record.diagnosis] = created._id;
+
+        await this.appendMedicalRecordToSheet({
+          symptoms: dto.symptoms,
+          diagnosis: record.diagnosis,
+          specialization: spec.name,
+        });
       }
     }
 

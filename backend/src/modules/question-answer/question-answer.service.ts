@@ -179,7 +179,10 @@ export class QuestionAnswerService {
       content,
     });
 
-    const answerContent = await this.chatbotService.answer(content);
+    const answerContent = await this.chatbotService.answer(
+      content,
+      newQuestion._id
+    );
 
     if (!answerContent) {
       throw new Error('Failed to get answer from chatbot.');
@@ -228,6 +231,12 @@ export class QuestionAnswerService {
         type: NotificationTypeEnum.QUESTION_ANSWERED,
         idTO: questionId,
       });
+    }
+
+    if (question) {
+      if (question._id) {
+        await this.chatbotService.updateAnswerInSheet(question._id, content);
+      }
     }
 
     return {

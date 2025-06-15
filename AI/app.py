@@ -76,7 +76,7 @@ def predict_disease(vietnamese_input, top_k=10):
         for i in top_indices:
             disease_en = label_encoder_disease.inverse_transform([i])[0]
             disease_vi = GoogleTranslator(source='en', target='vi').translate(disease_en)
-            prob = round(disease_probs[i] * 100, 2)
+            prob = float(round(disease_probs[i] * 100, 2))
 
             # Lấy chuỗi chuyên khoa từ mô hình (có thể là nhiều chuyên khoa ngăn cách bởi dấu phẩy)
             raw_specialization = label_encoder_specialization.inverse_transform([spec_index])[0]

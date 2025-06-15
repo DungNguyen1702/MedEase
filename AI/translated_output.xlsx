@@ -1,0 +1,600 @@
+﻿Patient_Problem,Disease,Specialization_English
+"Constant fatigue and muscle weakness, struggling to stay awake.",Chronic Fatigue Syndrome,"General Internal Medicine, Neurology, Psychiatry"
+"Frequent severe migraines, sensitivity to light and sound.",Migraine with Aura,Neurology
+"Sudden weight gain and feeling cold, especially in the hands and feet.",Hypothyroidism,Endocrinology
+"High fever, sore throat, and swollen lymph nodes, feeling very weak.",Mononucleosis,"General Internal Medicine, Pediatrics"
+"Excessive thirst and frequent urination, dry mouth persistently.",Diabetes Mellitus,"Endocrinology, Nutrition"
+"Sharp, stabbing chest pain that worsens when lying down or inhaling deeply.",Pericarditis,Cardiology
+"Unexplained weight loss and night sweats, feeling feverish.",Tuberculosis,"Pulmonology, Radiology, Laboratory Medicine"
+"Severe abdominal pain radiating to the back, nausea without vomiting.",Pancreatitis,Gastroenterology
+"Joint swelling and stiffness in the morning, especially in the fingers and wrists.",Rheumatoid Arthritis,"General Internal Medicine, Orthopedics, Physical Medicine and Rehabilitation"
+"Recurrent, painful blisters around the mouth and nose.",Herpes Simplex,Dermatology
+"Progressive difficulty swallowing, accompanied by heartburn.",Esophageal Reflux,Gastroenterology
+"Chronic diarrhea, abdominal cramps, and gas.",Irritable Bowel Syndrome,Gastroenterology
+"Intense itching, especially at night, with visible burrows on the skin.",Scabies,Dermatology
+"Yellowing of the skin and eyes, dark urine, and general fatigue.",Hepatitis,"Gastroenterology, Laboratory Medicine"
+"Sudden, severe headache with no known cause, blurred vision.",Subarachnoid Hemorrhage,"Neurology, Intensive Care Unit (ICU)"
+"Persistent cough with blood-tinged sputum, night sweats.",Lung Cancer,"Oncology, Pulmonology, Radiology"
+"Frequent nosebleeds, easy bruising, and prolonged bleeding from cuts.",Hemophilia,"Laboratory Medicine, General Internal Medicine, Khoa Hồi sức cấp cứu"
+Severe itching and rash after consuming certain foods.,Food Allergy,"Nutrition, General Internal Medicine, Khoa Hồi sức cấp cứu"
+"Repeated urinary tract infections, burning sensation while urinating.",Urinary Tract Infection,Nephrology - Urology
+"Difficulty concentrating, memory lapses, and confusion.",Early Onset Dementia,"Neurology, Psychiatry"
+I've been feeling extremely fatigued and find it hard to concentrate.,Chronic Fatigue Syndrome,"General Internal Medicine, Neurology, Psychiatry"
+"Experiencing frequent headaches, sensitivity to light and sound.",Migraine,Neurology
+"Noticed a persistent cough and occasional wheezing, especially at night.",Asthma,Pulmonology
+"Sudden episodes of rapid heartbeat, feeling faint.",Panic Attacks,"Psychiatry, Neurology"
+Unintended weight loss and constant thirst.,Type 1 Diabetes,"Endocrinology, Nutrition"
+"Joint pain in hands and feet, stiffness in the morning.",Rheumatoid Arthritis,"General Internal Medicine, Orthopedics, Physical Medicine and Rehabilitation"
+"Recurrent stomach pain, bloating, and altered bowel habits.",Irritable Bowel Syndrome (IBS),Gastroenterology
+"Severe acne on face and back, not responding to over-the-counter treatments.",Cystic Acne,Dermatology
+"Difficulty falling asleep, waking up frequently during the night.",Insomnia,"Neurology, Psychiatry"
+"Constantly feeling sad, loss of interest in activities.",Major Depressive Disorder,Psychiatry
+"Blurry vision, especially when looking at objects close or far away.",Myopia and Hyperopia,Ophthalmology
+"Frequent urination, especially at night, and feeling thirsty.",Diabetes Type 2,"Endocrinology, Nutrition"
+"Swelling and pain in the big toe, redness around the joint.",Gout,"Endocrinology, General Internal Medicine"
+"Shortness of breath during physical activities, chest tightness.",Chronic Obstructive Pulmonary Disease (COPD),"Pulmonology, Intensive Care Unit (ICU)"
+"Recurrent episodes of vertigo, feeling like the room is spinning.",Benign Positional Vertigo,"Neurology, Otorhinolaryngology (ENT)"
+"Excessive sweating, even when not engaging in physical activities.",Hyperhidrosis,Dermatology
+"Yellowing of the skin and eyes, fatigue, and abdominal pain.",Hepatitis,"Gastroenterology, Laboratory Medicine"
+"Persistent sore throat, difficulty swallowing, and swollen lymph nodes.",Pharyngitis,Otorhinolaryngology (ENT)
+"Numbness and tingling in the hands and feet, weakness.",Peripheral Neuropathy,Neurology
+"Sharp, stabbing pain in the chest, worsening with deep breaths.",Pulmonary Embolism,"Pulmonology, Intensive Care Unit (ICU)"
+I've been experiencing severe headaches and occasional dizziness.,Migraine and Vertigo,"Neurology, Otorhinolaryngology (ENT)"
+"My stomach has been upset, and I've had bouts of diarrhea and nausea.",Gastrointestinal Infection,Gastroenterology
+I've noticed a rash on my arm that's itchy and spreading.,Contact Dermatitis,Dermatology
+I have persistent coughing and shortness of breath.,Chronic Bronchitis,Pulmonology
+I'm experiencing sharp knee pain when walking or climbing stairs.,Patellar Tendinitis,Orthopedics
+"My vision has become blurry, especially when reading.",Myopia,Ophthalmology
+"I have been feeling very tired lately, even with a full night's sleep.",Chronic Fatigue Syndrome,"General Internal Medicine, Neurology, Psychiatry"
+I experience severe back pain after sitting for long periods.,Sciatica,"Neurology, Orthopedics"
+I have frequent urination and excessive thirst.,Diabetes Mellitus,Endocrinology
+"I've been having trouble sleeping, feeling anxious and restless.",Insomnia and Anxiety,"Neurology, Psychiatry"
+"My throat has been sore, and I've had a fever for a few days.",Streptococcal Pharyngitis,Otorhinolaryngology (ENT)
+I've been feeling depressed and unmotivated to do daily tasks.,Major Depressive Disorder,Psychiatry
+"I noticed swelling and pain in my joints, especially in the morning.",Rheumatoid Arthritis,"General Internal Medicine, Orthopedics, Physical Medicine and Rehabilitation"
+I've been experiencing sudden weight loss and increased appetite.,Hyperthyroidism,Endocrinology
+I have a constant ringing in my ears that's affecting my hearing.,Tinnitus,Otorhinolaryngology (ENT)
+I've been getting nosebleeds more frequently than usual.,Epistaxis,Otorhinolaryngology (ENT)
+I feel a sharp pain in my chest when I breathe deeply.,Pleurisy,Pulmonology
+"I've noticed my skin getting yellowish, especially around the eyes.",Jaundice,Gastroenterology
+"I have difficulty swallowing, and my throat feels tight.",Esophageal Stricture,Gastroenterology
+I've been feeling numbness and tingling in my hands and feet.,Peripheral Neuropathy,Neurology
+I have been feeling unusually tired and lethargic for the last month.,Chronic Fatigue Syndrome,"General Internal Medicine, Neurology, Psychiatry"
+Experiencing severe joint pain in my hands and feet.,Rheumatoid Arthritis,"General Internal Medicine, Orthopedics, Physical Medicine and Rehabilitation"
+Constant shortness of breath and tightness in my chest.,Asthma,Pulmonology
+Uncontrollable shaking and tremors in my hands.,Parkinson's Disease,Neurology
+Frequent migraines that last for hours.,Migraine,Neurology
+Sudden weight gain and puffiness in the face.,Hypothyroidism,Endocrinology
+Persistent sore throat and difficulty swallowing.,Strep Throat,Otorhinolaryngology (ENT)
+Blurry vision that worsens by the end of the day.,Myopia,Ophthalmology
+High fever with chills and night sweats.,Influenza,Pulmonology
+Sharp stomach pain that comes and goes.,Gastritis,Gastroenterology
+Excessive sweating even in cool temperatures.,Hyperhidrosis,Dermatology
+"Swollen, red patches of skin that are painful to touch.",Cellulitis,Dermatology
+"Dry, itchy eyes that feel gritty.",Dry Eye Syndrome,Ophthalmology
+Numbness and tingling in my feet.,Peripheral Neuropathy,Neurology
+Severe back pain that limits my movement.,Herniated Disc,Orthopedics
+Frequent urination and a burning sensation.,Urinary Tract Infection,Nephrology - Urology
+A cough that has lasted more than three weeks.,Chronic Bronchitis,Pulmonology
+Memory lapses and difficulty concentrating.,Alzheimer's Disease,"Neurology, Psychiatry"
+"Feeling down, depressed, or hopeless.",Major Depressive Disorder,Psychiatry
+Sudden episodes of rapid heartbeat.,Panic Disorder,"General Internal Medicine, Neurology, Psychiatry"
+Constant fatigue and difficulty concentrating for weeks.,Chronic Fatigue Syndrome,Neurology
+Recurring severe headaches and sensitivity to light.,Migraines,Pulmonology
+Sudden shortness of breath with mild exertion.,Asthma,Gastroenterology
+Frequent episodes of heartburn and acid reflux.,Gastroesophageal Reflux Disease,Otorhinolaryngology (ENT)
+"Itchy, watery eyes and sneezing, especially outdoors.",Allergic Rhinitis,"Neurology, Orthopedics"
+Sharp pain in lower back when bending or lifting.,Sciatica,"General Internal Medicine, Orthopedics, Physical Medicine and Rehabilitation"
+"Swollen, tender joints in hands and wrists.",Rheumatoid Arthritis,Pulmonology
+Persistent cough with greenish phlegm.,Bronchitis,Psychiatry
+Intense mood swings and periods of high energy followed by fatigue.,Bipolar Disorder,Ophthalmology
+Blurred vision and difficulty seeing at night.,Night Blindness,Endocrinology
+Unexplained weight loss and increased thirst.,Type 1 Diabetes,Nephrology - Urology
+Painful urination and cloudy urine.,Urinary Tract Infection,Dermatology
+"Dry, red patches of skin that crack and bleed.",Psoriasis,Neurology
+"Numbness in hands and feet, worsening at night.",Peripheral Neuropathy,Neurology
+"Dizziness and loss of balance, especially when standing up.",Vertigo,Gastroenterology
+Feeling of fullness and discomfort in the upper abdomen.,Gastritis,Endocrinology
+Brittle nails and hair loss.,Hypothyroidism,Neurology
+Tremors in hands and difficulty with fine motor skills.,Parkinson's Disease,"Neurology, Psychiatry"
+Insomnia and persistent difficulty falling or staying asleep.,Insomnia,"Neurology, Psychiatry"
+Episodes of severe anxiety and panic attacks.,Panic Disorder,Psychiatry
+I've been experiencing severe headaches and occasional dizziness lately.,Migraine,"Neurology, Otorhinolaryngology (ENT)"
+"My stomach has been upset, with bouts of diarrhea and nausea.",Irritable Bowel Syndrome,Gastroenterology
+Noticed a spreading rash on my arm that's quite itchy.,Contact Dermatitis,Dermatology
+Persistent coughing and difficulty breathing at night.,Bronchial Asthma,Pulmonology
+Sharp knee pain when walking or climbing stairs.,Knee Osteoarthritis,Orthopedics
+"Vision is blurry, especially when reading or looking at screens.",Myopia,Ophthalmology
+"Feeling unusually tired, even after sleeping well.",Chronic Fatigue Syndrome,"General Internal Medicine, Neurology, Psychiatry"
+Severe back pain after sitting for long periods.,Sciatica,"Neurology, Orthopedics"
+Experiencing frequent urination and excessive thirst.,Type 1 Diabetes Mellitus,Endocrinology
+"Trouble sleeping, with anxiety and restlessness at night.",Insomnia,"Neurology, Psychiatry"
+Sudden weight loss and a constant feeling of hunger.,Hyperthyroidism,Endocrinology
+Excessive sweating and intolerance to heat.,Hyperhidrosis,Dermatology
+"Dry skin and hair, feeling cold all the time.",Hypothyroidism,Endocrinology
+Irregular heartbeat and feeling jittery.,Atrial Fibrillation,Cardiology
+Difficulty concentrating and memory lapses.,Attention Deficit Hyperactivity Disorder,"Psychiatry, Pediatrics"
+"Swelling and pain in the joints, especially in the morning.",Rheumatoid Arthritis,"General Internal Medicine, Orthopedics, Physical Medicine and Rehabilitation"
+Numbness and tingling in hands and feet.,Peripheral Neuropathy,Neurology
+Muscle weakness and cramps without exertion.,Muscular Dystrophy,"Neurology, Orthopedics"
+Frequent nosebleeds without any apparent reason.,Hereditary Hemorrhagic Telangiectasia,Otorhinolaryngology (ENT)
+Sore throat lasting for more than a week.,Pharyngitis,"Neurology, Otorhinolaryngology (ENT)"
+Frequent headaches and sensitivity to light.,Migraine,Gastroenterology
+Upset stomach and loss of appetite.,Gastritis,Pulmonology
+Persistent cough and feeling of tiredness.,Chronic Bronchitis,"Neurology, Orthopedics"
+Sharp pains in the lower back area.,Sciatica,Psychiatry
+Feeling anxious without any apparent reason.,Anxiety Disorder,"General Internal Medicine, Orthopedics, Physical Medicine and Rehabilitation"
+Experiencing joint pain in hands and feet.,Rheumatoid Arthritis,Endocrinology
+Constant thirst and dry mouth.,Diabetes,Ophthalmology
+Blurry vision and difficulty focusing.,Myopia,Pulmonology
+Shortness of breath during light physical activity.,Asthma,Endocrinology
+Sudden weight loss without changes in diet.,Hyperthyroidism,Dermatology
+Skin rash and itching.,Contact Dermatitis,Obstetrics
+Nausea and vomiting in the morning.,Pregnancy,"Neurology, Psychiatry"
+Difficulty falling asleep at night.,Insomnia,Cardiology
+Swelling and pain in one leg.,Deep Vein Thrombosis,Otorhinolaryngology (ENT)
+Recurrent sore throat.,Pharyngitis,Nephrology - Urology
+Frequent urination.,Urinary Tract Infection,Pulmonology
+Loss of smell and taste.,COVID-19,Cardiology
+Dizziness when standing up quickly.,Orthostatic Hypotension,Pulmonology
+Persistent fever and chills.,Influenza,General Internal Medicine
+Unexplained bruising on the skin.,Hemophilia,"General Surgery, Emergency Medicine"
+Severe abdominal pain.,Appendicitis,Gastroenterology
+Yellowing of the skin and eyes.,Hepatitis,Pulmonology
+Chest pain when breathing deeply.,Pneumonia,Otorhinolaryngology (ENT)
+Continuous ringing in the ears.,Tinnitus,Gastroenterology
+Difficulty swallowing food and liquids.,Esophagitis,Dentistry
+Swollen and bleeding gums.,Gingivitis,"General Internal Medicine, Neurology, Psychiatry"
+Extreme fatigue after minimal activity.,Chronic Fatigue Syndrome,"Neurology, Orthopedics"
+Consistent muscle weakness.,Muscular Dystrophy,Cardiology
+Irregular heartbeat.,Atrial Fibrillation,Dermatology
+Severe itching without rash.,Eczema,Dermatology
+Hair loss in patches.,Alopecia Areata,Endocrinology
+Brittle nails and dry skin.,Hypothyroidism,General Internal Medicine
+Cramps and muscle spasms.,Electrolyte Imbalance,Psychiatry
+Mood swings and irritability.,Bipolar Disorder,Endocrinology
+Increased sensitivity to cold.,Hypothyroidism,Neurology
+Numbness in hands and feet.,Peripheral Neuropathy,Nephrology - Urology
+Painful urination.,Cystitis,Pulmonology
+Excessive sweating at night.,Tuberculosis,"Pulmonology, General Internal Medicine"
+Difficulty concentrating on tasks.,Attention Deficit Hyperactivity Disorder,"Pediatrics, Psychiatry"
+Loss of balance and coordination.,Multiple Sclerosis,Neurology
+I've been experiencing severe headaches lately.,Tension Headaches,Neurology
+My stomach has been upset almost every morning.,Irritable Bowel Syndrome,Gastroenterology
+There's a persistent rash on my forearm.,Contact Dermatitis,Dermatology
+I've had a cough and difficulty breathing at night.,Bronchial Asthma,Pulmonology
+My knee hurts when I climb stairs.,Patellar Tendinitis,Orthopedics
+I'm seeing floaters in my vision frequently.,Retinal Detachment,Ophthalmology
+"I'm feeling unusually tired, even after resting.",Iron Deficiency Anemia,General Internal Medicine
+"Lower back pain is constant, especially after sitting.",Sciatica,Orthopedics
+Thirsty all the time and urinating more often.,Type 1 Diabetes Mellitus,"Endocrinology, Pediatrics"
+"Trouble falling asleep, feeling anxious.",Insomnia,"Neurology, Psychiatry"
+My allergies have been worse this season.,Seasonal Allergies,"General Internal Medicine, Pediatrics"
+Experiencing pain and swelling in my wrists.,Carpal Tunnel Syndrome,Orthopedics
+My skin is very dry and itchy.,Atopic Dermatitis,"Dermatology, Pediatrics"
+Feeling dizzy when I stand up quickly.,Orthostatic Hypotension,General Internal Medicine
+Hearing a ringing noise in my ears often.,Tinnitus,"Otorhinolaryngology (ENT), Neurology"
+Losing weight without trying over the last month.,Hyperthyroidism,Endocrinology
+I've noticed more hair falling out than usual.,Alopecia Areata,"Dermatology, Pediatrics"
+My memory hasn't been as sharp lately.,Early Onset Dementia,Neurology
+Experiencing chest pain occasionally.,Angina Pectoris,Cardiology
+My appetite has decreased significantly.,Anorexia,Psychiatry
+Feeling short of breath after minimal activity.,Chronic Obstructive Pulmonary Disease,Pulmonology
+Bruises appearing without any injury.,Leukemia,Oncology
+"Frequent sore throats, more than usual.",Pharyngitis,Otorhinolaryngology (ENT)
+Having difficulty swallowing food.,Esophageal Stricture,Gastroenterology
+Noticing blood in my stool.,Colorectal Cancer,"Oncology, Gastroenterology"
+"Constantly feeling cold, even in warm environments.",Hypothyroidism,Endocrinology
+My periods have been irregular.,Polycystic Ovary Syndrome,Endocrinology
+Experiencing swelling and pain in my ankles.,Gout,"Nephrology - Urology, General Internal Medicine"
+I've been experiencing severe headaches and occasional dizziness for the past two weeks.,Migraine,Neurology
+"My stomach has been upset, and I've had bouts of diarrhea and nausea almost daily.",Irritable Bowel Syndrome,Gastroenterology
+I've noticed a rash on my arm that's itchy and has been spreading.,Contact Dermatitis,Dermatology
+"I have persistent coughing and shortness of breath, especially at night.",Chronic Obstructive Pulmonary Disease,Pulmonology
+I'm experiencing sharp knee pain when I walk or climb stairs.,Tendinitis,Orthopedics
+"My vision has become blurry, especially when reading or looking at screens.",Age-related Macular Degeneration,Ophthalmology
+"I've been having trouble sleeping, feeling anxious and restless most nights.",Insomnia,"Neurology, Psychiatry"
+I've lost a lot of weight recently without trying.,Hyperthyroidism,Endocrinology
+I have a constant dry cough and it's been getting worse.,Tuberculosis,"Pulmonology, General Internal Medicine"
+"I've been experiencing joint pain and stiffness, especially in the mornings.",Rheumatoid Arthritis,"General Internal Medicine, Orthopedics"
+I have difficulty swallowing and a sore throat that won't go away.,Esophagitis,Gastroenterology
+I've noticed blood in my stool on several occasions.,Colorectal Cancer,"Oncology, Gastroenterology"
+I get dizzy spells and sometimes feel like I am going to faint.,Orthostatic Hypotension,General Internal Medicine
+I have been experiencing numbness and tingling in my hands and feet.,Peripheral Neuropathy,Neurology
+I'm finding it increasingly difficult to concentrate at work or at home.,Attention Deficit Hyperactivity Disorder,"Pediatrics, Psychiatry"
+I've been feeling short of breath after only minimal physical activity.,Heart Failure,Cardiology
+I have a persistent high fever that hasn't improved with over-the-counter medication.,Typhoid Fever,General Internal Medicine
+I've been experiencing severe mood swings and periods of intense sadness.,Bipolar Disorder,Psychiatry
+"I have swelling and redness in one of my legs, and it feels warm to the touch.",Deep Vein Thrombosis,General Internal Medicine
+"I'm noticing changes in my vision, including dark spots and blurred lines.",Diabetic Retinopathy,Ophthalmology
+"I have a severe sore throat, making it difficult to swallow or speak.",Pharyngitis,Otorhinolaryngology (ENT)
+I experience sudden and severe abdominal pain on a regular basis.,Gallstones,Gastroenterology
+I have been noticing an unusual lump in my neck that seems to be growing.,Thyroid Nodule,Endocrinology
+"I get severe cramps in my legs and feet, especially at night.",Peripheral Artery Disease,Cardiology
+I have had a persistent headache for the past month that medication doesn't help.,Chronic Migraine,Neurology
+"I've been experiencing excessive sweating, even in cool temperatures.",Hyperhidrosis,Dermatology
+I've been experiencing unexplained weight loss and frequent urination.,Diabetes Type 1,"Endocrinology, Pediatrics"
+"My joints are swollen and stiff, especially in the morning.",Rheumatoid Arthritis,"General Internal Medicine, Orthopedics"
+I feel constant fatigue and my skin has yellowed.,Hepatitis,General Internal Medicine
+I'm having difficulty breathing and my chest feels tight.,Asthma,Pulmonology
+I've noticed blood in my stool and unexplained abdominal pain.,Colorectal Cancer,"Oncology, Gastroenterology"
+"My throat has been sore for weeks, and I have difficulty swallowing.",Esophageal Cancer,"Oncology, Gastroenterology"
+I have been experiencing severe mood swings and periods of intense sadness.,Major Depressive Disorder,Psychiatry
+I've been getting severe muscle cramps and spasms without exertion.,Electrolyte Imbalance,General Internal Medicine
+I have a persistent dry cough and a fever for the past few days.,Pneumonia,Pulmonology
+I'm experiencing frequent headaches and blurred vision.,Hypertension,"Cardiology, General Internal Medicine"
+"My memory seems to be getting worse, and I'm forgetting common things.",Alzheimer's Disease,Neurology
+I have sudden episodes of dizziness and feel like the room is spinning.,Vertigo,"Neurology, Otorhinolaryngology (ENT)"
+I'm seeing flashes of light and floating spots in my vision.,Retinal Detachment,Ophthalmology
+I have intense itching all over my body without a rash.,Liver Disease,Gastroenterology
+"My skin is very dry and cracked, especially on my hands and feet.",Eczema,Dermatology
+I've been having panic attacks and feel anxious most of the time.,Generalized Anxiety Disorder,Psychiatry
+I notice a ringing in my ears that doesn't go away.,Tinnitus,Otorhinolaryngology (ENT)
+I've experienced a loss of appetite and don't enjoy food anymore.,Depression,Psychiatry
+I get short of breath doing simple activities that I used to do easily.,Chronic Obstructive Pulmonary Disease,Pulmonology
+I have unexplained bruising and bleeding that takes a long time to stop.,Leukemia,Oncology
+"I've been feeling extremely tired lately, regardless of how much I sleep.",Chronic Fatigue Syndrome,General Internal Medicine
+"Experiencing sharp chest pains occasionally, especially under stress.",Angina Pectoris,Cardiology
+Noticed a lump on my neck that has been growing.,Thyroid Cancer,"Oncology, Endocrinology"
+Sudden severe headache unlike any I've experienced before.,Subarachnoid Hemorrhage,Neurology
+"Periods of intense heart palpitations, even at rest.",Atrial Fibrillation,Cardiology
+Excessive sweating at night without any apparent reason.,Tuberculosis,"Pulmonology, General Internal Medicine"
+Blurry vision that's progressively getting worse.,Diabetic Retinopathy,Ophthalmology
+Persistent indigestion and discomfort after eating.,Gastroesophageal Reflux Disease (GERD),Gastroenterology
+A mole on my skin that has changed color and size.,Malignant Melanoma,"Dermatology, Oncology"
+Frequent memory lapses and difficulty concentrating.,Early Onset Dementia,Neurology
+Uncontrollable tremors in my hands and fingers.,Parkinson's Disease,Neurology
+Severe back pain that worsens when bending or lifting.,Herniated Disc,"Orthopedics, Neurology"
+Unexplained weight gain and facial puffiness.,Cushing's Syndrome,Endocrinology
+"Constant thirst and dry mouth, drinking more water than usual.",Diabetes Insipidus,Endocrinology
+Loss of smell and taste that's persisted for weeks.,COVID-19,"Pulmonology, Emergency Medicine"
+Recurrent episodes of fainting or dizziness.,Vasovagal Syncope,"Cardiology, General Internal Medicine"
+Chronic diarrhea and abdominal cramps.,Irritable Bowel Syndrome (IBS),Gastroenterology
+Severe acne outbreak that's not responding to over-the-counter treatments.,Cystic Acne,Dermatology
+Waking up gasping for air during the night.,Sleep Apnea,Pulmonology
+"Joint stiffness and pain, especially in the mornings.",Rheumatoid Arthritis,"Orthopedics, General Internal Medicine"
+Experiencing sudden weight loss and loss of appetite.,Hyperthyroidism,Endocrinology
+"My skin is dry, and I have constant itchiness without any visible rash.",Iron Deficiency Anemia,General Internal Medicine
+"Feeling shortness of breath with mild exertion, and it seems to worsen.",Heart Failure,Cardiology
+"I have noticed swelling in my ankles and feet, which worsens throughout the day.",Venous Insufficiency,"Cardiology, Orthopedics"
+Experiencing memory lapses and difficulty concentrating on daily tasks.,Alzheimer's Disease,Neurology
+"I've developed sensitivity to cold temperatures, feeling cold all the time.",Hypothyroidism,Endocrinology
+"My throat feels sore all the time, and I've lost my voice.",Laryngitis,Otorhinolaryngology (ENT)
+I'm experiencing chest pain that intensifies when I take a deep breath.,Pleurisy,Pulmonology
+I have a high fever that's been persistent for more than three days.,Influenza,Pulmonology
+"I've noticed blood in my stool, which is concerning.",Colorectal Cancer,"Oncology, Gastroenterology"
+"I have been feeling very tired lately, even with full sleep.",Chronic Fatigue Syndrome,General Internal Medicine
+"I've been having trouble sleeping, feeling anxious at night.",Insomnia,"Neurology, Psychiatry"
+I feel constant heartburn and acid reflux.,GERD,Gastroenterology
+I've experienced sudden and unexplained weight gain.,Hypothyroidism,Endocrinology
+I have severe and persistent abdominal pain.,Appendicitis,General Surgery
+I notice my skin is yellowing.,Jaundice,Gastroenterology
+"I'm facing difficulty swallowing, even liquids.",Esophageal Stricture,Gastroenterology
+I've lost my sense of smell and taste recently.,COVID-19,"Pulmonology, Emergency Medicine"
+My hands and feet are often numb or tingling.,Peripheral Neuropathy,Neurology
+I'm having severe mood swings and feeling depressed.,Bipolar Disorder,Psychiatry
+I've observed a lump on my neck that's growing.,Thyroid Nodule,Endocrinology
+I'm experiencing chest pains and tightness.,Angina,Cardiology
+I've noticed a spreading rash on my arm that's very itchy.,Contact Dermatitis,Dermatology
+"Persistent coughing and shortness of breath, especially at night.",Chronic Asthma,Pulmonology
+Experiencing sharp knee pain when walking or climbing stairs.,Knee Osteoarthritis,Orthopedics
+"My vision has become blurry, particularly when reading.",Age-related Macular Degeneration,Ophthalmology
+"Feeling very tired lately, even after a full night's sleep.",Chronic Fatigue Syndrome,General Internal Medicine
+Frequent urination and excessive thirst have been a problem.,Type 1 Diabetes,Endocrinology
+"Trouble sleeping, feeling anxious and restless at nights.",Insomnia and Anxiety,"Psychiatry, Neurology"
+Sudden weight loss and lack of appetite for no clear reason.,Unexplained Weight Loss,General Internal Medicine
+"Swelling and pain in the joints, particularly in the mornings.",Rheumatoid Arthritis,"Orthopedics, General Internal Medicine"
+Excessive sweating at night without any physical exertion.,Tuberculosis,"Pulmonology, General Internal Medicine"
+A persistent dry cough that has lasted for more than a month.,Chronic Bronchitis,Pulmonology
+"Constant feeling of being cold, even in warm temperatures.",Hypothyroidism,Endocrinology
+Unexpected skin lesions that are sensitive to touch.,Basal Cell Carcinoma,"Dermatology, Oncology"
+Recurring episodes of severe abdominal pain.,Gallstones,"Gastroenterology, General Surgery"
+Difficulty swallowing and a sensation of a lump in the throat.,Esophageal Stricture,"Gastroenterology, General Surgery"
+Frequent intense headaches that impair daily activities.,Cluster Headaches,Neurology
+Sudden episodes of confusion and difficulty remembering recent events.,Transient Ischemic Attack,"Neurology, Emergency Medicine"
+I've been experiencing headaches and dizziness.,Migraine and Vertigo,Neurology
+My stomach has been upset with diarrhea.,Irritable Bowel Syndrome,Gastroenterology
+Noticed a spreading rash on my arm.,Contact Dermatitis,Dermatology
+Persistent coughing and breath shortness.,Chronic Asthma,Pulmonology
+Sharp knee pain when walking.,Knee Osteoarthritis,"Orthopedics, Physical Medicine and Rehabilitation"
+"Vision is blurry, especially when reading.",Age-related Macular Degeneration,Ophthalmology
+"Feeling very tired, even with full sleep.",Chronic Fatigue Syndrome,General Internal Medicine
+Severe back pain after long sitting periods.,Sciatica,"Neurology, Physical Medicine and Rehabilitation"
+Frequent urination and excessive thirst.,Type 1 Diabetes,Endocrinology
+Trouble sleeping and feeling anxious.,Insomnia and Generalized Anxiety Disorder,Psychiatry
+Sudden weight loss without trying.,Hyperthyroidism,Endocrinology
+Constant feeling of being cold.,Hypothyroidism,Endocrinology
+Unexplained bruises appearing on the skin.,Leukemia,"Oncology, Khoa Xét nghiệm (huyết học)"
+Persistent sore throat and fever.,Strep Throat,Otorhinolaryngology (ENT)
+Severe mood swings affecting daily life.,Bipolar Disorder,Psychiatry
+Experiencing chest pain and tightness.,Angina,Cardiology
+Unusual hair loss in patches.,Alopecia Areata,Dermatology
+Swelling and pain in the joints.,Rheumatoid Arthritis,"General Internal Medicine, Orthopedics"
+Constant nausea and occasional vomiting.,Gastroenteritis,Gastroenterology
+Experiencing flashes of light in vision.,Retinal Detachment,Ophthalmology
+Sudden and severe abdominal pain.,Appendicitis,General Surgery
+"Dry, itchy patches on the skin.",Eczema,Dermatology
+Frequent and severe nosebleeds.,Epistaxis,Otorhinolaryngology (ENT)
+Difficulty swallowing and throat tightness.,Esophageal Stricture,"Gastroenterology, General Surgery"
+Unintentional weight gain and facial puffiness.,Hypothyroidism,Endocrinology
+"High fever, headache, and stiff neck.",Meningitis,"Neurology, Emergency Medicine"
+Pain and burning sensation when urinating.,Urinary Tract Infection,Nephrology - Urology
+Severe itching and swelling after insect bites.,Severe Allergic Reaction,"Emergency Medicine, Dermatology"
+Painful blisters on the lips or around the mouth.,Herpes Simplex,Dermatology
+Blood in urine without pain.,Hematuria,Nephrology - Urology
+Cramps and bloating in the lower abdomen.,Irritable Bowel Syndrome,Gastroenterology
+White patches inside the mouth or on the tongue.,Oral Thrush,"Dentistry, General Internal Medicine"
+Sudden severe headache with no known cause.,Subarachnoid Hemorrhage,"Neurology, Intensive Care Unit (ICU)"
+"Red, painful eye with blurred vision.",Uveitis,Ophthalmology
+"Swollen, tender lymph nodes in the neck.",Lymphadenitis,"General Internal Medicine, Oncology"
+Difficulty breathing after eating certain foods.,Food Allergy,"Dermatology, Emergency Medicine"
+Intense burning sensation and redness in the eye.,Conjunctivitis,Ophthalmology
+Recurring episodes of fainting or dizziness.,Vasovagal Syncope,"Neurology, Cardiology"
+Sudden onset of paralysis on one side of the face.,Bell's Palsy,Neurology
+Excruciating pain around the lower back area.,Kidney Stones,Nephrology - Urology
+Noticeable change in bowel habits and blood in stool.,Colorectal Cancer,"Oncology, General Surgery, Gastroenterology"
+Extreme fatigue and yellowing of the skin.,Hepatitis C,Gastroenterology
+Severe pain in the chest that radiates to the left arm.,Myocardial Infarction,"Cardiology, Emergency Medicine, Intensive Care Unit (ICU)"
+Unexpected swelling and pain in one leg.,Deep Vein Thrombosis,Cardiology
+Intense abdominal pain and bloating after meals.,Gallstones,"Gastroenterology, General Surgery"
+Recurring severe headaches accompanied by nausea.,Migraine,Neurology
+Loss of appetite and metallic taste in the mouth.,Gastroesophageal Reflux Disease,Gastroenterology
+Frequent memory lapses and confusion.,Alzheimer's Disease,Neurology
+Uncontrollable shaking of hands.,Parkinson's Disease,Neurology
+Sudden loss of vision in one eye.,Retinal Vein Occlusion,Ophthalmology
+Chronic soreness and stiffness in the shoulder.,Frozen Shoulder,"Orthopedics, Physical Medicine and Rehabilitation"
+Ringing in the ears that doesn't go away.,Tinnitus,Otorhinolaryngology (ENT)
+Recurring painful ulcers in the mouth.,Aphthous Ulcers,Dentistry
+Persistent itchiness and flaking of the scalp.,Seborrheic Dermatitis,Dermatology
+Unexplained episodes of rapid heartbeat.,Paroxysmal Supraventricular Tachycardia,Cardiology
+Continuous sneezing and watery eyes during spring.,Allergic Rhinitis,"Otorhinolaryngology (ENT), Dermatology"
+"Hard, dry stools and difficulty passing them.",Constipation,Gastroenterology
+Sharp chest pains and difficulty swallowing food.,Esophagitis,Gastroenterology
+High blood pressure readings on multiple occasions.,Hypertension,"Cardiology, General Internal Medicine"
+Swelling and stiffness in the hands in the morning.,Rheumatoid Arthritis,"General Internal Medicine, Orthopedics"
+Red and itchy patches of skin covered with silvery scales.,Psoriasis,Dermatology
+Intense fear and avoidance of social situations.,Social Anxiety Disorder,Psychiatry
+Seeing double images in one line of vision.,Diplopia,"Ophthalmology, Neurology"
+"Frequent intense urges to urinate, even at night.",Overactive Bladder,Nephrology - Urology
+"Throbbing pain in the big toe, especially at night.",Gout,"General Internal Medicine, Orthopedics"
+Shortness of breath and wheezing after exercise.,Exercise-Induced Asthma,Pulmonology
+Excessive snoring and feeling tired after a full night's sleep.,Sleep Apnea,"Pulmonology, Otorhinolaryngology (ENT)"
+Burning sensation in the stomach and chest after eating.,Gastroesophageal Reflux Disease,Gastroenterology
+Consistent pain and clicking noise in the jaw.,Temporomandibular Joint Disorder,Dentistry
+"Round, bald patches suddenly appearing on the scalp.",Alopecia Areata,Dermatology
+"Sudden, severe pain in the lower right abdomen.",Appendicitis,General Surgery
+"Cracking, itchy, or red skin between the toes.",Athlete's Foot,Dermatology
+Experiencing a deep sense of sadness and loss of interest.,Major Depressive Disorder,Psychiatry
+Persistent dry cough and a feeling of a lump in the throat.,Chronic Bronchitis,Pulmonology
+"Severe reaction to peanuts, including difficulty breathing.",Peanut Allergy,"Nutrition, Pulmonology"
+"Numbness and tingling in fingers, especially in cold weather.",Raynaud's Phenomenon,Cardiology
+Severe abdominal cramps and bloody diarrhea.,Ulcerative Colitis,Gastroenterology
+"Painful, swollen joints in the morning that improve with activity.",Rheumatoid Arthritis,"Orthopedics, General Internal Medicine"
+"Bluish skin color, especially on the lips and fingertips.",Cyanosis,"Cardiology, Pulmonology"
+Fever with swollen lymph nodes and a rash across the cheeks.,Lupus,General Internal Medicine
+"Severe, acute pain in the lower back, radiating to the groin.",Kidney Stones,Nephrology - Urology
+"Brownish patches on the skin, mostly on the face.",Melasma,Dermatology
+Violent shaking and chills without any apparent reason.,Malaria,General Internal Medicine
+"Brittle nails and hair loss, feeling cold all the time.",Hypothyroidism,Endocrinology
+Frequent muscle cramps and spasms in the legs.,Electrolyte Imbalance,General Internal Medicine
+"Difficulty focusing on close objects, needing more light to read.",Presbyopia,Ophthalmology
+Unexpected and unexplained bruising on the body.,Hemophilia,General Internal Medicine
+A sudden increase in frequency and intensity of headaches.,Migraines,Neurology
+"Extremely dry, cracked skin that may bleed.",Eczema,Dermatology
+Constantly feeling thirsty and drinking large amounts of water.,Diabetes Insipidus,Endocrinology
+"Uncontrollable movements of the eyes, rapid side to side.",Nystagmus,"Ophthalmology, Neurology"
+A lump in the neck that can be felt from the outside.,Thyroid Nodule,Endocrinology
+"Sudden, unexplained weight loss and night sweats.",Lymphoma,Oncology
+"Difficulty maintaining balance, feeling dizzy when standing up.",Orthostatic Hypotension,Cardiology
+Red streaks spreading from a cut or scratch.,Cellulitis,Dermatology
+"Severe reaction to bee stings, including swelling and difficulty breathing.",Anaphylaxis,"Pulmonology, Emergency Medicine"
+Experiencing flashes of light and floaters in vision.,Retinal Detachment,Ophthalmology
+Intolerable itching in the ears and throat.,Allergic Rhinitis,"Otorhinolaryngology (ENT), Pulmonology"
+Discomfort and pain in the chest after eating spicy foods.,Acid Reflux,Gastroenterology
+"Persistent sadness, loss of interest in activities, and fatigue.",Depression,Psychiatry
+Sharp pains shooting down the leg from the lower back.,Sciatica,Neurology
+Irregular heartbeat and fainting spells.,Arrhythmia,Cardiology
+"White, painless patches inside the mouth.",Leukoplakia,Dentistry
+Frequent episodes of intense fear and palpitations without any apparent trigger.,Panic Attacks,Psychiatry
+"Excessive sweating, even in cool temperatures or at rest.",Hyperhidrosis,Dermatology
+"Burning pain and stiffness in the Achilles tendon, especially in the morning.",Achilles Tendinitis,Orthopedics
+"Severe abdominal pain and tenderness, especially in the lower right side.",Appendicitis,General Surgery
+"Difficulty swallowing, feeling like food is stuck in the throat.",Esophageal Obstruction,Gastroenterology
+"A chronic dry, hacking cough without any signs of infection.",Chronic Bronchitis,Pulmonology
+Noticeable thinning of the hair on the top of the head.,Androgenetic Alopecia,Dermatology
+"Greenish discharge from the eyes, accompanied by itching and irritation.",Conjunctivitis,Ophthalmology
+"Experiencing confusion, difficulty speaking, and understanding speech.",Stroke,Neurology
+Constant feeling of fullness in the ears and hearing loss.,Eustachian Tube Dysfunction,Otorhinolaryngology (ENT)
+"Blood in stool, along with a change in bowel movement frequency.",Colorectal Cancer,"Oncology, Gastroenterology"
+"Persistent cough with mucus, shortness of breath",Chronic Bronchitis,Pulmonology
+Itchy red skin rashes after contact with certain materials,Contact Dermatitis,Dermatology
+"Unexplained weight loss, fatigue, night sweats",Lymphoma,Oncology
+"Dry cough, fever, weight loss, night sweats",Tuberculosis,"Pulmonology, General Internal Medicine"
+"Severe joint pain and swelling, fatigue",Rheumatoid Arthritis,"Orthopedics, General Internal Medicine"
+"Frequent urination, extreme thirst, unexplained weight loss",Type 1 Diabetes,Endocrinology
+Sudden vision loss or floaters in vision,Retinal Detachment,Ophthalmology
+"Recurrent sore throat, swollen tonsils, fever",Pharyngitis,Otorhinolaryngology (ENT)
+"Severe chest pain on exertion, shortness of breath",Angina Pectoris,Cardiology
+"Persistent sadness, loss of interest, sleep disturbances",Major Depressive Disorder,Psychiatry
+"Enlarged lymph nodes, tenderness, and fever.",Lymphadenitis,"General Internal Medicine, Oncology"
+"Itchy skin, rash, swelling after certain foods.",Food Allergy,"Dermatology, Emergency Medicine"
+"Red, itchy eyes with discharge.",Conjunctivitis,Ophthalmology
+"Dizziness, fainting when standing.",Vasovagal Syncope,"Neurology, Cardiology"
+Sudden facial muscle weakness or paralysis.,Bell's Palsy,Neurology
+"Severe flank pain, nausea, blood in urine.",Kidney Stones,Nephrology - Urology
+"Blood in stool, unexplained weight loss.",Colorectal Cancer,"Oncology, General Surgery"
+"Fatigue, jaundice, joint pain.",Hepatitis C,Gastroenterology
+"Chest pain radiating to the arm, shortness of breath.",Myocardial Infarction,"Cardiology, Emergency Medicine"
+"Swollen leg, pain, warmth, redness.",Deep Vein Thrombosis,Cardiology
+"Sudden abdominal pain, nausea after fatty meals.",Gallstones,"Gastroenterology, General Surgery"
+"Pulsating headache, nausea, visual disturbances.",Migraine,Neurology
+Burning sensation in chest after eating.,Gastroesophageal Reflux Disease,Gastroenterology
+"Memory loss, difficulty performing familiar tasks.",Alzheimer's Disease,Neurology
+"Tremors, stiffness, slow movements.",Parkinson's Disease,Neurology
+Sudden blurry vision or vision loss in one eye.,Retinal Vein Occlusion,Ophthalmology
+"Shoulder stiffness, pain, reduced motion.",Frozen Shoulder,"Orthopedics, Physical Medicine and Rehabilitation"
+Ringing or buzzing in the ears.,Tinnitus,Otorhinolaryngology (ENT)
+Painful sores inside the mouth.,Aphthous Ulcers,Dentistry
+"Scaly patches, redness, dandruff.",Seborrheic Dermatitis,Dermatology
+"Rapid heartbeat, dizziness, shortness of breath.",Paroxysmal Supraventricular Tachycardia,Cardiology
+"Sneezing, itchy nose, watery eyes.",Allergic Rhinitis,"Otorhinolaryngology (ENT), Dermatology"
+"Infrequent bowel movements, bloating.",Constipation,Gastroenterology
+Pain or difficulty when swallowing.,Esophagitis,Gastroenterology
+Elevated blood pressure readings.,Hypertension,"Cardiology, General Internal Medicine"
+"Joint pain, stiffness, swelling.",Rheumatoid Arthritis,"General Internal Medicine, Orthopedics"
+"Red, scaly skin patches.",Psoriasis,Dermatology
+Intense fear of social situations.,Social Anxiety Disorder,Psychiatry
+"Double vision, eye strain.",Diplopia,"Ophthalmology, Neurology"
+"Urgency and frequent urination, even at night.",Overactive Bladder,Nephrology - Urology
+"Sudden joint pain, swelling (often big toe).",Gout,"General Internal Medicine, Chấn thương chỉnh hình"
+Shortness of breath during or after exercise.,Exercise-Induced Asthma,Pulmonology
+"Loud snoring, daytime fatigue.",Sleep Apnea,"Pulmonology, Otorhinolaryngology (ENT)"
+"Painful burning in chest, especially after meals.",Gastroesophageal Reflux Disease,Gastroenterology
+"Jaw pain, clicking sound when chewing.",Temporomandibular Joint Disorder,Dentistry
+Patchy hair loss on scalp or body.,Alopecia Areata,Dermatology
+Sudden severe abdominal pain on lower right side.,Appendicitis,General Surgery
+"Itchy, peeling skin between the toes.",Athlete's Foot,Dermatology
+"Persistent sadness, loss of interest.",Major Depressive Disorder,Psychiatry
+"Chronic cough with mucus, especially in smokers.",Chronic Bronchitis,Pulmonology
+Blurred vision and eye floaters,Diabetic Retinopathy,Ophthalmology
+"Numbness in hands, especially at night",Carpal Tunnel Syndrome,Orthopedics
+"Sudden weight gain, moon face, high blood pressure",Cushing's Syndrome,Endocrinology
+"Recurrent abdominal pain, diarrhea, blood in stool",Ulcerative Colitis,Gastroenterology
+"Stiff neck, fever, and headache",Meningitis,"Neurology, Pediatrics"
+Swollen feet and shortness of breath,Heart Failure,Cardiology
+"Rapid heartbeat, heat intolerance, weight loss",Hyperthyroidism,Endocrinology
+"Tremors and slow movements, stiffness",Parkinson's Disease,Neurology
+"Fatigue, shortness of breath, and pale skin",Iron Deficiency Anemia,General Internal Medicine
+Constant sadness and lack of energy,Depression,Psychiatry
+"Sneezing, itchy eyes and runny nose",Seasonal Allergies,Otorhinolaryngology (ENT)
+"Chest pain during exertion, relieved by rest",Angina Pectoris,Cardiology
+Chronic hoarseness and sore throat,Laryngitis,Otorhinolaryngology (ENT)
+"Frequent mood swings, high energy followed by depression",Bipolar Disorder,Psychiatry
+Severe back pain radiating down one leg,Sciatica,Neurology
+"Fever, sore throat, white patches on tonsils",Tonsillitis,Otorhinolaryngology (ENT)
+"Excessive daytime sleepiness, loud snoring",Sleep Apnea,Pulmonology
+"Chronic dry skin, redness and inflammation",Atopic Dermatitis,Dermatology
+"Sudden hearing loss, ringing in the ears",Tinnitus,Otorhinolaryngology (ENT)
+"Loss of balance, dizziness, and nausea",Vertigo,Neurology
+"Difficulty swallowing, chest discomfort",Esophageal Stricture,Gastroenterology
+"Abdominal cramps, bloating, and diarrhea",Irritable Bowel Syndrome,Gastroenterology
+"Joint pain, stiffness worse in the morning",Osteoarthritis,Orthopedics
+"Pale complexion, fatigue, and brittle nails",Anemia,General Internal Medicine
+Blurred central vision in older adult,Age-related Macular Degeneration,Ophthalmology
+"Sharp abdominal pain, especially lower right",Appendicitis,General Surgery
+Skin discoloration and pain in cold weather,Raynaud’s Phenomenon,General Internal Medicine
+Dark facial patches aggravated by sunlight,Melasma,Dermatology
+"Itchy, watery eyes and nasal congestion",Allergic Rhinitis,Otorhinolaryngology (ENT)
+"Severe allergic reaction, swollen face and lips",Anaphylaxis,Emergency Medicine
+"Sudden, severe headache, nausea, blurred vision",Subarachnoid Hemorrhage,Neurology
+"Chronic constipation, narrow stools",Colorectal Cancer,"Oncology, Gastroenterology"
+"Cold hands and feet, slow heart rate",Hypothyroidism,Endocrinology
+"Recurrent fever, night sweats, weight loss",Tuberculosis,Pulmonology
+"Eye redness, itching, and discharge",Conjunctivitis,Ophthalmology
+"Abnormal bleeding, weight loss, swallowing issues",Esophageal Cancer,"Oncology, Gastroenterology"
+Episodes of fainting triggered by stress,Vasovagal Syncope,Cardiology
+Acne with cysts on face and back,Cystic Acne,Dermatology
+Chest pain and fatigue during exercise,Chronic Asthma,Pulmonology
+Stiff neck and fever in child suspecting meningitis,Meningitis,"Pediatrics, Neurology"
+"Frequent urination, blurry vision, increased thirst",Type 2 Diabetes,Endocrinology
+"Sudden chest pain, shortness of breath",Pulmonary Embolism,Intensive Care Unit (ICU)
+"Skin redness, warmth, and swelling after cut",Cellulitis,Dermatology
+"Persistent bloating, changes in bowel habits",Ovarian Cancer,"Oncology, Obstetrics"
+"Excessive hair growth, irregular periods",Polycystic Ovary Syndrome (PCOS),"Endocrinology, Obstetrics"
+"Recurring fever, sore throat, swollen glands",Infectious Mononucleosis,General Internal Medicine
+"Difficulty breathing, chest tightness",Chronic Obstructive Pulmonary Disease,Pulmonology
+"Severe lower abdominal pain, nausea",Ectopic Pregnancy,Obstetrics
+"Muscle cramps, twitching, fatigue",Electrolyte Imbalance,General Internal Medicine
+"Dark stools, fatigue, abdominal pain",Peptic Ulcer Disease,Gastroenterology
+Redness and irritation between toes,Athlete’s Foot,Dermatology
+Sudden severe abdominal pain and vomiting,Pancreatitis,Gastroenterology
+Severe lower back pain without trauma,Herniated Disc,"Neurology, Orthopedics"
+"Chronic dry cough, low-grade fever",Lung Cancer,"Oncology, Pulmonology"
+"Joint pain, rash, and photosensitivity",Lupus (SLE),General Internal Medicine
+Recurrent ulcers in mouth and genitals,Behçet’s Disease,General Internal Medicine
+"Thick yellow toenails, brittle and deformed",Nail Fungus,Dermatology
+"Irregular heartbeats, dizziness, chest discomfort",Arrhythmia,Cardiology
+Sudden vision loss in one eye,Central Retinal Artery Occlusion,Ophthalmology
+Persistent ringing sound in ear,Tinnitus,Otorhinolaryngology (ENT)
+"Sudden intense eye pain, blurred vision",Acute Glaucoma,Ophthalmology
+Swelling and pain in the knee joint,Knee Effusion,Orthopedics
+Numbness and tingling in extremities,Peripheral Neuropathy,Neurology
+"Rapid mood changes, agitation, hallucinations",Schizophrenia,Psychiatry
+"Painful urination, pelvic pain in males",Prostatitis,Nephrology - Urology
+"Chronic sore throat, hoarseness",Esophagitis,Gastroenterology
+Unexplained bruising and prolonged bleeding,Hemophilia,"Khoa Huyết học, Pediatrics"
+"Painful bowel movements, blood on toilet paper",Anal Fissure,General Surgery
+"Intense itching in the scalp, hair loss",Alopecia Areata,Dermatology
+Persistent sadness after childbirth,Postpartum Depression,"Psychiatry, Obstetrics"
+Frequent sneezing and watery eyes,Dust Allergy,Otorhinolaryngology (ENT)
+Sharp flank pain radiating to the groin,Kidney Stones,Nephrology - Urology
+Painful blisters on one side of the body,Shingles (Herpes Zoster),Dermatology
+Intense fear and palpitations in crowds,Agoraphobia,Psychiatry
+Dark yellow skin and sclera,Jaundice,General Internal Medicine
+Painful red eye with decreased vision,Uveitis,Ophthalmology
+Excessive daytime sleepiness despite full night sleep,Narcolepsy,Neurology
+"Leg swelling, redness, warmth",Deep Vein Thrombosis,Cardiology
+Pain and burning with urination,Urinary Tract Infection,Nephrology - Urology
+"Neck stiffness, high fever, photophobia",Meningitis,Neurology
+Sudden leg weakness and loss of balance,Multiple Sclerosis,Neurology
+Discharge and itching in the genital area,Vaginal Candidiasis,Obstetrics
+"Dry mouth, joint pain, eye irritation",Sjögren's Syndrome,General Internal Medicine
+"Excessive sweating at night, swollen nodes",Hodgkin’s Lymphoma,Oncology
+Darkened skin patches on neck and armpits,Acanthosis Nigricans,Endocrinology
+Limping and hip pain in child,Legg-Calvé-Perthes Disease,"Orthopedics, Pediatrics"
+"Sudden panic, chest tightness, fear of dying",Panic Disorder,Psychiatry
+Skin infection with yellow crusts,Impetigo,"Dermatology, Pediatrics"
+"Frequent infections, chronic fatigue",HIV/AIDS,"General Internal Medicine, Khoa Truyền nhiễm"
+"Abdominal pain, bloating after eating",Lactose Intolerance,Gastroenterology
+Sudden swelling of lips and tongue,Angioedema,Emergency Medicine
+"Frequent urination, blurry vision, increased thirst",Type 2 Diabetes,Endocrinology
+"Sudden chest pain, shortness of breath",Pulmonary Embolism,Intensive Care Unit (ICU)
+"Skin redness, warmth, and swelling after cut",Cellulitis,Dermatology
+"Persistent bloating, changes in bowel habits",Ovarian Cancer,"Oncology, Obstetrics"
+"Excessive hair growth, irregular periods",Polycystic Ovary Syndrome (PCOS),"Endocrinology, Obstetrics"
+"Recurring fever, sore throat, swollen glands",Infectious Mononucleosis,General Internal Medicine
+"Difficulty breathing, chest tightness",Chronic Obstructive Pulmonary Disease,Pulmonology
+"Severe lower abdominal pain, nausea",Ectopic Pregnancy,Obstetrics
+"Muscle cramps, twitching, fatigue",Electrolyte Imbalance,General Internal Medicine
+"Dark stools, fatigue, abdominal pain",Peptic Ulcer Disease,Gastroenterology
+Redness and irritation between toes,Athlete’s Foot,Dermatology
+Sudden severe abdominal pain and vomiting,Pancreatitis,Gastroenterology
+Severe lower back pain without trauma,Herniated Disc,"Neurology, Orthopedics"
+"Chronic dry cough, low-grade fever",Lung Cancer,"Oncology, Pulmonology"
+"Joint pain, rash, and photosensitivity",Lupus (SLE),General Internal Medicine
+Recurrent ulcers in mouth and genitals,Behçet’s Disease,General Internal Medicine
+"Thick yellow toenails, brittle and deformed",Nail Fungus,Dermatology
+"Irregular heartbeats, dizziness, chest discomfort",Arrhythmia,Cardiology
+Sudden vision loss in one eye,Central Retinal Artery Occlusion,Ophthalmology
+Persistent ringing sound in ear,Tinnitus,Otorhinolaryngology (ENT)
+"Sudden intense eye pain, blurred vision",Acute Glaucoma,Ophthalmology
+Swelling and pain in the knee joint,Knee Effusion,Orthopedics
+Numbness and tingling in extremities,Peripheral Neuropathy,Neurology
+"Rapid mood changes, agitation, hallucinations",Schizophrenia,Psychiatry
+"Painful urination, pelvic pain in males",Prostatitis,Nephrology - Urology
+"Chronic sore throat, hoarseness",Esophagitis,Gastroenterology
+Unexplained bruising and prolonged bleeding,Hemophilia,Pediatrics
+"Painful bowel movements, blood on toilet paper",Anal Fissure,General Surgery
+"Intense itching in the scalp, hair loss",Alopecia Areata,Dermatology
+Persistent sadness after childbirth,Postpartum Depression,"Psychiatry, Obstetrics"
+Frequent sneezing and watery eyes,Dust Allergy,Otorhinolaryngology (ENT)
+Sharp flank pain radiating to the groin,Kidney Stones,Nephrology - Urology
+Painful blisters on one side of the body,Shingles (Herpes Zoster),Dermatology
+Intense fear and palpitations in crowds,Agoraphobia,Psychiatry
+Dark yellow skin and sclera,Jaundice,General Internal Medicine
+Painful red eye with decreased vision,Uveitis,Ophthalmology
+Excessive daytime sleepiness despite full night sleep,Narcolepsy,Neurology
+"Leg swelling, redness, warmth",Deep Vein Thrombosis,Cardiology
+Pain and burning with urination,Urinary Tract Infection,Nephrology - Urology
+"Neck stiffness, high fever, photophobia",Meningitis,Neurology
+Sudden leg weakness and loss of balance,Multiple Sclerosis,Neurology
+Discharge and itching in the genital area,Vaginal Candidiasis,Obstetrics
+"Dry mouth, joint pain, eye irritation",Sjögren's Syndrome,General Internal Medicine
+"Excessive sweating at night, swollen nodes",Hodgkin’s Lymphoma,Oncology
+Darkened skin patches on neck and armpits,Acanthosis Nigricans,Endocrinology
+Limping and hip pain in child,Legg-Calvé-Perthes Disease,"Orthopedics, Pediatrics"
+"Sudden panic, chest tightness, fear of dying",Panic Disorder,Psychiatry
+Skin infection with yellow crusts,Impetigo,"Dermatology, Pediatrics"
+"Frequent infections, chronic fatigue",HIV/AIDS,"General Internal Medicine, Khoa Truyền nhiễm"
+"Abdominal pain, bloating after eating",Lactose Intolerance,Gastroenterology
+Sudden swelling of lips and tongue,Angioedema,Emergency Medicine

@@ -146,7 +146,7 @@ export class AppointmentDetailService {
 
     const sheets = google.sheets({ version: 'v4', auth });
     const spreadsheetId = process.env.AI_SPREADSHEET_ID!;
-    const range = 'Sheet1!A2:E'; // Cột A: recordId, B: symptoms, C: diagnosis, D: prescription, E: specialization (en)
+    const range = 'Sheet1!A2:C'; // A: patient_problem, B: diagnosis, C: specialization (en)
 
     const specializationEn =
       specializationMapping[record.specialization] || record.specialization;

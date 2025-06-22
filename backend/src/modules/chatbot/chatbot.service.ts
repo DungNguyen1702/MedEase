@@ -10,8 +10,12 @@ import { google } from 'googleapis';
 export class ChatbotService {
   private readonly geminiApiUrl = process.env.GEMINI_API_URL;
 
-  private faqList: { question: string; answer: string; vector: number[] }[] =
-    [];
+  private faqList: {
+    id: string;
+    question: string;
+    answer: string;
+    vector: number[];
+  }[] = [];
 
   constructor() {
     this.loadFAQ();
@@ -44,10 +48,11 @@ export class ChatbotService {
 
     this.faqList = await Promise.all(
       rows.map(async row => {
+        const id = row[0];
         const question = row[1];
         const answer = row[2];
         const vector = await model.embed(question);
-        return { question, answer, vector };
+        return { id, question, answer, vector };
       })
     );
   }
@@ -110,6 +115,14 @@ export class ChatbotService {
         values: [row],
       },
     });
+
+    // ✅ Cập nhật faqList trong RAM
+    this.faqList.push({
+      id: questionId,
+      question,
+      answer: '',
+      vector: embedding,
+    });
   }
 
   async updateAnswerInSheet(questionId: string, newAnswer: string) {
@@ -162,6 +175,12 @@ export class ChatbotService {
         values: [[updatedAnswer]],
       },
     });
+
+    // ✅ Update RAM
+    const faq = this.faqList.find(f => f.id === questionId);
+    if (faq) {
+      faq.answer = updatedAnswer;
+    }
   }
 
   async answer(userQuestion: string, questionId: string) {

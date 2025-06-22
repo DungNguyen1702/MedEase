@@ -51,7 +51,7 @@ export class AccountController {
     return this.accountService.delete(id);
   }
 
-  @UseGuards(new RoleGuard([AccountRoleEnum.PATIENT]))
+  @UseGuards(new RoleGuard([AccountRoleEnum.PATIENT, AccountRoleEnum.DOCTOR]))
   @UseGuards(AuthGuard)
   @Put()
   @UseInterceptors(FileInterceptor('avatar'))
@@ -60,7 +60,8 @@ export class AccountController {
     @Body() updateAccountDto: UpdateAccountDto,
     @UploadedFile() file: Multer.File
   ) {
-    // console.log(file);
+    console.log(file);
+    console.log("updateAccountDto", updateAccountDto); 
     if (file) {
       const uploadResult = await this.uploadService.uploadImage(file);
       updateAccountDto.avatar = uploadResult.url;

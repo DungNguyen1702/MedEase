@@ -87,6 +87,7 @@ export class AccountService {
     if (updateAccountDto.role === AccountRoleEnum.DOCTOR) {
       // Kiểm tra đã có doctor chưa
       let doctor = await this.doctorModel.findOne({ account_id: id }).exec();
+      console.log('doctor', doctor);
       if (doctor) {
         // Cập nhật doctor
         doctor.specialization_id =
@@ -121,11 +122,12 @@ export class AccountService {
           : updatedAccount,
         specialization,
       };
-    } else {
-      // Nếu không phải doctor thì xóa doctor nếu có
-      await this.doctorModel.deleteOne({ account_id: id }).exec();
-      return updatedAccount;
     }
+    // else {
+    //   // Nếu không phải doctor thì xóa doctor nếu có
+    //   await this.doctorModel.deleteOne({ account_id: id }).exec();
+    //   return updatedAccount;
+    // }
   }
 
   async findAll(): Promise<Account[]> {

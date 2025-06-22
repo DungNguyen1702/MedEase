@@ -24,6 +24,8 @@ import {
 import { NotificationService } from '../notification/notification.service';
 import { google } from 'googleapis';
 import { specializationMapping } from '../../common/constants';
+import { translateText } from '../../common/utils/translator.utils';
+
 @Injectable()
 export class AppointmentDetailService {
   constructor(
@@ -151,7 +153,14 @@ export class AppointmentDetailService {
     const specializationEn =
       specializationMapping[record.specialization] || record.specialization;
 
-    const row = [record.symptoms, record.diagnosis, specializationEn];
+    const translatedSymptoms = await translateText(record.symptoms);
+    const translatedDiagnosis = await translateText(record.diagnosis);
+
+    // console.log(
+    //   `Appending to sheet: Symptoms: ${translatedSymptoms}, Diagnosis: ${translatedDiagnosis}, Specialization: ${specializationEn}`
+    // );
+
+    const row = [translatedSymptoms, translatedDiagnosis, specializationEn];
 
     await sheets.spreadsheets.values.append({
       spreadsheetId,

@@ -55,11 +55,11 @@ export class MomoPaymentService {
     const secretKey = process.env.MOMO_SECRET_KEY;
     const orderInfo = 'pay with MoMo';
     const partnerCode = 'MOMO';
-    const redirectUrl = rootRedirectUrl;
     const ipnUrl = process.env.DEPLOY_SERVICE_LINK + '/momo-payment/callback';
     const requestType = 'payWithMethod';
     const amount = `${totalPrice}`;
     const orderId = partnerCode + new Date().getTime();
+    const redirectUrl = rootRedirectUrl + "?orderId=" + orderId;
     const requestId = orderId;
     const dataCallback = [
       {

@@ -23,6 +23,9 @@ import AdminPatients from "../pages/admin/patients";
 import VerifyRegister from "../pages/register/VerifyRegister.jsx";
 import VerifyResetPassword from "../pages/register/VerifyResetPassword.jsx";
 import ResetPasswordForm from "../pages/register/ResetPasswordForm.jsx";
+import PaymentSuccess from "../pages/payment-success/index.jsx";
+import ProfileInfo from "../pages/doctor/profile_info";
+import ChangePassword from "../pages/doctor/update_password/index.jsx";
 
 const AllRoutes = () => {
   useEffect(() => {
@@ -83,6 +86,12 @@ const AllRoutes = () => {
             <MainLayout children={<ResetPasswordForm />} isFooter={false} />
           }
         />
+        <Route
+          path="/payment/success"
+          element={
+            <PaymentSuccess/>
+          }
+        />
       </Route>
 
       {/* // admin, doctor route  */}
@@ -111,6 +120,14 @@ const AllRoutes = () => {
         <Route
           path="/doctor/patient/:id"
           element={<MainLayout children={<PatientProfile />} />}
+        />
+        <Route
+          path="/doctor/update-profile"
+          element={<MainLayout children={<ProfileInfo />} />}
+        />
+        <Route
+          path="/doctor/update-password"
+          element={<MainLayout children={<ChangePassword />} />}
         />
 
         {/* admin */}

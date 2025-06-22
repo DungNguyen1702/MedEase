@@ -24,7 +24,7 @@ const paginateData = (data, page, limit) => {
 };
 
 function HomepageDoctor() {
-    const { account } = useAuth();
+    const { account, token } = useAuth();
     const [todayAppointmentNum, setTodayAppointmentNum] = useState(0);
     const [totalAppointmentNum, setTotalAppointmentNum] = useState(0);
     const [loading, setLoading] = useState(false);
@@ -147,8 +147,39 @@ function HomepageDoctor() {
     };
 
     useEffect(() => {
-        callAPI();
-    }, []);
+        console.log("account123123: ", account);
+        console.log("token123123: ", token);
+        console.log(
+            "localStorage123123: ",
+            localStorage.getItem("access_token")
+        );
+        if (account && localStorage.getItem("access_token")) {
+            callAPI();
+        }
+    }, [account]);
+
+    // useEffect(() => {
+    //     console.log("account-out123123: ", account);
+    //     console.log("token-out123123: ", token);
+    //     console.log(
+    //         "localStorage-out123123: ",
+    //         localStorage.getItem("access_token")
+    //     );
+    //     const timeout = setTimeout(() => {
+    //         console.log("account123123: ", account);
+    //         console.log("token123123: ", token);
+    //         console.log(
+    //             "localStorage123123: ",
+    //             localStorage.getItem("access_token")
+    //         );
+    //         const token = localStorage.getItem("access_token");
+    //         if (account && token) {
+    //             callAPI();
+    //         }
+    //     }, 1000); // hoặc 3000ms nếu cần
+
+    //     return () => clearTimeout(timeout);
+    // }, [account]);
 
     useEffect(() => {
         setPaginatedAppointments(

@@ -30,8 +30,6 @@ export default function AccountInfoEdit() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  console.log(formatDateToYYYYMMDD(account.date_of_birth));
-
   const [showDate, setShowDate] = useState(false);
 
   const [name, setName] = useState(account.name);
@@ -83,6 +81,7 @@ export default function AccountInfoEdit() {
 
     try {
       const formData = new FormData();
+      formData.append("id", account._id);
       formData.append("name", name);
       formData.append("tel", tel);
       formData.append("address", address);

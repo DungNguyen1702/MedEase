@@ -56,13 +56,13 @@ export class ZaloPaymentService {
       endpoint: this.configService.get<string>('ZALOPAY_ENDPOINT_CREATE'),
     };
 
-    const embed_data = {
-      redirecturl: rootRedirectUrl,
-    };
-
     const transID = Math.floor(Math.random() * 1000000);
 
     const appTransId = `${moment().format('YYMMDD')}_${transID}`;
+
+    const embed_data = {
+      redirecturl: rootRedirectUrl + '?orderId=' + appTransId,
+    };
 
     const items = [
       {

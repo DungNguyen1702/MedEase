@@ -70,10 +70,10 @@ const Header = () => {
   // Menu cho dropdown
   const menu = (
     <Menu>
-      <Menu.Item key="1" onClick={() => navigate("/profile")}>
+      <Menu.Item key="1" onClick={() => navigate("/doctor/update-profile")}>
         Thay đổi thông tin
       </Menu.Item>
-      <Menu.Item key="2" onClick={() => navigate("/change-password")}>
+      <Menu.Item key="2" onClick={() => navigate("/doctor/update-password")}>
         Thay đổi mật khẩu
       </Menu.Item>
       <Menu.Item key="3" onClick={logout}>

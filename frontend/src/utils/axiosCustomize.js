@@ -1,8 +1,6 @@
 import axios from 'axios';
 import queryString from 'query-string';
 
-const accessToken = localStorage.getItem('access_token');
-
 const axiosClient = {
   application: axios.create({
     baseURL: import.meta.env.VITE_PUBLIC_API_URL || 'http://fallback-api-url.com',
@@ -39,7 +37,6 @@ const axiosClient = {
     headers: {
       'content-type': 'multipart/form-data',
       'Accept-Language': 'vi',
-      Authorization: `Bearer ${accessToken}`,
     },
   }),
 
@@ -73,17 +70,41 @@ const handleLogout = (navigate, toast) => {
 };
 
 export const setupInterceptors = (navigate, toast, logout) => {
+  // ✅ Gắn token động trước mỗi request
+  axiosClient.application.interceptors.request.use(
+    (config) => {
+      const token = localStorage.getItem("access_token");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    },
+    (error) => Promise.reject(error)
+  );
+  
+  axiosClient.formData.interceptors.request.use(
+    (config) => {
+      const token = localStorage.getItem("access_token");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    },
+    (error) => Promise.reject(error)
+  );
+
+  // ✅ Interceptor response: xử lý khi token hết hạn
   axiosClient.application.interceptors.response.use(
     (response) => response,
     (error) => {
       if (error.response) {
         const { status, data } = error.response;
         if (status === 403 && data.message === 'Token has expired') {
-          logout();
+          logout?.(); // Gọi hàm logout nếu có
         }
       }
       return Promise.reject(error);
-    },
+    }
   );
 
   axiosClient.formData.interceptors.response.use(
@@ -96,7 +117,7 @@ export const setupInterceptors = (navigate, toast, logout) => {
         }
       }
       return Promise.reject(error);
-    },
+    }
   );
 };
 

@@ -43,6 +43,7 @@ import {
 
 import { calculateFee, calculateSumFee } from "../../../../utils/calculateFee";
 import { toast } from "react-toastify";
+import axiosClient from "../../../../utils/axiosCustomize";
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -68,6 +69,8 @@ const AdminAppointments = () => {
   const [specsData, setSpecData] = useState([]);
 
   const callApi = async () => {
+    axiosClient.application.defaults.headers.common["Authorization"] =
+      `Bearer ${localStorage.getItem("accessToken")}`;
     const appointmentsResponse = await appointmentAPI.getAllAppointments();
     const patientsResponse = await patientAPI.getAllPatients();
     const specsResponse = await specAPI.getAllSpec();
@@ -431,6 +434,8 @@ const AdminAppointments = () => {
       };
 
       if (modalType === "add") {
+        axiosClient.application.defaults.headers.common["Authorization"] =
+          `Bearer ${localStorage.getItem("accessToken")}`;
         const res = await appointmentAPI.createAppointment(patientId, data);
         if (res && res.data) {
           setAppointmentsData((prev) => [res.data, ...prev]);
@@ -482,7 +487,8 @@ const AdminAppointments = () => {
           reasonCancel: values.reasonCancel,
           isPaid: values.isPaid,
         };
-
+        axiosClient.application.defaults.headers.common["Authorization"] =
+          `Bearer ${localStorage.getItem("accessToken")}`;
         const res = await appointmentAPI.updateAppointment(
           selectedAppointment._id,
           data
@@ -666,6 +672,8 @@ const AdminAppointments = () => {
 
   const handleDelete = async (id) => {
     try {
+      axiosClient.application.defaults.headers.common["Authorization"] =
+        `Bearer ${localStorage.getItem("accessToken")}`;
       await appointmentAPI.deleteAppointment(id);
       setAppointmentsData((prev) => prev.filter((item) => item._id !== id));
       toast.success("Xóa cuộc hẹn thành công");

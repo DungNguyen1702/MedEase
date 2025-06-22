@@ -44,7 +44,7 @@ function AppointmentDetail({ value }) {
         </p>
         <p>
           <strong>Ngày sinh : </strong>
-          {value?.appointment?.patient?.date_of_birth}
+          {formatDateToYYYYMMDD(value?.appointment?.patient?.date_of_birth || "")}
         </p>
         <div>
           <strong>Triệu chứng : </strong>

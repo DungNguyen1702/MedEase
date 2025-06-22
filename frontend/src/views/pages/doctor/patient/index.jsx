@@ -7,6 +7,7 @@ import { paginateData } from "../../../../utils/stringUtil";
 import PatientCard from "./Components/PatientCard";
 import PaginationComponent from "../../../../components/Pagination";
 import { patientAPI } from "../../../../api/patientAPI";
+import axiosClient from "../../../../utils/axiosCustomize";
 
 function DoctorPatient() {
   const [search, setSearch] = useState("");
@@ -82,6 +83,8 @@ function DoctorPatient() {
 
   const callAPI = async () => {
     try {
+      axiosClient.application.defaults.headers.common["Authorization"] =
+        `Bearer ${localStorage.getItem("accessToken")}`;
       const resAllPatient = await patientAPI.getAllPatients();
       const resExaminatedPatient = await patientAPI.getExaminatedPatients();
 

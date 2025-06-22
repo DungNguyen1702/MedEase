@@ -23,6 +23,7 @@ import { patientAPI } from "../../../../api/patientAPI";
 import callAPIForm from "../../../../utils/callAPIForm";
 import { accountAPI } from "../../../../api/accountAPI";
 import { toast } from "react-toastify";
+import axiosClient from "../../../../utils/axiosCustomize";
 
 const { Option } = Select;
 
@@ -77,6 +78,8 @@ const AdminPatients = () => {
             values.date_of_birth = values.date_of_birth.toISOString();
         }
         if (modalType === "add") {
+            axiosClient.defaults.headers.common["Authorization"] =
+                "Bearer " + localStorage.getItem("access_token");
             const res = await accountAPI.createAccount(values);
             if (res && res.data) {
                 setPatientsData((prev) => [res.data, ...prev]);
@@ -86,6 +89,8 @@ const AdminPatients = () => {
             }
         } else if (modalType === "edit" && selectedPatient) {
             const updateData = { ...values, id: selectedPatient._id };
+            axiosClient.defaults.headers.common["Authorization"] =
+                "Bearer " + localStorage.getItem("access_token");
             const res = await accountAPI.updateAccountByAdmin(updateData);
             if (res && res.data) {
                 setPatientsData((prev) =>
@@ -101,6 +106,8 @@ const AdminPatients = () => {
     };
 
     const handleDelete = async (id) => {
+        axiosClient.defaults.headers.common["Authorization"] =
+            "Bearer " + localStorage.getItem("access_token");
         await accountAPI.deleteAccount(id);
         setPatientsData((prev) => prev.filter((item) => item._id !== id));
         toast.success("Xóa bệnh nhân thành công");

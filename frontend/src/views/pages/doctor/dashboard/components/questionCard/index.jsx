@@ -6,12 +6,15 @@ import { Button } from "antd";
 import { ICONS } from "../../../../../../constants/icons";
 import { questionAPI } from "../../../../../../api/questionAPI";
 import { toast } from "react-toastify";
+import axiosClient from "../../../../../../utils/axiosCustomize";
 
 function QuestionCard({ value }) {
   const [answer, setAnswer] = React.useState("");
 
   const onClickSend = () => {
     if (answer.length === 0) return;
+    axiosClient.application.defaults.headers.common["Authorization"] =
+      `Bearer ${localStorage.getItem("accessToken")}`;
     questionAPI
       .createAnswer(value._id, answer)
       .then((res) => {

@@ -11,6 +11,7 @@ import "./index.scss";
 import { patientAPI } from "../../../../api/patientAPI";
 import { useParams } from "react-router-dom";
 import NoData from "../../../../components/NoData";
+import axiosClient from "../../../../utils/axiosCustomize";
 
 function PatientProfile() {
   const { id } = useParams();
@@ -52,6 +53,8 @@ function PatientProfile() {
 
   const callAPI = async () => {
     try {
+      axiosClient.application.defaults.headers.common["Authorization"] =
+        `Bearer ${localStorage.getItem("accessToken")}`;
       const res = await patientAPI.getPatientProfile(id);
       if (res && res.data) {
         setPatient(res.data.patient);

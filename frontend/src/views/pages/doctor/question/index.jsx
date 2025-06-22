@@ -9,6 +9,7 @@ import NoData from "../../../../components/NoData";
 import "./index.scss";
 import { questionAPI } from "../../../../api/questionAPI";
 import { toast } from "react-toastify";
+import axiosClient from "../../../../utils/axiosCustomize";
 
 function DoctorQuestion() {
   const [search, setSearch] = useState("");
@@ -75,6 +76,8 @@ function DoctorQuestion() {
   const handleSendAnswer = async (questionId, content, setAnswer) => {
     try {
       if (content.length === 0) return;
+      axiosClient.application.defaults.headers.common["Authorization"] =
+        `Bearer ${localStorage.getItem("accessToken")}`;
       const res = await questionAPI.createAnswer(questionId, content);
       if (res && res.data) {
         console.log("res", res.data);

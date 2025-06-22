@@ -13,6 +13,8 @@ import { formatDateToYYYYMMDD } from "../../../../utils/stringUtil";
 import validator from "validator";
 import { toast } from "react-toastify";
 import { accountAPI } from "../../../../api/accountAPI";
+import axios from "axios";
+import axiosClient from "../../../../utils/axiosCustomize";
 
 export default function ProfileInfo() {
     const { account, setAccount } = useAuth();
@@ -76,6 +78,9 @@ export default function ProfileInfo() {
             console.log("submitData", submitData);
 
             // Gọi API cập nhật thông tin
+            axiosClient.formData.defaults.headers.common[
+                "Authorization"
+            ] = `Bearer ${localStorage.getItem("access_token")}`;
             const response = await accountAPI.updateAccount(submitData);
             // dispatch(setAccount(response));
             console.log("Account updated successfully:", response.data);

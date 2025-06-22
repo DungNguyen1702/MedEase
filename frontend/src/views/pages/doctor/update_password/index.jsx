@@ -3,6 +3,7 @@ import { EyeInvisibleOutlined, EyeOutlined, LockOutlined } from "@ant-design/ico
 import "./index.scss";
 import { toast } from "react-toastify";
 import { accountAPI } from "../../../../api/accountAPI";
+import axiosClient from "../../../../utils/axiosCustomize";
 
 export default function ChangePassword() {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false)
@@ -32,6 +33,8 @@ export default function ChangePassword() {
     }
 
     try {
+        axiosClient.axiosInstance.defaults.headers.common["Authorization"] =
+        `Bearer ${localStorage.getItem("accessToken")}`;
         await accountAPI.updatePassword({
         oldPassword : currentPassword,
         newPassword,

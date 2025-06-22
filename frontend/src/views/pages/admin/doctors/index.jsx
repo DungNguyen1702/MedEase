@@ -27,6 +27,7 @@ import { specAPI } from "../../../../api/specAPI";
 import { useAuth } from "../../../../context/AuthContext";
 import { accountAPI } from "../../../../api/accountAPI";
 import { toast } from "react-toastify";
+import axiosClient from "../../../../utils/axiosCustomize";
 
 const { Option } = Select;
 
@@ -95,6 +96,8 @@ const AdminDoctors = () => {
         };
 
         if (modalType === "add") {
+            axiosClient.defaults.headers.common["Authorization"] =
+                "Bearer " + localStorage.getItem("access_token");
             const res = await accountAPI.createAccount(data);
             if (res && res.data) {
                 setDoctorsData((prev) => [res.data, ...prev]);
@@ -104,6 +107,8 @@ const AdminDoctors = () => {
             }
         } else if (modalType === "edit" && selectedDoctor) {
             const updateData = { ...data, id: selectedDoctor.account._id };
+            axiosClient.defaults.headers.common["Authorization"] =
+                "Bearer " + localStorage.getItem("access_token");
             const res = await accountAPI.updateAccountByAdmin(updateData);
             if (res && res.data) {
                 setDoctorsData((prev) =>
@@ -121,6 +126,8 @@ const AdminDoctors = () => {
     };
 
     const handleDelete = async (id) => {
+        axiosClient.defaults.headers.common["Authorization"] =
+            "Bearer " + localStorage.getItem("access_token");
         await accountAPI.deleteAccount(id);
         setDoctorsData((prev) =>
             prev.filter((item) => item.account._id !== id)
@@ -245,6 +252,8 @@ const AdminDoctors = () => {
     };
 
     const callAPI = async () => {
+        axiosClient.application.defaults.headers.common["Authorization"] =
+            "Bearer " + localStorage.getItem("access_token");
         const responseDoctors = await doctorAPI.getAllDoctors();
         const responseSpec = await specAPI.getAllSpec();
 

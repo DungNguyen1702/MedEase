@@ -1,85 +1,174 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 💻 MedEase – Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+![Node.js](https://img.shields.io/badge/Node.js-18.x-green.svg)
+![NestJS](https://img.shields.io/badge/NestJS-10.x-red.svg)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-brightgreen.svg)
+![JWT](https://img.shields.io/badge/JWT-9.x-lightgrey.svg)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 📌 Overview
 
-## Description
+**MedEase** is a smart healthcare backend system that enables:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- 📅 Online medical appointment booking
+- 📁 Secure storage of medical records
+- 💬 AI-powered health consultations (Gemini, Transformers)
+- 💳 Payment integration with ZaloPay and Momo
+- ☁️ Image storage via Cloudinary
+- 📄 Logging AI conversations to Google Sheets
 
-## Project setup
+---
+
+## 🚀 Key Features
+
+- Role-based authentication (Patient, Doctor, Admin)
+- Manage medical records, profiles, and appointments
+- AI assistant for basic diagnosis and question-answering
+- Cloud image upload support (e.g., prescription, reports)
+- Integrated payment APIs (ZaloPay, Momo)
+- Google Sheets logging for chatbot conversation tracking
+
+---
+
+## 🧰 Technologies Used
+
+| Technology | Purpose |
+|-----------|---------|
+| [NestJS](https://nestjs.com) | Core framework |
+| [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) | Cloud database |
+| [Mongoose](https://mongoosejs.com) | ODM |
+| [JWT](https://jwt.io) | Authentication |
+| [Cloudinary](https://cloudinary.com/) | Image storage |
+| [Google Sheets API](https://developers.google.com/sheets/api) | Conversation logging |
+| [Gemini API](https://ai.google.dev/gemini-api) | AI Health Assistant |
+| [ZaloPay / Momo](https://momo.vn) | Payment gateways |
+
+---
+
+## ⚙️ Requirements
+
+- Node.js >= 18.x
+- npm >= 9.x
+- MongoDB Atlas account
+
+---
+
+## 🛠️ Getting Started
+
+### 1. Clone the repository
 
 ```bash
-$ npm install
+git clone https://github.com/DungNguyen1702/MedEase.git
+cd backend
 ```
 
-## Compile and run the project
+### 2. Install dependencies
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
 
-## Run tests
+### 3. Configure environment variables
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+cp .env.example .env
 ```
 
-## Resources
+Then update `.env` with your settings:
 
-Check out a few resources that may come in handy when working with NestJS:
+```env
+PORT=8000
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/medease?retryWrites=true&w=majority
+DB_NAME=medease
 
-## Support
+JWT_SECRET=your-secret
+JWT_EXPIRES_IN=7d
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+ZALOPAY_APP_ID=
+ZALOPAY_KEY1=
+ZALOPAY_KEY2=
+ZALOPAY_ENDPOINT_CREATE=
+ZALOPAY_ENDPOINT_QUERY=
+ZALOPAY_REDIRC_URL=
 
-## Stay in touch
+MOMO_ACCESS_KEY=
+MOMO_SECRET_KEY=
+MOMO_REDIRC_URL=
+MOMO_ENDPOINT_CREATE=
+MOMO_ENDPOINT_QUERY=
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+MAIL_PORT=
+MAIL_HOST=
+MAIL_USER=
+MAIL_PASSWORD=
+_AI
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
 
-## License
+GEMINI_API_URL=
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+GOOGLE_CREDENTIALS_BASE64=
+SPREADSHEET_ID=
+AI_SPREADSHEET_ID=
+
+```
+
+---
+
+## 🌐 Setup MongoDB Atlas
+
+1. Visit: https://www.mongodb.com/cloud/atlas  
+2. Create a **free cluster**
+3. Create a **database user** with username/password
+4. Whitelist your IP (or use `0.0.0.0/0` to allow all)
+5. Copy your connection string and replace in `.env`:
+
+```env
+MONGO_URI=mongodb+srv://admin:admin123@cluster0.mongodb.net/medease?retryWrites=true&w=majority
+```
+
+---
+
+## ▶️ Run the Server
+
+### Development mode:
+
+```bash
+npm run start:dev
+```
+
+### Production mode:
+
+```bash
+npm run build
+npm run start:prod
+```
+
+---
+
+## 🧪 Run Tests
+
+```bash
+npm run test
+```
+
+---
+
+## 🤖 AI & Chat Logging
+
+- Integrated with Gemini and local transformers for medical Q&A
+- Automatically logs question/answer pairs to Google Sheets
+
+---
+
+## 👨‍💻 Author
+
+- **Nguyễn Văn Dũng**  
+- GitHub: [@DungNguyen1702](https://github.com/DungNguyen1702)
+
+---
+
+## 📄 License
+
+This project is **UNLICENSED** and intended for educational or internal use only.

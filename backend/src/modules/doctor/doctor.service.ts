@@ -325,7 +325,7 @@ export class DoctorService {
         },
       },
       {
-        $sort: { 'appointment.time': 1 },
+        $sort: { 'time': 1 },
       },
     ]);
 

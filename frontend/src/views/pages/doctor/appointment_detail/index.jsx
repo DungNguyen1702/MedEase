@@ -16,6 +16,7 @@ import { predictDiseaseAPI } from "../../../../api/predictDiseaseAPI";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../../../../context/AuthContext";
+import axiosClient from "../../../../utils/axiosCustomize";
 
 const DoctorAppointmentDetail = () => {
   const { id } = useParams();
@@ -158,6 +159,8 @@ const DoctorAppointmentDetail = () => {
     }
 
     try {
+      axiosClient.application.defaults.headers.common["Authorization"] =
+        `Bearer ${localStorage.getItem("accessToken")}`;
       const res = await appointmentAPI.updateAppointmentDetail(payload);
       if (res && res.data) {
         console.log("Lưu trữ và chuyển số thành công:", res.data);
@@ -173,6 +176,8 @@ const DoctorAppointmentDetail = () => {
 
   const callAPI = async () => {
     try {
+      axiosClient.application.defaults.headers.common["Authorization"] =
+        `Bearer ${localStorage.getItem("accessToken")}`;
       const res = await appointmentAPI.getAppointmentDetail(id);
       console.log("res", res?.data?.appointment?.predicted_disease);
       if (res && res.data) {

@@ -24,6 +24,7 @@ import callAPIForm from "../../../../utils/callAPIForm";
 import { questionAPI } from "../../../../api/questionAPI";
 import { useAuth } from "../../../../context/AuthContext";
 import { toast } from "react-toastify";
+import axiosClient from "../../../../utils/axiosCustomize";
 
 const { TextArea } = Input;
 const { TabPane } = Tabs;
@@ -99,6 +100,8 @@ const AdminQuestions = () => {
       const values = await form.validateFields();
       if (!selectedQuestion) return;
 
+      axiosClient.application.defaults.headers.common["Authorization"] =
+        `Bearer ${localStorage.getItem("accessToken")}`;
       // Gọi API tạo câu trả lời
       const res = await questionAPI.createAnswer(
         selectedQuestion._id,

@@ -14,6 +14,7 @@ import AppointmentCard from "./components/appointmentCard";
 import QuestionCard from "./components/questionCard";
 import { statisticAPI } from "../../../../api/statisticAPI";
 import NoData from "../../../../components/NoData";
+import axiosClient from "../../../../utils/axiosCustomize";
 
 Chart.register(...registerables);
 
@@ -127,6 +128,8 @@ function HomepageDoctor() {
     const callAPI = async () => {
         setLoading(true);
         try {
+            axiosClient.defaults.headers.common["Authorization"] =
+                "Bearer " + localStorage.getItem("access_token");
             // Gọi API, truyền account._id (accountId) lên backend
             const res = await statisticAPI.getStatisticByDoctor();
             console.log("response : ", res);
@@ -147,39 +150,8 @@ function HomepageDoctor() {
     };
 
     useEffect(() => {
-        console.log("account123123: ", account);
-        console.log("token123123: ", token);
-        console.log(
-            "localStorage123123: ",
-            localStorage.getItem("access_token")
-        );
-        if (account && localStorage.getItem("access_token")) {
-            callAPI();
-        }
-    }, [account]);
-
-    // useEffect(() => {
-    //     console.log("account-out123123: ", account);
-    //     console.log("token-out123123: ", token);
-    //     console.log(
-    //         "localStorage-out123123: ",
-    //         localStorage.getItem("access_token")
-    //     );
-    //     const timeout = setTimeout(() => {
-    //         console.log("account123123: ", account);
-    //         console.log("token123123: ", token);
-    //         console.log(
-    //             "localStorage123123: ",
-    //             localStorage.getItem("access_token")
-    //         );
-    //         const token = localStorage.getItem("access_token");
-    //         if (account && token) {
-    //             callAPI();
-    //         }
-    //     }, 1000); // hoặc 3000ms nếu cần
-
-    //     return () => clearTimeout(timeout);
-    // }, [account]);
+        callAPI();
+    }, []);
 
     useEffect(() => {
         setPaginatedAppointments(

@@ -14,6 +14,7 @@ import {
 } from "../../../../constants/constants";
 import { toast } from "react-toastify";
 import { statisticAPI } from "../../../../api/statisticAPI";
+import axiosClient from "../../../../utils/axiosCustomize";
 
 const HomepageAdmin = () => {
   const currentMonth = dayjs().month() + 1;
@@ -81,6 +82,8 @@ const HomepageAdmin = () => {
 
   const callAPI = async () => {
     try {
+      axiosClient.application.defaults.headers.common["Authorization"] =
+        `Bearer ${localStorage.getItem("accessToken")}`;
       const response = await statisticAPI.getStatisticByAdmin();
       const { data } = response;
       if (data) {

@@ -69,7 +69,7 @@ export default function ScheduleScreen() {
   //   reExamDate ? new Date(reExamDate) : new Date()
   // );
   const [date, setDate] = useState(
-    reExamDate ? new Date(reExamDate) : new Date("2025-06-21")
+    reExamDate ? new Date(reExamDate) : new Date("2025-06-27")
   );
   const [symptoms, setSymptoms] = useState("Người bệnh thường ho khan kéo dài, đặc biệt là vào ban đêm hoặc sáng sớm. Có những cơn khó thở, cảm giác nặng ngực, thở rít khi thở ra. Đôi khi xuất hiện sau khi tiếp xúc với dị nguyên như bụi, lông thú hoặc thay đổi thời tiết.");
   const [PredictedDiseases, setPredictedDiseases] = useState([]);

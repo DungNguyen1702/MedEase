@@ -15,6 +15,7 @@ import { paginateData } from "../../../../utils/stringUtil";
 import NoData from "../../../../components/NoData";
 import { doctorAPI } from "../../../../api/doctorAPI";
 import { toast } from "react-toastify";
+import axiosClient from "../../../../utils/axiosCustomize";
 
 const filterAppointmentDetails = (data, search, status) => {
   return data.filter((item) => {
@@ -59,6 +60,8 @@ function DoctorRoom() {
 
   const onClickNextNum = async () => {
     try {
+      axiosClient.application.defaults.headers.common["Authorization"] =
+        `Bearer ${localStorage.getItem("accessToken")}`;
       const response = await doctorAPI.nextNum(date.format("YYYY-MM-DD"));
       console.log("response", response);
       toast.success(response.data.message);
@@ -99,6 +102,8 @@ function DoctorRoom() {
 
   const callAPI = async () => {
     try {
+      axiosClient.application.defaults.headers.common["Authorization"] =
+        `Bearer ${localStorage.getItem("accessToken")}`;
       const response = await doctorAPI.getDoctorRoomData(
         date.format("YYYY-MM-DD")
       );

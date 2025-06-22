@@ -7,6 +7,7 @@ import { Colors } from "@/constants/Colors";
 import MedicalRecordReExam from "@/components/MedicalRecordReExam";
 import MedicalRecordMedicine from "@/components/MedicalRecordMedicine";
 import { MedicalRecordAPI } from "@/api/medical-record";
+import { formatDateToYYYYMMDD } from "@/utils/string.utils";
 
 export default function MedicalRecordDetail() {
   const { medicalRecordId } = useLocalSearchParams();
@@ -49,6 +50,7 @@ export default function MedicalRecordDetail() {
         medicalRecordId as string
       );
       setMedicalRecord(response[0]);
+      console.log("Medical Record Detail:", response[0]?.doctor);
     } catch (error) {
       console.error("Error fetching medical record detail:", error);
     }
@@ -77,7 +79,7 @@ export default function MedicalRecordDetail() {
       <View style={styles.itemContainer}>
         <Text style={styles.itemTitle}>Ngày khám : </Text>
         <Text style={styles.itemValue}>
-          {medicalRecord.appointment?.appointment_date}
+          {formatDateToYYYYMMDD(medicalRecord.appointment?.appointment_date || "")}
         </Text>
       </View>
       <View style={styles.itemColContainer}>
